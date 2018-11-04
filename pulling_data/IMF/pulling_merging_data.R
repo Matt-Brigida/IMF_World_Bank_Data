@@ -8,7 +8,8 @@ checkquery = FALSE
 
 ## country_list <- c("ES", "GR")
 country_list <- c("")  # all countries
-indicators <- c("BFPAD_BP6_USD", "BXG_BP6_USD")
+## cpi, ppi, industrial prod manufacturing, unemployment rate, 
+indicators <- c("PCPI_IX", "PPPI_IX", "AIPMA_IX", "LUR_PT", "BFPAD_BP6_USD", "BXG_BP6_USD")
 ## indicators <- c("")  # cant do all indicators like so
     
 queryfilter <- list(CL_FREA = "", CL_AREA_IFS = country_list, CL_INDICATOR_IFS = indicators)
