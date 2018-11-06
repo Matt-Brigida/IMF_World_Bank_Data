@@ -8,10 +8,14 @@ checkquery = FALSE
 
 ## country_list <- c("ES", "GR")
 country_list <- c("")  # all countries
+
+### Indicators List
+## search for indicators here: http://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B&sId=1409151240976
 ## cpi, ppi, industrial prod manufacturing, unemployment rate, 
 indicators <- c("PCPI_IX", "PPPI_IX", "AIPMA_IX", "LUR_PT", "BFPAD_BP6_USD", "BXG_BP6_USD")
 ## indicators <- c("")  # cant do all indicators like so
     
+
 queryfilter <- list(CL_FREA = "", CL_AREA_IFS = country_list, CL_INDICATOR_IFS = indicators)
 
 data <- CompactDataMethod(databaseID, queryfilter, startdate, enddate, checkquery, tidy = TRUE)
