@@ -31,5 +31,11 @@ fin_inv <- WDI(country = "all", indicator = "IC.FRM.BNKS.ZS", start = 1900, end 
 ## "Present value of external debt (current US$)"
 pv_ex_debt <- WDI(country = "all", indicator = "DT.DOD.PVLX.CD", start = 1900, end = 2019)
 
+multilateral_debt <- WDI(country = "all", indicator = "DT.DOD.MLAT.ZS", start = 1900, end = 2019)
+
+
+test <- function(ind){
+  return(WDI(country = "all", indicator = ind, start = 1900, end = 2019))
+}
 
 ### merge data-----
