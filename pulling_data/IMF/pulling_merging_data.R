@@ -12,7 +12,7 @@ country_list <- c("")  # all countries
 ### Indicators List
 ## search for indicators here: http://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B&sId=1409151240976
 ## cpi, ppi, industrial prod manufacturing, unemployment rate, 
-indicators <- c("PCPI_IX", "PPPI_IX", "AIPMA_IX", "LUR_PT", "BFPAD_BP6_USD", "BXG_BP6_USD")
+indicators <- c("PCPI_IX", "PPPI_IX", "AIPMA_IX", "LUR_PT")
 ## indicators <- c("")  # cant do all indicators like so
     
 
