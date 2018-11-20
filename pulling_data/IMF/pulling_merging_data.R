@@ -20,6 +20,27 @@ queryfilter <- list(CL_FREA = "", CL_AREA_IFS = country_list, CL_INDICATOR_IFS =
 
 data <- CompactDataMethod(databaseID, queryfilter, startdate, enddate, checkquery, tidy = TRUE)
 
+
+
+## merging data------
+
+## get only annual data
+data  <- data[data$'@TIME_FORMAT' == "P1Y", ]
+
+PCPI_IX <- data[data$'@INDICATOR' == "PCPI_IX", ]
+PCPI_IX <- PCPI_IX[, c('@TIME_PERIOD', '@OBS_VALUE', '@REF_AREA')]
+names(PCPI_IX) <- c("year", "PCPI_IX", "iso2c")
+
+
+## merge data for export------
+final_data <- merge(PCPI_IX, , by = c("country", "iso2c"), all = TRUE)
+
+
+
+
+
+
+### function to extract quarterly or annual data for a given country--------
 ## extract quarterly data for a particular country------
 getQ <- function(country_code, data){
     tmp <- data[data$'@REF_AREA' == country_code, ]
