@@ -31,9 +31,25 @@ PCPI_IX <- data[data$'@INDICATOR' == "PCPI_IX", ]
 PCPI_IX <- PCPI_IX[, c('@TIME_PERIOD', '@OBS_VALUE', '@REF_AREA')]
 names(PCPI_IX) <- c("year", "PCPI_IX", "iso2c")
 
+PPPI_IX <- data[data$'@INDICATOR' == "PPPI_IX", ]
+PPPI_IX <- PPPI_IX[, c('@TIME_PERIOD', '@OBS_VALUE', '@REF_AREA')]
+names(PPPI_IX) <- c("year", "PPPI_IX", "iso2c")
+
+AIPMA_IX <- data[data$'@INDICATOR' == "AIPMA_IX", ]
+AIPMA_IX <- AIPMA_IX[, c('@TIME_PERIOD', '@OBS_VALUE', '@REF_AREA')]
+names(AIPMA_IX) <- c("year", "AIPMA_IX", "iso2c")
+
+LUR_PT <- data[data$'@INDICATOR' == "LUR_PT", ]
+LUR_PT <- LUR_PT[, c('@TIME_PERIOD', '@OBS_VALUE', '@REF_AREA')]
+names(LUR_PT) <- c("year", "LUR_PT", "iso2c")
+
 
 ## merge data for export------
-final_data <- merge(PCPI_IX, , by = c("country", "iso2c"), all = TRUE)
+final_data <- merge(PCPI_IX, PPPI_IX, by = c("year", "iso2c"), all = TRUE)
+final_data <- merge(AIPMA_IX, final_data, by = c("year", "iso2c"), all = TRUE)
+final_data <- merge(LUR_PT, final_data, by = c("year", "iso2c"), all = TRUE)
+
+saveRDS(final_data, "IMFdata.rds")
 
 
 
