@@ -18,6 +18,4 @@ recs_data <- merge(data_all, recs, by = c("year", "country"), all = FALSE)
 
 recs_data$recommendation <- as.character(recs_data$recommendation)
 
-library(SentimentAnalysis)
-
-sentiment <- analyzeSentiment(recs_data$recommendation)
+saveRDS(recs_data, "merged_data.rds")
