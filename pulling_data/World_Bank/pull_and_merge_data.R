@@ -1,12 +1,7 @@
 library(WDI)
 
-## get list of indicators-----
-WDIcache()
-## search list of indicators------
-WDIsearch(string = "financing", field = "name", short = TRUE, cache = NULL)
-WDIsearch(string = "current", field = "name", short = TRUE, cache = NULL)
-WDIsearch(string = "finance", field = "name", short = TRUE, cache = NULL)
-
+### Data already pulled------
+### Pull data for each indicator------
 ## Current Account Balance as % of GDP
 cabp <- WDI(country = "all", indicator = "BN.CAB.XOKA.GD.ZS", start = 1900, end = 2019)
 
@@ -79,10 +74,6 @@ ffap <- WDI(country = "all", indicator = "GB.FIN.ABRD.GDP.ZS", start = 1900, end
 financed <- WDI(country = "all", indicator = "BN.CUR.ACTX.CD", start = 1900, end = 2019) ## no data
 
 
-test <- function(ind){
-  return(WDI(country = "all", indicator = ind, start = 1900, end = 2019))
-}
-
 ### merge data-----
 
 data <- merge(cabp, mil, by = c("country", "year", "iso2c"), all = TRUE)
@@ -106,22 +97,11 @@ data <- merge(data, LPR, by = c("country", "year", "iso2c"), all = TRUE)
 ## write data------
 saveRDS(data, "WB_data.rds")
 
+### Add new data
 
+## read in old data
+data <- readRDS("./WB_data.rds")
 
-cabp$country <- toupper(cabp$country)
-cabpM <- merge(cabp, cy, by = c("country", "year"))
-sum(is.na(cabpM$BN.CAB.XOKA.GD.ZS)) / dim(cabpM)[1]  ## % number of NAs
-## 0.07982262
+## pull new data
 
-mil$country <- toupper(mil$country)
-milM <- merge(mil, cy, by = c("country", "year"))
-sum(is.na(milM$MS.MIL.XPND.CN)) / dim(milM)[1]  ## % number of NAs
-## 0.1241685
-
-
-FDI$country <- toupper(FDI$country)
-FDIM <- merge(FDI, cy, by = c("country", "year"))
-sum(is.na(FDIM$BN.KLT.DINV.CD)) / dim(FDIM)[1]  ## % number of NAs
-## 0.08425721
-
-
+## merge new data
