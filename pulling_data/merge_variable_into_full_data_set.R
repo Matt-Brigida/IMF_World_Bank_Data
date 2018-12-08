@@ -28,6 +28,12 @@ merge_imf <- function(indicator, backup = TRUE){
 
     ind_data <- CompactDataMethod(databaseID, queryfilter, startdate, enddate, checkquery, tidy = TRUE)
 
+    ## check if indicator pulled any data----
+    if (is.null(ind_data)){
+        return("indicator has no data.")
+    }
+
+    ## format data for merge-----
     ind_data  <- ind_data[ind_data$'@TIME_FORMAT' == "P1Y", ]
 
     ind_data <- ind_data[ind_data$'@INDICATOR' == indicator, ]
@@ -66,6 +72,11 @@ merge_wb <- function(indicator, backup = TRUE){
 
     ## pull wb indicator----
     ind_data <- WDI(country = "all", indicator = indicator, start = 1900, end = 2019)
+
+    ## check if indicator pulled any data----
+    if (is.null(ind_data)){
+        return("indicator has no data.")
+    }
 
     ## merge wb indicator----
 
