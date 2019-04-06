@@ -4,16 +4,7 @@ recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
 recs$Topic <- gsub(",", "", recs$Topic)
 names(recs)[1]  <- "Country"
 
-## calculate % mentions for each topic by country/year group------
-
-library(dplyr)
-
-recs <- recs %>%
-    group_by(Country, Year) %>%
-    mutate(scaled = Recommendations / sum(Recommendations))
-
-
-recsED <- recs[recs$Topic == "External Debt", ]
+recsED <- recs[recs$Topic == "Financial/Monetary", ]
 
 ## make sure each row is unique----
 
@@ -22,7 +13,7 @@ theIndex <- paste0(recsED$Country, "_", recsED$Year)
 length(unique(theIndex))
 length(theIndex)
 
-recsED <- cbind(theIndex, data.frame(recsED))
+recsED <- cbind(theIndex, recsED)
 recsED$theIndex <- gsub(" ", "", recsED$theIndex)
 rm(theIndex)
 
@@ -57,7 +48,6 @@ econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GD
 theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
 
 econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
-rm(theIndex)
 
 econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
 
@@ -66,7 +56,7 @@ econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_mod
 
 mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
 
-mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "scaled", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
 
 mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
@@ -75,32 +65,32 @@ library(plm)
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(scaled ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(Recommendations ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
 
 summary(FEestimate)
 ## Oneway (individual) effect Between Model
 
 ## Call:
-## plm(formula = scaled ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
+## plm(formula = Recommendations ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
 ##     data = mergedRecsED_p, effect = "individual", model = "between")
 
-## Unbalanced Panel: n = 118, T = 1-14, N = 501
-## Observations used in estimation: 118
+## Unbalanced Panel: n = 120, T = 1-15, N = 605
+## Observations used in estimation: 120
 
 ## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.0881715 -0.0234303 -0.0091043  0.0194669  0.1557293 
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -4.77598 -1.75425 -0.45329  1.46910  8.37604 
 
 ## Coefficients:
-##                        Estimate  Std. Error t-value  Pr(>|t|)    
-## (Intercept)          0.11252394  0.00524324 21.4608 < 2.2e-16 ***
-## BN.CAB.XOKA.GD.ZS.x -0.00237493  0.00040463 -5.8693  4.31e-08 ***
-## NY.GDP.PCAP.KD.ZG    0.00126530  0.00138931  0.9107    0.3643    
+##                     Estimate Std. Error t-value Pr(>|t|)    
+## (Intercept)         5.681275   0.336067 16.9052  < 2e-16 ***
+## BN.CAB.XOKA.GD.ZS.x 0.031317   0.024014  1.3041  0.19475    
+## NY.GDP.PCAP.KD.ZG   0.194248   0.092968  2.0894  0.03884 *  
 ## ---
 ## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-## Total Sum of Squares:    0.26688
-## Residual Sum of Squares: 0.20058
-## R-Squared:      0.24841
-## Adj. R-Squared: 0.23534
-## F-statistic: 19.0049 on 2 and 115 DF, p-value: 7.3922e-08
+## Total Sum of Squares:    781.68
+## Residual Sum of Squares: 747.91
+## R-Squared:      0.0432
+## Adj. R-Squared: 0.026845
+## F-statistic: 2.64131 on 2 and 117 DF, p-value: 0.075515

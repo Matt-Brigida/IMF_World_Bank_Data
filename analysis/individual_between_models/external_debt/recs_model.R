@@ -1,29 +1,6 @@
 
 
-### pull and format mentions and recommendation data------
-
-mentions <- read.csv("raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
-mentions$Topic <- gsub(",", "", mentions$Topic)
-names(mentions)[1]  <- "Country"
-
-mentionsED <- mentions[mentions$Topic == "External Debt", ]
-
-## make sure each row is unique----
-
-mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
-
-length(unique(mentionsEDindex))
-## [1] 1493
-length(mentionsEDindex)
-## [1] 1493
-
-mentionsED <- cbind(mentionsEDindex, mentionsED)
-mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
-
-
-
-
-recs <- read.csv("rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
 recs$Topic <- gsub(",", "", recs$Topic)
 names(recs)[1]  <- "Country"
 
@@ -62,7 +39,7 @@ rm(theIndex)
 
 ## Unemployment, total (% of total labor force) (modeled ILO estimate)(SL.UEM.TOTL.ZS)
 
-econ <- read.csv("../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
 
 econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "IC.FRM.BNKS.ZS")]
 
@@ -88,28 +65,32 @@ library(plm)
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(Recommendations ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "within", effect = "twoways")
+FEestimate <- plm(Recommendations ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
 
 summary(FEestimate)
-## Twoways effects Within Model
+## Oneway (individual) effect Between Model
 
 ## Call:
 ## plm(formula = Recommendations ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
-##     data = mergedRecsED_p, effect = "twoways", model = "within")
+##     data = mergedRecsED_p, effect = "individual", model = "between")
 
 ## Unbalanced Panel: n = 118, T = 1-14, N = 501
+## Observations used in estimation: 118
 
 ## Residuals:
 ##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -4.01173 -0.94219 -0.12188  0.69322  7.79858 
+## -2.83090 -0.90882 -0.20379  0.63798  8.25765 
 
 ## Coefficients:
-##                      Estimate Std. Error t-value Pr(>|t|)
-## BN.CAB.XOKA.GD.ZS.x 0.0036774  0.0130281  0.2823   0.7779
-## NY.GDP.PCAP.KD.ZG   0.0082767  0.0310847  0.2663   0.7902
+##                      Estimate Std. Error t-value  Pr(>|t|)    
+## (Intercept)          2.644742   0.179095 14.7673 < 2.2e-16 ***
+## BN.CAB.XOKA.GD.ZS.x -0.053904   0.013821 -3.9001 0.0001623 ***
+## NY.GDP.PCAP.KD.ZG    0.082575   0.047455  1.7401 0.0845234 .  
+## ---
+## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-## Total Sum of Squares:    1188.5
-## Residual Sum of Squares: 1187.9
-## R-Squared:      0.00047015
-## Adj. R-Squared: -0.37676
-## F-statistic: 0.085372 on 2 and 363 DF, p-value: 0.91819
+## Total Sum of Squares:    276.74
+## Residual Sum of Squares: 234.02
+## R-Squared:      0.15435
+## Adj. R-Squared: 0.13964
+## F-statistic: 10.4949 on 2 and 115 DF, p-value: 6.5087e-05
