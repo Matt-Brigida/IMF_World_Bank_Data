@@ -2,7 +2,7 @@
 
 ### pull and format mentions and recommendation data------
 
-mentions <- read.csv("raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
 mentions$Topic <- gsub(",", "", mentions$Topic)
 names(mentions)[1]  <- "Country"
 
@@ -49,7 +49,7 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Unemployment, total (% of total labor force) (modeled ILO estimate)(SL.UEM.TOTL.ZS)
 
-econ <- read.csv("../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
 
 econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
 
@@ -75,28 +75,33 @@ library(plm)
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(Mentions ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "within", effect = "twoways")
+FEestimate <- plm(scaled ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 summary(FEestimate)
-## Twoways effects Within Model
+## Oneway (individual) effect Between Model
 
 ## Call:
-## plm(formula = Mentions ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
-##     data = mergedMentionsED_p, effect = "twoways", model = "within")
+## plm(formula = scaled ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
+##     data = mergedMentionsED_p, effect = "individual", model = "between")
 
 ## Unbalanced Panel: n = 120, T = 1-15, N = 593
+## Observations used in estimation: 120
 
 ## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -102.26200  -16.67060   -0.88939   14.93331  166.44097 
+##        Min.     1st Qu.      Median     3rd Qu.        Max. 
+## -0.06595919 -0.02701776 -0.00067466  0.02183160  0.13715802 
 
 ## Coefficients:
-##                     Estimate Std. Error t-value Pr(>|t|)
-## BN.CAB.XOKA.GD.ZS.x  0.18870    0.20878  0.9038   0.3666
-## NY.GDP.PCAP.KD.ZG   -0.39250    0.52178 -0.7522   0.4523
+##                        Estimate  Std. Error t-value  Pr(>|t|)    
+## (Intercept)          0.14296383  0.00523707 27.2984 < 2.2e-16 ***
+## BN.CAB.XOKA.GD.ZS.x -0.00269278  0.00036133 -7.4525 1.724e-11 ***
+## NY.GDP.PCAP.KD.ZG    0.00105119  0.00143370  0.7332    0.4649    
+## ---
+## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-## Total Sum of Squares:    524010
-## Residual Sum of Squares: 522510
-## R-Squared:      0.0028667
-## Adj. R-Squared: -0.3031
-## F-statistic: 0.651167 on 2 and 453 DF, p-value: 0.52192
+## Total Sum of Squares:    0.26939
+## Residual Sum of Squares: 0.17852
+## R-Squared:      0.3373
+## Adj. R-Squared: 0.32598
+## F-statistic: 29.7757 on 2 and 117 DF, p-value: 3.523e-11
+

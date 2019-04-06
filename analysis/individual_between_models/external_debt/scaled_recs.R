@@ -1,6 +1,6 @@
 
 
-recs <- read.csv("rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs <- read.csv("../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
 recs$Topic <- gsub(",", "", recs$Topic)
 names(recs)[1]  <- "Country"
 
@@ -48,7 +48,7 @@ rm(theIndex)
 
 ## Unemployment, total (% of total labor force) (modeled ILO estimate)(SL.UEM.TOTL.ZS)
 
-econ <- read.csv("../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- read.csv("../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
 
 econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "IC.FRM.BNKS.ZS")]
 
@@ -66,7 +66,7 @@ econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_mod
 
 mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
 
-mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "scaled", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
 
 mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
@@ -75,28 +75,28 @@ library(plm)
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(Recommendations ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "within", effect = "twoways")
+FEestimate <- plm(scaled ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "within", effect = "twoways")
 
 summary(FEestimate)
 ## Twoways effects Within Model
 
 ## Call:
-## plm(formula = Recommendations ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
+## plm(formula = scaled ~ BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, 
 ##     data = mergedRecsED_p, effect = "twoways", model = "within")
 
 ## Unbalanced Panel: n = 118, T = 1-14, N = 501
 
 ## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -4.01173 -0.94219 -0.12188  0.69322  7.79858 
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.1340891 -0.0375886 -0.0075537  0.0283684  0.3501762 
 
 ## Coefficients:
-##                      Estimate Std. Error t-value Pr(>|t|)
-## BN.CAB.XOKA.GD.ZS.x 0.0036774  0.0130281  0.2823   0.7779
-## NY.GDP.PCAP.KD.ZG   0.0082767  0.0310847  0.2663   0.7902
+##                       Estimate Std. Error t-value Pr(>|t|)
+## BN.CAB.XOKA.GD.ZS.x 0.00041198 0.00050313  0.8188   0.4134
+## NY.GDP.PCAP.KD.ZG   0.00015892 0.00120045  0.1324   0.8948
 
-## Total Sum of Squares:    1188.5
-## Residual Sum of Squares: 1187.9
-## R-Squared:      0.00047015
-## Adj. R-Squared: -0.37676
-## F-statistic: 0.085372 on 2 and 363 DF, p-value: 0.91819
+## Total Sum of Squares:    1.7752
+## Residual Sum of Squares: 1.7716
+## R-Squared:      0.00199
+## Adj. R-Squared: -0.37467
+## F-statistic: 0.361898 on 2 and 363 DF, p-value: 0.6966
