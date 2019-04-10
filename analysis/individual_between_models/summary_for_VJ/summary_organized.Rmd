@@ -520,3 +520,1355 @@ stargazer(FEestimate, type = "html")
 
 ```
 
+## Fiscal Policy
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Fiscal Policy", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Fiscal Policy", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Fiscal Policy", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Fiscal Policy", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+
+## Institutional Reforms
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Institutional Reforms", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Institutional Reforms", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Institutional Reforms", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Institutional Reforms", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+
+
+## Labor Issues
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Labor Issues", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Labor Issues", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Labor Issues", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Labor Issues", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+## Privatization Reforms
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Privatization Reforms", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Privatization Reforms", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Privatization Reforms", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Privatization Reforms", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+## Social Welfare
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Social Welfare", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Social Welfare", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Social Welfare", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Social Welfare", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+## Trade/Exchange
+
+### Mentions
+
+```{r results='asis'}
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+names(mentions)[4]  <- "lhs"
+
+mentionsED <- mentions[mentions$Topic == "Trade/Exchange", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+
+mentionsED <- cbind(mentionsEDindex, mentionsED)
+mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+
+### Recommendations
+
+
+```{r results='asis'}
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+names(recs)[4]  <- "lhs"
+
+recsED <- recs[recs$Topic == "Trade/Exchange", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, recsED)
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type="html")
+
+```
+
+### Scaled Mentions
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+### pull and format mentions and recommendation data------
+
+mentions <- read.csv("../../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "Trade/Exchange", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```
+
+### Scaled Recommendations
+
+```{r results='asis', warnings=FALSE, message=FALSE}
+
+recs <- read.csv("../../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+library(dplyr)
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "Trade/Exchange", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+
+FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+
+stargazer(FEestimate, type = "html")
+
+```

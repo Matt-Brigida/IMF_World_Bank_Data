@@ -1,0 +1,9 @@
+base
+shiny
+knitr
+rmdformats
+stargazer
+Formula
+plm
+dplyr
+bindrcpp
