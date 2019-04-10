@@ -71,7 +71,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
 
-econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "IC.FRM.BNKS.ZS")]
+econ_vars_for_model <- econ[, c("country", "year", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
+
+## want to add: "FP.CPI.TOTL.ZG", "SL.UEM.TOTL.ZS", "IT.NET.USER.ZS",
 
 ## now need to extract only unique country and year subsets-----
 
@@ -86,7 +88,7 @@ econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_mod
 
 mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
 
-mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "IC.FRM.BNKS.ZS")]
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")]
 
 mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
@@ -97,6 +99,7 @@ mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year")
 FEestimate <- plm(Mentions ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
+
 ```
 
 ### Recommendations
