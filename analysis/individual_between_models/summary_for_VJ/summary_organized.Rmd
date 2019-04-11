@@ -71,13 +71,6 @@ form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
 ```
 
 
-# Next Steps?
-
-
-#. Add explanatory variables.
-#. Run for all topics.
-
-
 # Results by Topic
 
 ## External Debt 
