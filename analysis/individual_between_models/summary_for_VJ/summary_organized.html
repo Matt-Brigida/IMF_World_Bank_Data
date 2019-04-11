@@ -840,8 +840,21 @@ img {
 <h1>Model</h1>
 <p>Explanatory variables:</p>
 <ol>
+<li>Foreign direct investment, net (BoP, current US$)(BN.KLT.DINV.CD)</li>
 <li>Current account balance (% of GDP)(BN.CAB.XOKA.GD.ZS)</li>
+<li>Personal remittances, received (% of GDP)(BX.TRF.PWKR.DT.GD.ZS)</li>
+<li>Trade in services (% of GDP)(BG.GSR.NFSV.GD.ZS)</li>
+<li>Agriculture, forestry, and fishing, value added (% of GDP)(NV.AGR.TOTL.ZS)</li>
+<li>Exports of goods and services (% of GDP)(NE.EXP.GNFS.ZS)</li>
+<li>GDP growth (annual %)(NY.GDP.MKTP.KD.ZG)</li>
+<li>GDP per capita (current US$)(NY.GDP.PCAP.CD)</li>
 <li>GDP per capita growth (annual %)(NY.GDP.PCAP.KD.ZG)</li>
+<li>Gross domestic savings (% of GDP)(NY.GDS.TOTL.ZS)</li>
+<li>Imports of goods and services (% of GDP)(NE.IMP.GNFS.ZS)</li>
+<li>Individuals using the Internet (% of population)(IT.NET.USER.ZS)</li>
+<li>Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)(SL.TLF.CACT.ZS)</li>
+<li>Inflation, consumer prices (annual %)(FP.CPI.TOTL.ZG)</li>
+<li>Unemployment, total (% of total labor force) (modeled ILO estimate)(SL.UEM.TOTL.ZS)</li>
 </ol>
 <div id="variables-to-include-in-analysis" class="section level2">
 <h2>Variables to Include in Analysis</h2>
@@ -857,7 +870,7 @@ img {
 <a class="sourceLine" id="cb1-10" title="10"></a>
 <a class="sourceLine" id="cb1-11" title="11"><span class="co">## vars &lt;&lt;- input$vars_include</span></a>
 <a class="sourceLine" id="cb1-12" title="12"></a>
-<a class="sourceLine" id="cb1-13" title="13">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;BN.CAB.XOKA.GD.ZS.x&quot;</span>, <span class="st">&quot;NY.GDP.PCAP.KD.ZG&quot;</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;BN.CAB.XOKA.GD.ZS.x&quot;</span>, <span class="st">&quot;NY.GDP.PCAP.KD.ZG&quot;</span>, <span class="st">&quot;SL.TLF.CACT.ZS&quot;</span>)</a>
 <a class="sourceLine" id="cb1-14" title="14"></a>
 <a class="sourceLine" id="cb1-15" title="15">form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(<span class="st">&quot;lhs ~&quot;</span>, <span class="kw">paste</span>(vars, <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))</a>
 <a class="sourceLine" id="cb1-16" title="16"></a>
@@ -962,14 +975,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--2.362<sup>***</sup>
+-2.815<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.325)
+(0.335)
 </td>
 </tr>
 <tr>
@@ -983,14 +996,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-1.579
+0.668
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.291)
+(1.303)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.978<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.300)
 </td>
 </tr>
 <tr>
@@ -1004,14 +1038,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-86.841<sup>***</sup>
+27.550
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(4.714)
+(19.319)
 </td>
 </tr>
 <tr>
@@ -1029,7 +1063,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -1037,7 +1071,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.335
+0.443
 </td>
 </tr>
 <tr>
@@ -1045,7 +1079,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.323
+0.427
 </td>
 </tr>
 <tr>
@@ -1053,7 +1087,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-29.409<sup>***</sup> (df = 2; 117)
+28.846<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -1115,10 +1149,9 @@ F Statistic
 <a class="sourceLine" id="cb3-41" title="41">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb3-42" title="42">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb3-43" title="43"></a>
-<a class="sourceLine" id="cb3-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb3-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb3-46" title="46"></a>
-<a class="sourceLine" id="cb3-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb3-45" title="45"></a>
+<a class="sourceLine" id="cb3-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1153,14 +1186,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.054<sup>***</sup>
+-0.068<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.014)
+(0.015)
 </td>
 </tr>
 <tr>
@@ -1174,14 +1207,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.083<sup>*</sup>
+0.068
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.047)
+(0.049)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.023<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
 </td>
 </tr>
 <tr>
@@ -1195,14 +1249,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-2.645<sup>***</sup>
+1.252
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.179)
+(0.822)
 </td>
 </tr>
 <tr>
@@ -1220,7 +1274,7 @@ Constant
 Observations
 </td>
 <td>
-118
+111
 </td>
 </tr>
 <tr>
@@ -1228,7 +1282,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.154
+0.210
 </td>
 </tr>
 <tr>
@@ -1236,7 +1290,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.140
+0.188
 </td>
 </tr>
 <tr>
@@ -1244,7 +1298,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-10.495<sup>***</sup> (df = 2; 115)
+9.467<sup>***</sup> (df = 3; 107)
 </td>
 </tr>
 <tr>
@@ -1313,10 +1367,9 @@ F Statistic
 <a class="sourceLine" id="cb4-48" title="48">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb4-49" title="49">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb4-50" title="50"></a>
-<a class="sourceLine" id="cb4-51" title="51">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb4-52" title="52">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb4-53" title="53"></a>
-<a class="sourceLine" id="cb4-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-51" title="51">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb4-52" title="52"></a>
+<a class="sourceLine" id="cb4-53" title="53"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1390,17 +1443,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.143<sup>***</sup>
+0.001<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.005)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.094<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.022)
 </td>
 </tr>
 <tr>
@@ -1418,7 +1492,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -1426,7 +1500,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.337
+0.433
 </td>
 </tr>
 <tr>
@@ -1434,7 +1508,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.326
+0.417
 </td>
 </tr>
 <tr>
@@ -1442,7 +1516,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-29.776<sup>***</sup> (df = 2; 117)
+27.727<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -1513,10 +1587,9 @@ F Statistic
 <a class="sourceLine" id="cb5-50" title="50">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb5-51" title="51">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-52" title="52"></a>
-<a class="sourceLine" id="cb5-53" title="53">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb5-54" title="54">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb5-55" title="55"></a>
-<a class="sourceLine" id="cb5-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb5-53" title="53">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb5-54" title="54"></a>
+<a class="sourceLine" id="cb5-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1551,7 +1624,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.002<sup>***</sup>
+-0.003<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1572,7 +1645,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.001
+0.0004
 </td>
 </tr>
 <tr>
@@ -1590,17 +1663,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.113<sup>***</sup>
+0.001<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.005)
+(0.0004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.047<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
 </td>
 </tr>
 <tr>
@@ -1618,7 +1712,7 @@ Constant
 Observations
 </td>
 <td>
-118
+111
 </td>
 </tr>
 <tr>
@@ -1626,7 +1720,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.248
+0.314
 </td>
 </tr>
 <tr>
@@ -1634,7 +1728,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.235
+0.295
 </td>
 </tr>
 <tr>
@@ -1642,7 +1736,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-19.005<sup>***</sup> (df = 2; 115)
+16.359<sup>***</sup> (df = 3; 107)
 </td>
 </tr>
 <tr>
@@ -1707,10 +1801,9 @@ F Statistic
 <a class="sourceLine" id="cb6-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb6-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb6-43" title="43"></a>
-<a class="sourceLine" id="cb6-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb6-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb6-46" title="46"></a>
-<a class="sourceLine" id="cb6-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb6-45" title="45"></a>
+<a class="sourceLine" id="cb6-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1745,14 +1838,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.272
+-0.237
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.335)
+(0.355)
 </td>
 </tr>
 <tr>
@@ -1766,14 +1859,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-1.380
+0.272
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.330)
+(1.383)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.678<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.319)
 </td>
 </tr>
 <tr>
@@ -1787,14 +1901,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-126.922<sup>***</sup>
+89.425<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(4.859)
+(20.509)
 </td>
 </tr>
 <tr>
@@ -1812,7 +1926,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -1820,7 +1934,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.017
+0.045
 </td>
 </tr>
 <tr>
@@ -1828,7 +1942,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+0.018
 </td>
 </tr>
 <tr>
@@ -1836,7 +1950,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.036 (df = 2; 117)
+1.703 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -1899,10 +2013,9 @@ F Statistic
 <a class="sourceLine" id="cb7-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb7-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb7-44" title="44"></a>
-<a class="sourceLine" id="cb7-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb7-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb7-47" title="47"></a>
-<a class="sourceLine" id="cb7-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb7-46" title="46"></a>
+<a class="sourceLine" id="cb7-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1937,14 +2050,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.031
+0.034
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.024)
+(0.027)
 </td>
 </tr>
 <tr>
@@ -1958,14 +2071,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.194<sup>**</sup>
+0.229<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.093)
+(0.100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
 </td>
 </tr>
 <tr>
@@ -1979,14 +2113,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-5.681<sup>***</sup>
+5.121<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.336)
+(1.484)
 </td>
 </tr>
 <tr>
@@ -2004,7 +2138,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2012,7 +2146,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.043
+0.053
 </td>
 </tr>
 <tr>
@@ -2020,7 +2154,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.027
+0.026
 </td>
 </tr>
 <tr>
@@ -2028,7 +2162,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-2.641<sup>*</sup> (df = 2; 117)
+2.015 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -2098,10 +2232,9 @@ F Statistic
 <a class="sourceLine" id="cb8-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb8-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb8-51" title="51"></a>
-<a class="sourceLine" id="cb8-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb8-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb8-54" title="54"></a>
-<a class="sourceLine" id="cb8-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb8-53" title="53"></a>
+<a class="sourceLine" id="cb8-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -2157,7 +2290,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.0005
+-0.001
 </td>
 </tr>
 <tr>
@@ -2175,17 +2308,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.219<sup>***</sup>
+0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.005)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.217<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.022)
 </td>
 </tr>
 <tr>
@@ -2203,7 +2357,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2211,7 +2365,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.078
+0.136
 </td>
 </tr>
 <tr>
@@ -2219,7 +2373,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.062
+0.113
 </td>
 </tr>
 <tr>
@@ -2227,7 +2381,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-4.947<sup>***</sup> (df = 2; 117)
+5.741<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -2299,10 +2453,9 @@ F Statistic
 <a class="sourceLine" id="cb9-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb9-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb9-53" title="53"></a>
-<a class="sourceLine" id="cb9-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb9-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb9-56" title="56"></a>
-<a class="sourceLine" id="cb9-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb9-55" title="55"></a>
+<a class="sourceLine" id="cb9-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -2337,7 +2490,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.001
+0.001<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -2358,7 +2511,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.002
+0.003
 </td>
 </tr>
 <tr>
@@ -2376,17 +2529,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.244<sup>***</sup>
+0.0003
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.008)
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.222<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.035)
 </td>
 </tr>
 <tr>
@@ -2404,7 +2578,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2412,7 +2586,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.024
+0.050
 </td>
 </tr>
 <tr>
@@ -2420,7 +2594,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.008
+0.024
 </td>
 </tr>
 <tr>
@@ -2428,7 +2602,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.467 (df = 2; 117)
+1.918 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -2493,10 +2667,9 @@ F Statistic
 <a class="sourceLine" id="cb10-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb10-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb10-43" title="43"></a>
-<a class="sourceLine" id="cb10-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb10-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb10-46" title="46"></a>
-<a class="sourceLine" id="cb10-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb10-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb10-45" title="45"></a>
+<a class="sourceLine" id="cb10-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -2531,14 +2704,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.839<sup>***</sup>
+-1.171<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.291)
+(0.318)
 </td>
 </tr>
 <tr>
@@ -2552,14 +2725,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.715
+-1.524
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.155)
+(1.237)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.458
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.285)
 </td>
 </tr>
 <tr>
@@ -2573,14 +2767,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-122.585<sup>***</sup>
+96.060<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(4.218)
+(18.337)
 </td>
 </tr>
 <tr>
@@ -2598,7 +2792,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2606,7 +2800,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.067
+0.131
 </td>
 </tr>
 <tr>
@@ -2614,7 +2808,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.051
+0.107
 </td>
 </tr>
 <tr>
@@ -2622,7 +2816,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-4.168<sup>**</sup> (df = 2; 117)
+5.472<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -2685,10 +2879,9 @@ F Statistic
 <a class="sourceLine" id="cb11-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb11-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb11-44" title="44"></a>
-<a class="sourceLine" id="cb11-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb11-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb11-47" title="47"></a>
-<a class="sourceLine" id="cb11-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb11-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb11-46" title="46"></a>
+<a class="sourceLine" id="cb11-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -2723,14 +2916,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.018
+-0.002
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.022)
+(0.024)
 </td>
 </tr>
 <tr>
@@ -2744,14 +2937,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.040
+-0.046
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.085)
+(0.092)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.038<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.021)
 </td>
 </tr>
 <tr>
@@ -2765,14 +2979,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-7.011<sup>***</sup>
+9.302<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.311)
+(1.373)
 </td>
 </tr>
 <tr>
@@ -2790,7 +3004,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2798,7 +3012,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.009
+0.031
 </td>
 </tr>
 <tr>
@@ -2806,7 +3020,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.008
+0.004
 </td>
 </tr>
 <tr>
@@ -2814,7 +3028,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.526 (df = 2; 117)
+1.154 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -2884,10 +3098,9 @@ F Statistic
 <a class="sourceLine" id="cb12-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb12-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb12-51" title="51"></a>
-<a class="sourceLine" id="cb12-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb12-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb12-54" title="54"></a>
-<a class="sourceLine" id="cb12-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb12-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb12-53" title="53"></a>
+<a class="sourceLine" id="cb12-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -2922,7 +3135,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.0003
+0.0001
 </td>
 </tr>
 <tr>
@@ -2961,17 +3174,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.214<sup>***</sup>
+-0.0003
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.004)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.228<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.017)
 </td>
 </tr>
 <tr>
@@ -2989,7 +3223,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -2997,7 +3231,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.120
+0.094
 </td>
 </tr>
 <tr>
@@ -3005,7 +3239,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.105
+0.069
 </td>
 </tr>
 <tr>
@@ -3013,7 +3247,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-7.976<sup>***</sup> (df = 2; 117)
+3.785<sup>**</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -3085,10 +3319,9 @@ F Statistic
 <a class="sourceLine" id="cb13-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb13-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb13-53" title="53"></a>
-<a class="sourceLine" id="cb13-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb13-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb13-56" title="56"></a>
-<a class="sourceLine" id="cb13-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb13-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb13-55" title="55"></a>
+<a class="sourceLine" id="cb13-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -3123,7 +3356,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.001
+0.0003
 </td>
 </tr>
 <tr>
@@ -3144,7 +3377,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.005<sup>*</sup>
+-0.005
 </td>
 </tr>
 <tr>
@@ -3162,17 +3395,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.301<sup>***</sup>
+-0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.010)
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.363<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.042)
 </td>
 </tr>
 <tr>
@@ -3190,7 +3444,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -3198,7 +3452,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.034
+0.053
 </td>
 </tr>
 <tr>
@@ -3206,7 +3460,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.018
+0.027
 </td>
 </tr>
 <tr>
@@ -3214,7 +3468,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-2.077 (df = 2; 117)
+2.025 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -3279,10 +3533,9 @@ F Statistic
 <a class="sourceLine" id="cb14-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb14-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb14-43" title="43"></a>
-<a class="sourceLine" id="cb14-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb14-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb14-46" title="46"></a>
-<a class="sourceLine" id="cb14-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb14-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb14-45" title="45"></a>
+<a class="sourceLine" id="cb14-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -3317,14 +3570,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.275<sup>**</sup>
+-0.392<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.108)
+(0.118)
 </td>
 </tr>
 <tr>
@@ -3338,14 +3591,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.478
+0.119
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.428)
+(0.459)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.196<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.106)
 </td>
 </tr>
 <tr>
@@ -3359,14 +3633,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-26.918<sup>***</sup>
+15.599<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.565)
+(6.809)
 </td>
 </tr>
 <tr>
@@ -3384,7 +3658,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -3392,7 +3666,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.071
+0.124
 </td>
 </tr>
 <tr>
@@ -3400,7 +3674,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.055
+0.100
 </td>
 </tr>
 <tr>
@@ -3408,7 +3682,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-4.449<sup>**</sup> (df = 2; 117)
+5.125<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -3471,10 +3745,9 @@ F Statistic
 <a class="sourceLine" id="cb15-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb15-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb15-44" title="44"></a>
-<a class="sourceLine" id="cb15-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb15-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb15-47" title="47"></a>
-<a class="sourceLine" id="cb15-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb15-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb15-46" title="46"></a>
+<a class="sourceLine" id="cb15-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -3509,7 +3782,49 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.011
+0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.026
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.008
 </td>
 </tr>
 <tr>
@@ -3527,38 +3842,17 @@ BN.CAB.XOKA.GD.ZS.x
 </tr>
 <tr>
 <td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.039)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-2.683<sup>***</sup>
+3.095<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.149)
+(0.675)
 </td>
 </tr>
 <tr>
@@ -3576,7 +3870,7 @@ Constant
 Observations
 </td>
 <td>
-116
+111
 </td>
 </tr>
 <tr>
@@ -3584,7 +3878,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.008
+0.009
 </td>
 </tr>
 <tr>
@@ -3592,7 +3886,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.009
+-0.019
 </td>
 </tr>
 <tr>
@@ -3600,7 +3894,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.472 (df = 2; 113)
+0.315 (df = 3; 107)
 </td>
 </tr>
 <tr>
@@ -3670,10 +3964,9 @@ F Statistic
 <a class="sourceLine" id="cb16-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb16-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb16-51" title="51"></a>
-<a class="sourceLine" id="cb16-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb16-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb16-54" title="54"></a>
-<a class="sourceLine" id="cb16-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb16-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb16-53" title="53"></a>
+<a class="sourceLine" id="cb16-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -3708,7 +4001,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.0001
+-0.0002
 </td>
 </tr>
 <tr>
@@ -3729,14 +4022,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.001
+0.0004
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0005)
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0001)
 </td>
 </tr>
 <tr>
@@ -3750,14 +4064,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-0.045<sup>***</sup>
+0.041<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.002)
+(0.008)
 </td>
 </tr>
 <tr>
@@ -3775,7 +4089,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -3783,7 +4097,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.018
+0.027
 </td>
 </tr>
 <tr>
@@ -3791,7 +4105,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+0.0004
 </td>
 </tr>
 <tr>
@@ -3799,7 +4113,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.053 (df = 2; 117)
+1.014 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -3871,10 +4185,9 @@ F Statistic
 <a class="sourceLine" id="cb17-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb17-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb17-53" title="53"></a>
-<a class="sourceLine" id="cb17-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb17-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb17-56" title="56"></a>
-<a class="sourceLine" id="cb17-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb17-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb17-55" title="55"></a>
+<a class="sourceLine" id="cb17-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -3930,7 +4243,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.0004
+0.001
 </td>
 </tr>
 <tr>
@@ -3948,17 +4261,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.108<sup>***</sup>
+-0.0002
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.005)
+(0.0004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.119<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
 </td>
 </tr>
 <tr>
@@ -3976,7 +4310,7 @@ Constant
 Observations
 </td>
 <td>
-116
+111
 </td>
 </tr>
 <tr>
@@ -3984,7 +4318,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.017
+0.022
 </td>
 </tr>
 <tr>
@@ -3992,7 +4326,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.0005
+-0.006
 </td>
 </tr>
 <tr>
@@ -4000,7 +4334,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.973 (df = 2; 113)
+0.799 (df = 3; 107)
 </td>
 </tr>
 <tr>
@@ -4065,10 +4399,9 @@ F Statistic
 <a class="sourceLine" id="cb18-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb18-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb18-43" title="43"></a>
-<a class="sourceLine" id="cb18-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb18-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb18-46" title="46"></a>
-<a class="sourceLine" id="cb18-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb18-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb18-45" title="45"></a>
+<a class="sourceLine" id="cb18-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -4103,14 +4436,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.135
+0.202<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.104)
+(0.109)
 </td>
 </tr>
 <tr>
@@ -4124,14 +4457,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.131
+-0.331
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.416)
+(0.428)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.326<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.098)
 </td>
 </tr>
 <tr>
@@ -4145,14 +4499,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-20.149<sup>***</sup>
+41.281<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.512)
+(6.301)
 </td>
 </tr>
 <tr>
@@ -4170,7 +4524,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -4178,7 +4532,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.016
+0.128
 </td>
 </tr>
 <tr>
@@ -4186,7 +4540,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.0004
+0.104
 </td>
 </tr>
 <tr>
@@ -4194,7 +4548,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.977 (df = 2; 117)
+5.321<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -4257,10 +4611,9 @@ F Statistic
 <a class="sourceLine" id="cb19-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb19-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb19-44" title="44"></a>
-<a class="sourceLine" id="cb19-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb19-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb19-47" title="47"></a>
-<a class="sourceLine" id="cb19-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb19-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb19-46" title="46"></a>
+<a class="sourceLine" id="cb19-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -4295,14 +4648,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.010
+0.011
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.010)
+(0.012)
 </td>
 </tr>
 <tr>
@@ -4316,7 +4669,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.022
+-0.043
 </td>
 </tr>
 <tr>
@@ -4334,17 +4687,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-1.948<sup>***</sup>
+-0.022<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.144)
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+3.343<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.660)
 </td>
 </tr>
 <tr>
@@ -4362,7 +4736,7 @@ Constant
 Observations
 </td>
 <td>
-100
+94
 </td>
 </tr>
 <tr>
@@ -4370,7 +4744,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.014
+0.069
 </td>
 </tr>
 <tr>
@@ -4378,7 +4752,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.006
+0.038
 </td>
 </tr>
 <tr>
@@ -4386,7 +4760,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.682 (df = 2; 97)
+2.225<sup>*</sup> (df = 3; 90)
 </td>
 </tr>
 <tr>
@@ -4456,10 +4830,9 @@ F Statistic
 <a class="sourceLine" id="cb20-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb20-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb20-51" title="51"></a>
-<a class="sourceLine" id="cb20-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb20-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb20-54" title="54"></a>
-<a class="sourceLine" id="cb20-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb20-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb20-53" title="53"></a>
+<a class="sourceLine" id="cb20-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -4494,7 +4867,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.001<sup>**</sup>
+0.001<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -4533,17 +4906,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.039<sup>***</sup>
+-0.001<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.003)
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.084<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
 </td>
 </tr>
 <tr>
@@ -4561,7 +4955,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -4569,7 +4963,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.057
+0.172
 </td>
 </tr>
 <tr>
@@ -4577,7 +4971,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.041
+0.149
 </td>
 </tr>
 <tr>
@@ -4585,7 +4979,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-3.548<sup>**</sup> (df = 2; 117)
+7.538<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -4657,10 +5051,9 @@ F Statistic
 <a class="sourceLine" id="cb21-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb21-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb21-53" title="53"></a>
-<a class="sourceLine" id="cb21-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb21-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb21-56" title="56"></a>
-<a class="sourceLine" id="cb21-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb21-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb21-55" title="55"></a>
+<a class="sourceLine" id="cb21-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -4695,14 +5088,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.001
+0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0005)
+(0.001)
 </td>
 </tr>
 <tr>
@@ -4716,7 +5109,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.00000
+-0.001
 </td>
 </tr>
 <tr>
@@ -4734,17 +5127,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.082<sup>***</sup>
+-0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.007)
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.139<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.032)
 </td>
 </tr>
 <tr>
@@ -4762,7 +5176,7 @@ Constant
 Observations
 </td>
 <td>
-100
+94
 </td>
 </tr>
 <tr>
@@ -4770,7 +5184,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.024
+0.068
 </td>
 </tr>
 <tr>
@@ -4778,7 +5192,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.004
+0.037
 </td>
 </tr>
 <tr>
@@ -4786,7 +5200,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.185 (df = 2; 97)
+2.188<sup>*</sup> (df = 3; 90)
 </td>
 </tr>
 <tr>
@@ -4851,10 +5265,9 @@ F Statistic
 <a class="sourceLine" id="cb22-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb22-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb22-43" title="43"></a>
-<a class="sourceLine" id="cb22-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb22-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb22-46" title="46"></a>
-<a class="sourceLine" id="cb22-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb22-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb22-45" title="45"></a>
+<a class="sourceLine" id="cb22-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -4889,14 +5302,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.128<sup>**</sup>
+0.134<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.055)
+(0.061)
 </td>
 </tr>
 <tr>
@@ -4910,14 +5323,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.196
+0.050
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.218)
+(0.238)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.015
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.054)
 </td>
 </tr>
 <tr>
@@ -4931,14 +5365,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-13.825<sup>***</sup>
+15.448<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.792)
+(3.496)
 </td>
 </tr>
 <tr>
@@ -4956,7 +5390,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -4964,7 +5398,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.047
+0.044
 </td>
 </tr>
 <tr>
@@ -4972,7 +5406,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.031
+0.018
 </td>
 </tr>
 <tr>
@@ -4980,7 +5414,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-2.915<sup>*</sup> (df = 2; 117)
+1.675 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -5043,10 +5477,9 @@ F Statistic
 <a class="sourceLine" id="cb23-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb23-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb23-44" title="44"></a>
-<a class="sourceLine" id="cb23-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb23-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb23-47" title="47"></a>
-<a class="sourceLine" id="cb23-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb23-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb23-46" title="46"></a>
+<a class="sourceLine" id="cb23-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -5088,7 +5521,7 @@ BN.CAB.XOKA.GD.ZS.x
 <td style="text-align:left">
 </td>
 <td>
-(0.007)
+(0.008)
 </td>
 </tr>
 <tr>
@@ -5102,14 +5535,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.011
+0.007
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.026)
+(0.028)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.008)
 </td>
 </tr>
 <tr>
@@ -5123,14 +5577,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-1.348<sup>***</sup>
+1.208<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.094)
+(0.492)
 </td>
 </tr>
 <tr>
@@ -5148,7 +5602,7 @@ Constant
 Observations
 </td>
 <td>
-87
+83
 </td>
 </tr>
 <tr>
@@ -5156,7 +5610,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.003
 </td>
 </tr>
 <tr>
@@ -5164,7 +5618,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.021
+-0.035
 </td>
 </tr>
 <tr>
@@ -5172,7 +5626,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.100 (df = 2; 84)
+0.077 (df = 3; 79)
 </td>
 </tr>
 <tr>
@@ -5242,10 +5696,9 @@ F Statistic
 <a class="sourceLine" id="cb24-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb24-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb24-51" title="51"></a>
-<a class="sourceLine" id="cb24-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb24-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb24-54" title="54"></a>
-<a class="sourceLine" id="cb24-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb24-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb24-53" title="53"></a>
+<a class="sourceLine" id="cb24-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -5301,7 +5754,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.00002
+-0.0001
 </td>
 </tr>
 <tr>
@@ -5319,17 +5772,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.024<sup>***</sup>
+-0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.001)
+(0.0001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.031<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
 </td>
 </tr>
 <tr>
@@ -5347,7 +5821,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -5355,7 +5829,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.173
+0.216
 </td>
 </tr>
 <tr>
@@ -5363,7 +5837,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.159
+0.195
 </td>
 </tr>
 <tr>
@@ -5371,7 +5845,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-12.220<sup>***</sup> (df = 2; 117)
+10.029<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -5443,10 +5917,9 @@ F Statistic
 <a class="sourceLine" id="cb25-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb25-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb25-53" title="53"></a>
-<a class="sourceLine" id="cb25-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb25-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb25-56" title="56"></a>
-<a class="sourceLine" id="cb25-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb25-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb25-55" title="55"></a>
+<a class="sourceLine" id="cb25-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -5520,17 +5993,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.052<sup>***</sup>
+0.0002
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.003)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.041<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.017)
 </td>
 </tr>
 <tr>
@@ -5548,7 +6042,7 @@ Constant
 Observations
 </td>
 <td>
-87
+83
 </td>
 </tr>
 <tr>
@@ -5556,7 +6050,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.011
+0.019
 </td>
 </tr>
 <tr>
@@ -5564,7 +6058,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.013
+-0.019
 </td>
 </tr>
 <tr>
@@ -5572,7 +6066,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.448 (df = 2; 84)
+0.503 (df = 3; 79)
 </td>
 </tr>
 <tr>
@@ -5637,10 +6131,9 @@ F Statistic
 <a class="sourceLine" id="cb26-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb26-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb26-43" title="43"></a>
-<a class="sourceLine" id="cb26-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb26-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb26-46" title="46"></a>
-<a class="sourceLine" id="cb26-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb26-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb26-45" title="45"></a>
+<a class="sourceLine" id="cb26-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -5675,14 +6168,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.691<sup>***</sup>
+-0.794<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.201)
+(0.222)
 </td>
 </tr>
 <tr>
@@ -5696,14 +6189,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.947
+0.605
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.799)
+(0.864)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.470<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.199)
 </td>
 </tr>
 <tr>
@@ -5717,14 +6231,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-76.041<sup>***</sup>
+47.657<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(2.920)
+(12.805)
 </td>
 </tr>
 <tr>
@@ -5742,7 +6256,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -5750,7 +6264,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.113
+0.159
 </td>
 </tr>
 <tr>
@@ -5758,7 +6272,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.098
+0.136
 </td>
 </tr>
 <tr>
@@ -5766,7 +6280,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-7.473<sup>***</sup> (df = 2; 117)
+6.854<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -5829,10 +6343,9 @@ F Statistic
 <a class="sourceLine" id="cb27-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb27-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb27-44" title="44"></a>
-<a class="sourceLine" id="cb27-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb27-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb27-47" title="47"></a>
-<a class="sourceLine" id="cb27-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb27-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb27-46" title="46"></a>
+<a class="sourceLine" id="cb27-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -5867,7 +6380,49 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.005
+-0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.024)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.005
 </td>
 </tr>
 <tr>
@@ -5885,38 +6440,17 @@ BN.CAB.XOKA.GD.ZS.x
 </tr>
 <tr>
 <td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.013
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.023)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-2.012<sup>***</sup>
+1.745<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.090)
+(0.426)
 </td>
 </tr>
 <tr>
@@ -5934,7 +6468,7 @@ Constant
 Observations
 </td>
 <td>
-118
+112
 </td>
 </tr>
 <tr>
@@ -5942,7 +6476,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.006
+0.010
 </td>
 </tr>
 <tr>
@@ -5950,7 +6484,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.011
+-0.017
 </td>
 </tr>
 <tr>
@@ -5958,7 +6492,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.348 (df = 2; 115)
+0.382 (df = 3; 108)
 </td>
 </tr>
 <tr>
@@ -6028,10 +6562,9 @@ F Statistic
 <a class="sourceLine" id="cb28-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb28-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb28-51" title="51"></a>
-<a class="sourceLine" id="cb28-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb28-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb28-54" title="54"></a>
-<a class="sourceLine" id="cb28-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb28-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb28-53" title="53"></a>
+<a class="sourceLine" id="cb28-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6066,7 +6599,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.0001
+0.00000
 </td>
 </tr>
 <tr>
@@ -6087,7 +6620,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.0004
+0.001
 </td>
 </tr>
 <tr>
@@ -6105,17 +6638,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.131<sup>***</sup>
+0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.003)
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
 </td>
 </tr>
 <tr>
@@ -6133,7 +6687,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -6141,7 +6695,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.003
+0.010
 </td>
 </tr>
 <tr>
@@ -6149,7 +6703,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.014
+-0.017
 </td>
 </tr>
 <tr>
@@ -6157,7 +6711,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.184 (df = 2; 117)
+0.377 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -6229,10 +6783,9 @@ F Statistic
 <a class="sourceLine" id="cb29-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb29-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb29-53" title="53"></a>
-<a class="sourceLine" id="cb29-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb29-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb29-56" title="56"></a>
-<a class="sourceLine" id="cb29-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb29-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb29-55" title="55"></a>
+<a class="sourceLine" id="cb29-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6306,17 +6859,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.091<sup>***</sup>
+0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.005)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.052<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.021)
 </td>
 </tr>
 <tr>
@@ -6334,7 +6908,7 @@ Constant
 Observations
 </td>
 <td>
-118
+112
 </td>
 </tr>
 <tr>
@@ -6342,7 +6916,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.032
+0.060
 </td>
 </tr>
 <tr>
@@ -6350,7 +6924,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.015
+0.034
 </td>
 </tr>
 <tr>
@@ -6358,7 +6932,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.878 (df = 2; 115)
+2.314<sup>*</sup> (df = 3; 108)
 </td>
 </tr>
 <tr>
@@ -6423,10 +6997,9 @@ F Statistic
 <a class="sourceLine" id="cb30-41" title="41">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb30-42" title="42">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb30-43" title="43"></a>
-<a class="sourceLine" id="cb30-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb30-45" title="45">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb30-46" title="46"></a>
-<a class="sourceLine" id="cb30-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb30-44" title="44">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb30-45" title="45"></a>
+<a class="sourceLine" id="cb30-46" title="46"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6461,14 +7034,14 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
--0.565<sup>*</sup>
+-0.676<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.336)
+(0.366)
 </td>
 </tr>
 <tr>
@@ -6482,14 +7055,35 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-3.437<sup>**</sup>
+2.736<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.333)
+(1.425)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.728<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.328)
 </td>
 </tr>
 <tr>
@@ -6503,14 +7097,14 @@ NY.GDP.PCAP.KD.ZG
 Constant
 </td>
 <td>
-108.315<sup>***</sup>
+65.945<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(4.870)
+(21.120)
 </td>
 </tr>
 <tr>
@@ -6528,7 +7122,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -6536,7 +7130,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.088
+0.113
 </td>
 </tr>
 <tr>
@@ -6544,7 +7138,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.072
+0.089
 </td>
 </tr>
 <tr>
@@ -6552,7 +7146,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-5.614<sup>***</sup> (df = 2; 117)
+4.636<sup>***</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -6615,10 +7209,9 @@ F Statistic
 <a class="sourceLine" id="cb31-42" title="42">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb31-43" title="43">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb31-44" title="44"></a>
-<a class="sourceLine" id="cb31-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb31-46" title="46">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb31-47" title="47"></a>
-<a class="sourceLine" id="cb31-48" title="48"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb31-45" title="45">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb31-46" title="46"></a>
+<a class="sourceLine" id="cb31-47" title="47"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6653,6 +7246,48 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
+0.007
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.020)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.146<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.076)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
 0.013
 </td>
 </tr>
@@ -6671,38 +7306,17 @@ BN.CAB.XOKA.GD.ZS.x
 </tr>
 <tr>
 <td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.134<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.069)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-4.003<sup>***</sup>
+3.219<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.255)
+(1.156)
 </td>
 </tr>
 <tr>
@@ -6720,7 +7334,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -6728,7 +7342,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.033
+0.037
 </td>
 </tr>
 <tr>
@@ -6736,7 +7350,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.016
+0.011
 </td>
 </tr>
 <tr>
@@ -6744,7 +7358,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.985 (df = 2; 117)
+1.407 (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -6814,10 +7428,9 @@ F Statistic
 <a class="sourceLine" id="cb32-49" title="49">mergedMentionsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedMentionsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), </a>
 <a class="sourceLine" id="cb32-50" title="50">    <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb32-51" title="51"></a>
-<a class="sourceLine" id="cb32-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedMentionsED_p, </a>
-<a class="sourceLine" id="cb32-53" title="53">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb32-54" title="54"></a>
-<a class="sourceLine" id="cb32-55" title="55"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb32-52" title="52">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb32-53" title="53"></a>
+<a class="sourceLine" id="cb32-54" title="54"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6852,7 +7465,7 @@ lhs
 BN.CAB.XOKA.GD.ZS.x
 </td>
 <td>
-0.001<sup>*</sup>
+0.001<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -6873,7 +7486,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.003<sup>***</sup>
+0.004<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -6891,17 +7504,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.186<sup>***</sup>
+0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.004)
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.180<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.019)
 </td>
 </tr>
 <tr>
@@ -6919,7 +7553,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -6927,7 +7561,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.082
+0.090
 </td>
 </tr>
 <tr>
@@ -6935,7 +7569,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.066
+0.065
 </td>
 </tr>
 <tr>
@@ -6943,7 +7577,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-5.217<sup>***</sup> (df = 2; 117)
+3.610<sup>**</sup> (df = 3; 109)
 </td>
 </tr>
 <tr>
@@ -7015,10 +7649,9 @@ F Statistic
 <a class="sourceLine" id="cb33-51" title="51">mergedRecsED_p &lt;-<span class="st"> </span><span class="kw">pdata.frame</span>(mergedRecsED, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">drop.index =</span> <span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb33-52" title="52">    <span class="dt">row.names =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb33-53" title="53"></a>
-<a class="sourceLine" id="cb33-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(lhs <span class="op">~</span><span class="st"> </span>BN.CAB.XOKA.GD.ZS.x <span class="op">+</span><span class="st"> </span>NY.GDP.PCAP.KD.ZG, <span class="dt">data =</span> mergedRecsED_p, </a>
-<a class="sourceLine" id="cb33-55" title="55">    <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
-<a class="sourceLine" id="cb33-56" title="56"></a>
-<a class="sourceLine" id="cb33-57" title="57"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb33-54" title="54">FEestimate &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effect =</span> <span class="st">&quot;individual&quot;</span>)</a>
+<a class="sourceLine" id="cb33-55" title="55"></a>
+<a class="sourceLine" id="cb33-56" title="56"><span class="kw">stargazer</span>(FEestimate, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -7074,7 +7707,7 @@ BN.CAB.XOKA.GD.ZS.x
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.002
+0.003
 </td>
 </tr>
 <tr>
@@ -7092,17 +7725,38 @@ NY.GDP.PCAP.KD.ZG
 </tr>
 <tr>
 <td style="text-align:left">
-Constant
+SL.TLF.CACT.ZS
 </td>
 <td>
-0.171<sup>***</sup>
+0.001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.007)
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.130<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.033)
 </td>
 </tr>
 <tr>
@@ -7120,7 +7774,7 @@ Constant
 Observations
 </td>
 <td>
-120
+113
 </td>
 </tr>
 <tr>
@@ -7128,7 +7782,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.020
+0.040
 </td>
 </tr>
 <tr>
@@ -7136,7 +7790,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.004
+0.014
 </td>
 </tr>
 <tr>
@@ -7144,7 +7798,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.220 (df = 2; 117)
+1.531 (df = 3; 109)
 </td>
 </tr>
 <tr>

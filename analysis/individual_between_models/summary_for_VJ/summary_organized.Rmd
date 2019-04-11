@@ -19,7 +19,7 @@ library(dplyr)
 ## Global options
 options(max.print="75")
 opts_chunk$set(echo=TRUE,
-	            cache=TRUE,
+	            cache=FALSE,
                prompt=FALSE,
                tidy=TRUE,
                comment=NA,
@@ -31,9 +31,21 @@ opts_knit$set(width=75)
 
 Explanatory variables: 
 
+#. Foreign direct investment, net (BoP, current US$)(BN.KLT.DINV.CD)
 #. Current account balance (% of GDP)(BN.CAB.XOKA.GD.ZS)
+#. Personal remittances, received (% of GDP)(BX.TRF.PWKR.DT.GD.ZS)
+#. Trade in services (% of GDP)(BG.GSR.NFSV.GD.ZS)
+#. Agriculture, forestry, and fishing, value added (% of GDP)(NV.AGR.TOTL.ZS)
+#. Exports of goods and services (% of GDP)(NE.EXP.GNFS.ZS)
+#. GDP growth (annual %)(NY.GDP.MKTP.KD.ZG)
+#. GDP per capita (current US$)(NY.GDP.PCAP.CD)
 #. GDP per capita growth (annual %)(NY.GDP.PCAP.KD.ZG)
-
+#. Gross domestic savings (% of GDP)(NY.GDS.TOTL.ZS)
+#. Imports of goods and services (% of GDP)(NE.IMP.GNFS.ZS)
+#. Individuals using the Internet (% of population)(IT.NET.USER.ZS)
+#. Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)(SL.TLF.CACT.ZS)
+#. Inflation, consumer prices (annual %)(FP.CPI.TOTL.ZG)
+#. Unemployment, total (% of total labor force) (modeled ILO estimate)(SL.UEM.TOTL.ZS)
 
 ##  Variables to Include in Analysis
 
@@ -49,7 +61,7 @@ Explanatory variables:
 
 ##     vars <<- input$vars_include
 
-vars <- c("BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG")
+vars <- c("BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS")
 
 form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
 
@@ -169,7 +181,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -228,7 +240,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -288,7 +300,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -340,7 +352,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -393,7 +405,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -452,7 +464,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -514,7 +526,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -565,7 +577,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -618,7 +630,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -677,7 +689,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -739,7 +751,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -791,7 +803,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -844,7 +856,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -903,7 +915,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -965,7 +977,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1018,7 +1030,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1071,7 +1083,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1130,7 +1142,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1192,7 +1204,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1243,7 +1255,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1296,7 +1308,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1355,7 +1367,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1417,7 +1429,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1468,7 +1480,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1521,7 +1533,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1580,7 +1592,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1642,7 +1654,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1693,7 +1705,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1746,7 +1758,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type="html")
 
@@ -1805,7 +1817,7 @@ mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
 
 mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedMentionsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedMentionsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
@@ -1867,7 +1879,7 @@ mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
 
 mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
 
-FEestimate <- plm(lhs ~  BN.CAB.XOKA.GD.ZS.x + NY.GDP.PCAP.KD.ZG, data = mergedRecsED_p, model = "between", effect = "individual")
+FEestimate <- plm(form, data = mergedRecsED_p, model = "between", effect = "individual")
 
 stargazer(FEestimate, type = "html")
 
