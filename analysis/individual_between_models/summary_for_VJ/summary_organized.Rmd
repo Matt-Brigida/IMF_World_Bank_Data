@@ -61,7 +61,7 @@ Explanatory variables:
 
 ##     vars <<- input$vars_include
 
-vars <- c("BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS")
+vars <- c("BN.CAB.XOKA.GD.ZS.x", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "GB.XPD.RSDV.GD.ZS")
 
 form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
 
@@ -96,11 +96,10 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
-
-## want to add: "FP.CPI.TOTL.ZG", "SL.UEM.TOTL.ZS", "IT.NET.USER.ZS",
 
 ## now need to extract only unique country and year subsets-----
 
@@ -151,7 +150,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -208,7 +209,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -267,7 +270,9 @@ rm(theIndex)
 ## Merge with IMF/WB Data-------
 
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -321,7 +326,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -373,7 +380,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -433,7 +442,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -493,7 +504,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -546,7 +559,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -598,7 +613,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -658,7 +675,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -718,7 +737,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -772,7 +793,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -824,7 +847,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -884,7 +909,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -944,7 +971,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -999,7 +1028,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1051,7 +1082,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1111,7 +1144,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1171,7 +1206,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1224,7 +1261,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1276,7 +1315,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1336,7 +1377,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1396,7 +1439,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1449,7 +1494,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1501,7 +1548,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1561,7 +1610,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1621,7 +1672,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1674,7 +1727,9 @@ mentionsED$mentionsEDindex <- gsub(" ", "", mentionsED$mentionsEDindex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1726,7 +1781,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1786,7 +1843,9 @@ mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
@@ -1846,7 +1905,9 @@ rm(theIndex)
 
 ## Merge with IMF/WB Data-------
 
-econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+## econ <- read.csv("../../../pulling_data/merged_data.csv", stringsAsFactors=FALSE, header=TRUE)
+econ <- readRDS("../../../pulling_data/merged_data.rds")
+
 
 econ_vars_for_model <- econ[, c("country", "year", vars)]
 
