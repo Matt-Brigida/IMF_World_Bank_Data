@@ -19,7 +19,7 @@ library(WDI)
 
 ## Global options
 options(max.print="75")
-opts_chunk$set(echo=TRUE,
+opts_chunk$set(echo=FALSE,
 	            cache=FALSE,
                prompt=FALSE,
                tidy=TRUE,
@@ -30,7 +30,7 @@ opts_knit$set(width=75)
 ```
 # Model
 
-Explanatory variables: 
+Possible explanatory variables: 
 
 #. Foreign direct investment, net (BoP, current US$)(BN.KLT.DINV.CD)
 #. Current account balance (% of GDP)(BN.CAB.XOKA.GD.ZS)
@@ -51,7 +51,7 @@ Explanatory variables:
 
 ##  Variables to Include in Analysis
 
-```{r}
+```{r echo=TRUE}
 
 vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "GB.XPD.RSDV.GD.ZS")
 
@@ -72,7 +72,11 @@ econ$country <- toupper(econ$country)
 
 # Econometric Model
 
+We estimate the following model where:
 
+$$\bar{y}_i=\alpha + \bar{x}_i' + (\alpha_i - \alpha + \bar{\epsilon}_i)$$
+
+$y_i$ is the mentions/recommendations variable, and $x_i'$ is a vector of explanatory variables listed in "Variables to Include in Analysis" above.
 
 
 # Results by Topic
