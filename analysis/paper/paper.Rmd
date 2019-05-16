@@ -1,0 +1,83 @@
+---
+title: "The Determinants of IMF Recommendations"
+author: 
+  - Matt Brigida, (matthew.brigida@sunyit.edu) SUNY Polytechnic Institute, 100 Seymour Rd, Utica NY 13502
+  - Staci Warden, Milken Institute
+institute:
+  - $^1$SUNY Polytechnic Institute, 100 Seymour Rd, Utica NY 13502
+  - $^2$Milken Institute
+date: "May 15, 2019"
+header-includes:
+  - \setlength\parindent{24pt}
+  - \usepackage{caption}
+abstract: "This analysis investigates "
+always_allow_html: yes
+bibliography: references.bib
+output:
+  pdf_document:
+    fig_caption: yes
+    highlight: tango
+    keep_tex: yes
+    number_sections: yes
+---
+
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(rmdformats)
+library(stargazer)
+library(plm)
+library(dplyr)
+library(WDI)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	            cache=FALSE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+
+
+
+
+
+<!-- ##  Variables to Include in Analysis -->
+
+```{r echo=FALSE}
+
+vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "GB.XPD.RSDV.GD.ZS")
+
+form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
+
+```
+
+<!-- ## Pull Data from the World Bank -->
+
+
+```{r}
+
+econ <- WDI(country = "all", indicator = vars, start = 1900, end = 2019)
+
+econ$country <- toupper(econ$country)
+
+```
+
+
+
+# Data and Methods
+
+We estimate the following model where:
+
+$$\bar{y}_i=\alpha + \bar{x}_i' + (\alpha_i - \alpha + \bar{\epsilon}_i)$$
+
+$y_i$ is the mentions/recommendations variable, and $x_i'$ is a vector of explanatory variables listed in "Variables to Include in Analysis" above.
+
+# Results
+
+# Conclusion
