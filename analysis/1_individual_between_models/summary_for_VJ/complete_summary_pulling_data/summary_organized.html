@@ -727,7 +727,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -859,9 +859,9 @@ img {
 </ol>
 <div id="variables-to-include-in-analysis" class="section level2">
 <h2>Variables to Include in Analysis</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;BN.CAB.XOKA.GD.ZS&quot;</span>, <span class="st">&quot;NY.GDP.PCAP.KD.ZG&quot;</span>, <span class="st">&quot;SL.TLF.CACT.ZS&quot;</span>, <span class="st">&quot;GB.XPD.RSDV.GD.ZS&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3">form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(<span class="st">&quot;lhs ~&quot;</span>, <span class="kw">paste</span>(vars, <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;BN.CAB.XOKA.GD.ZS&quot;</span>, <span class="st">&quot;NY.GDP.PCAP.KD.ZG&quot;</span>, <span class="st">&quot;SL.TLF.CACT.ZS&quot;</span>)  <span class="co">#, 'GB.XPD.RSDV.GD.ZS')</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste</span>(<span class="st">&quot;lhs ~&quot;</span>, <span class="kw">paste</span>(vars, <span class="dt">collapse =</span> <span class="st">&quot;+&quot;</span>)))</a></code></pre></div>
 </div>
 <div id="pull-data-from-the-world-bank" class="section level2">
 <h2>Pull Data from the World Bank</h2>
@@ -870,8 +870,8 @@ img {
 <div id="econometric-model" class="section level1">
 <h1>Econometric Model</h1>
 <p>We estimate the following model where:</p>
-<p><span class="math display">\[\bar{y}_i=\alpha + \bar{x}_i&#39; + (\alpha_i - \alpha + \bar{\epsilon}_i)\]</span></p>
-<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i&#39;\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
+<p><span class="math display">\[\bar{y}_i=\alpha + \bar{x}_i' + (\alpha_i - \alpha + \bar{\epsilon}_i)\]</span></p>
+<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i'\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
 </div>
 <div id="results-by-topic" class="section level1">
 <h1>Results by Topic</h1>
@@ -913,14 +913,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--1.910<sup>***</sup>
+-2.754<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.463)
+(0.375)
 </td>
 </tr>
 <tr>
@@ -934,14 +934,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.395
+1.829
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.544)
+(1.363)
 </td>
 </tr>
 <tr>
@@ -955,35 +955,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.184
+0.431
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.345)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--18.275<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(3.775)
+(0.284)
 </td>
 </tr>
 <tr>
@@ -997,14 +976,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-92.436<sup>***</sup>
+59.790<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(22.918)
+(18.281)
 </td>
 </tr>
 <tr>
@@ -1022,7 +1001,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -1030,7 +1009,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.447
+0.363
 </td>
 </tr>
 <tr>
@@ -1038,7 +1017,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.419
+0.346
 </td>
 </tr>
 <tr>
@@ -1046,7 +1025,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-15.794<sup>***</sup> (df = 4; 78)
+21.657<sup>***</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -1099,14 +1078,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.030<sup>**</sup>
+-0.053<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.014)
+(0.012)
 </td>
 </tr>
 <tr>
@@ -1120,14 +1099,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.065
+0.056
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.046)
+(0.041)
 </td>
 </tr>
 <tr>
@@ -1141,35 +1120,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.003
+0.011
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.011)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.116
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.117)
+(0.009)
 </td>
 </tr>
 <tr>
@@ -1183,14 +1141,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-2.703<sup>***</sup>
+1.960<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.738)
+(0.557)
 </td>
 </tr>
 <tr>
@@ -1208,7 +1166,7 @@ Constant
 Observations
 </td>
 <td>
-80
+117
 </td>
 </tr>
 <tr>
@@ -1216,7 +1174,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.083
+0.204
 </td>
 </tr>
 <tr>
@@ -1224,7 +1182,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.034
+0.183
 </td>
 </tr>
 <tr>
@@ -1232,7 +1190,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.696 (df = 4; 75)
+9.641<sup>***</sup> (df = 3; 113)
 </td>
 </tr>
 <tr>
@@ -1251,6 +1209,171 @@ F Statistic
 </div>
 <div id="scaled-mentions" class="section level3">
 <h3>Scaled Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+-0.003<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.122<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.433
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.418
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+28.976<sup>***</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-recommendations" class="section level3">
+<h3>Scaled Recommendations</h3>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1306,7 +1429,7 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.0005
+-0.0001
 </td>
 </tr>
 <tr>
@@ -1327,7 +1450,7 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
--0.0002
+0.001<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -1345,38 +1468,17 @@ SL.TLF.CACT.ZS
 </tr>
 <tr>
 <td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.019<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-0.173<sup>***</sup>
+0.079<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.019)
+(0.018)
 </td>
 </tr>
 <tr>
@@ -1394,7 +1496,7 @@ Constant
 Observations
 </td>
 <td>
-83
+117
 </td>
 </tr>
 <tr>
@@ -1402,7 +1504,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.568
+0.217
 </td>
 </tr>
 <tr>
@@ -1410,7 +1512,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.546
+0.196
 </td>
 </tr>
 <tr>
@@ -1418,193 +1520,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-25.619<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-recommendations" class="section level3">
-<h3>Scaled Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.001<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
-0.0001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0005)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.005)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.118<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.031)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-80
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.050
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-0.977 (df = 4; 75)
+10.441<sup>***</sup> (df = 3; 113)
 </td>
 </tr>
 <tr>
@@ -1660,49 +1576,7 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.119
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.524)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-1.981
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1.749)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
-0.681<sup>*</sup>
+-0.450
 </td>
 </tr>
 <tr>
@@ -1720,17 +1594,38 @@ SL.TLF.CACT.ZS
 </tr>
 <tr>
 <td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
+NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--3.639
+1.031
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(4.276)
+(1.421)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.421
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.296)
 </td>
 </tr>
 <tr>
@@ -1744,14 +1639,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-92.985<sup>***</sup>
+105.483<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(25.957)
+(19.059)
 </td>
 </tr>
 <tr>
@@ -1769,7 +1664,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -1777,7 +1672,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.073
+0.037
 </td>
 </tr>
 <tr>
@@ -1785,7 +1680,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.025
+0.011
 </td>
 </tr>
 <tr>
@@ -1793,7 +1688,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.531 (df = 4; 78)
+1.449 (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -1846,14 +1741,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
-0.034
+0.020
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.039)
+(0.027)
 </td>
 </tr>
 <tr>
@@ -1867,14 +1762,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.282<sup>**</sup>
+0.176<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.134)
+(0.099)
 </td>
 </tr>
 <tr>
@@ -1888,35 +1783,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.079<sup>***</sup>
+0.016
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.029)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.163
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.320)
+(0.020)
 </td>
 </tr>
 <tr>
@@ -1930,14 +1804,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.264
+4.752<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.925)
+(1.308)
 </td>
 </tr>
 <tr>
@@ -1955,7 +1829,7 @@ Constant
 Observations
 </td>
 <td>
-81
+118
 </td>
 </tr>
 <tr>
@@ -1963,7 +1837,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.129
+0.034
 </td>
 </tr>
 <tr>
@@ -1971,7 +1845,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.083
+0.008
 </td>
 </tr>
 <tr>
@@ -1979,7 +1853,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-2.819<sup>**</sup> (df = 4; 76)
+1.329 (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -2039,7 +1913,7 @@ BN.CAB.XOKA.GD.ZS
 <td style="text-align:left">
 </td>
 <td>
-(0.0005)
+(0.0004)
 </td>
 </tr>
 <tr>
@@ -2053,14 +1927,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.001
+-0.0004
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.002)
+(0.001)
 </td>
 </tr>
 <tr>
@@ -2074,35 +1948,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.0005
+0.00003
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.013<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.004)
+(0.0003)
 </td>
 </tr>
 <tr>
@@ -2116,14 +1969,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.182<sup>***</sup>
+0.220<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.024)
+(0.019)
 </td>
 </tr>
 <tr>
@@ -2141,7 +1994,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -2149,7 +2002,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.264
+0.122
 </td>
 </tr>
 <tr>
@@ -2157,7 +2010,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.226
+0.099
 </td>
 </tr>
 <tr>
@@ -2165,7 +2018,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-6.978<sup>***</sup> (df = 4; 78)
+5.281<sup>***</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -2218,7 +2071,7 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
-0.002<sup>***</sup>
+0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -2239,14 +2092,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.007<sup>**</sup>
+-0.0004
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.003)
+(0.002)
 </td>
 </tr>
 <tr>
@@ -2260,35 +2113,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.003<sup>***</sup>
+0.001<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.0002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.007)
+(0.0005)
 </td>
 </tr>
 <tr>
@@ -2302,14 +2134,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.047
+0.189<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.042)
+(0.029)
 </td>
 </tr>
 <tr>
@@ -2327,7 +2159,7 @@ Constant
 Observations
 </td>
 <td>
-81
+118
 </td>
 </tr>
 <tr>
@@ -2335,7 +2167,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.309
+0.071
 </td>
 </tr>
 <tr>
@@ -2343,7 +2175,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.273
+0.046
 </td>
 </tr>
 <tr>
@@ -2351,7 +2183,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-8.507<sup>***</sup> (df = 4; 76)
+2.902<sup>**</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -2407,14 +2239,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--1.341<sup>**</sup>
+-1.355<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.540)
+(0.351)
 </td>
 </tr>
 <tr>
@@ -2428,14 +2260,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.973
+-0.897
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.802)
+(1.276)
 </td>
 </tr>
 <tr>
@@ -2449,35 +2281,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.167
+0.391
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.402)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--12.666<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(4.404)
+(0.266)
 </td>
 </tr>
 <tr>
@@ -2491,14 +2302,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-124.108<sup>***</sup>
+99.455<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(26.736)
+(17.116)
 </td>
 </tr>
 <tr>
@@ -2516,7 +2327,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -2524,7 +2335,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.203
+0.128
 </td>
 </tr>
 <tr>
@@ -2532,7 +2343,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.163
+0.105
 </td>
 </tr>
 <tr>
@@ -2540,7 +2351,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-4.978<sup>***</sup> (df = 4; 78)
+5.600<sup>***</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -2593,14 +2404,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.054
+-0.018
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.038)
+(0.023)
 </td>
 </tr>
 <tr>
@@ -2614,14 +2425,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.152
+-0.009
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.128)
+(0.082)
 </td>
 </tr>
 <tr>
@@ -2635,35 +2446,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
--0.028
+-0.044<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.028)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.211
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.305)
+(0.017)
 </td>
 </tr>
 <tr>
@@ -2677,14 +2467,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-8.799<sup>***</sup>
+9.523<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.842)
+(1.102)
 </td>
 </tr>
 <tr>
@@ -2702,7 +2492,7 @@ Constant
 Observations
 </td>
 <td>
-82
+118
 </td>
 </tr>
 <tr>
@@ -2710,7 +2500,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.053
+0.061
 </td>
 </tr>
 <tr>
@@ -2718,7 +2508,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.003
+0.036
 </td>
 </tr>
 <tr>
@@ -2726,7 +2516,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.067 (df = 4; 77)
+2.448<sup>*</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -2744,1500 +2534,6 @@ F Statistic
 </table>
 </div>
 <div id="scaled-mentions-2" class="section level3">
-<h3>Scaled Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.002<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.001<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.239<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.021)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.079
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.031
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-1.666 (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-recommendations-2" class="section level3">
-<h3>Scaled Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.005
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.002<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.011
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.009)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.409<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.057)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-82
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.093
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.045
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-1.965 (df = 4; 77)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div id="institutional-reforms" class="section level2">
-<h2>Institutional Reforms</h2>
-<div id="mentions-3" class="section level3">
-<h3>Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.165
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.165)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.333
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.550)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
-0.056
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.123)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--5.635<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1.344)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-29.044<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(8.161)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.256
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.218
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-6.707<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="recommendations-3" class="section level3">
-<h3>Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.009
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.015)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.061
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.047)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.034<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.011)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.098
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.121)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-4.961<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.724)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-81
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.132
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.086
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-2.881<sup>**</sup> (df = 4; 76)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-mentions-3" class="section level3">
-<h3>Scaled Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
-0.0002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.00004
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.0001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.006<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.057<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.008)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.212
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.172
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-5.248<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-recommendations-3" class="section level3">
-<h3>Scaled Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.002<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.231<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.035)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-81
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.146
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.101
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-3.257<sup>**</sup> (df = 4; 76)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div id="labor-issues" class="section level2">
-<h2>Labor Issues</h2>
-<div id="mentions-4" class="section level3">
-<h3>Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.220
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.176)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--1.210<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.583)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.240<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.131)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-4.709<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1.434)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-36.794<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(8.700)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.221
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.181
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-5.529<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="recommendations-4" class="section level3">
-<h3>Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.016)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.063
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.054)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.013)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.364<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.133)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-2.545<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.835)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-72
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.170
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.120
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-3.421<sup>**</sup> (df = 4; 67)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-mentions-4" class="section level3">
 <h3>Scaled Mentions</h3>
 <table style="text-align:center">
 <tr>
@@ -4294,7 +2590,7 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.002<sup>*</sup>
+-0.003<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -4315,35 +2611,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
--0.001<sup>**</sup>
+-0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.014<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
+(0.0002)
 </td>
 </tr>
 <tr>
@@ -4357,14 +2632,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.071<sup>***</sup>
+0.215<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.017)
+(0.013)
 </td>
 </tr>
 <tr>
@@ -4382,7 +2657,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -4390,7 +2665,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.355
+0.080
 </td>
 </tr>
 <tr>
@@ -4398,7 +2673,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.322
+0.056
 </td>
 </tr>
 <tr>
@@ -4406,7 +2681,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-10.751<sup>***</sup> (df = 4; 78)
+3.319<sup>**</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -4423,7 +2698,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<div id="scaled-recommendations-4" class="section level3">
+<div id="scaled-recommendations-2" class="section level3">
 <h3>Scaled Recommendations</h3>
 <table style="text-align:center">
 <tr>
@@ -4459,7 +2734,7 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
-0.001
+-0.0001
 </td>
 </tr>
 <tr>
@@ -4480,754 +2755,7 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.013
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.008)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.119<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.051)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-72
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.104
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.051
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-1.953 (df = 4; 67)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div id="privatization-reforms" class="section level2">
-<h2>Privatization Reforms</h2>
-<div id="mentions-5" class="section level3">
-<h3>Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
-0.246<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.088)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.155
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.293)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.065)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--2.183<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.716)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-17.654<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(4.350)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.164
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.121
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-3.822<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="recommendations-5" class="section level3">
-<h3>Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.004
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.009)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.022)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
-0.007
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.008)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.070)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.816
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.497)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-58
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.029
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
--0.044
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-0.397 (df = 4; 53)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-mentions-5" class="section level3">
-<h3>Scaled Mentions</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
-0.001<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
--0.0004
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
--0.00003
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.029<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-83
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.280
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.244
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-7.599<sup>***</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-recommendations-5" class="section level3">
-<h3>Scaled Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.0004
+-0.003
 </td>
 </tr>
 <tr>
@@ -5248,7 +2776,7 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.0003
+-0.001<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -5266,38 +2794,17 @@ SL.TLF.CACT.ZS
 </tr>
 <tr>
 <td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.006)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-0.038
+0.379<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.045)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -5315,7 +2822,7 @@ Constant
 Observations
 </td>
 <td>
-58
+118
 </td>
 </tr>
 <tr>
@@ -5323,7 +2830,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.047
+0.079
 </td>
 </tr>
 <tr>
@@ -5331,7 +2838,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.025
+0.055
 </td>
 </tr>
 <tr>
@@ -5339,7 +2846,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-0.657 (df = 4; 53)
+3.261<sup>**</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -5357,9 +2864,9 @@ F Statistic
 </table>
 </div>
 </div>
-<div id="social-welfare" class="section level2">
-<h2>Social Welfare</h2>
-<div id="mentions-6" class="section level3">
+<div id="institutional-reforms" class="section level2">
+<h2>Institutional Reforms</h2>
+<div id="mentions-3" class="section level3">
 <h3>Mentions</h3>
 <table style="text-align:center">
 <tr>
@@ -5395,14 +2902,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.823<sup>**</sup>
+-0.344<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.335)
+(0.131)
 </td>
 </tr>
 <tr>
@@ -5416,14 +2923,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.394
+0.183
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.119)
+(0.476)
 </td>
 </tr>
 <tr>
@@ -5437,35 +2944,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.721<sup>***</sup>
+0.131
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.250)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--5.229<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(2.736)
+(0.099)
 </td>
 </tr>
 <tr>
@@ -5479,14 +2965,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-37.409<sup>**</sup>
+20.312<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(16.608)
+(6.385)
 </td>
 </tr>
 <tr>
@@ -5504,7 +2990,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -5512,7 +2998,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.227
+0.077
 </td>
 </tr>
 <tr>
@@ -5520,7 +3006,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.187
+0.053
 </td>
 </tr>
 <tr>
@@ -5528,7 +3014,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-5.724<sup>***</sup> (df = 4; 78)
+3.167<sup>**</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -5545,7 +3031,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<div id="recommendations-6" class="section level3">
+<div id="recommendations-3" class="section level3">
 <h3>Recommendations</h3>
 <table style="text-align:center">
 <tr>
@@ -5581,14 +3067,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.028<sup>**</sup>
+-0.0004
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.013)
+(0.010)
 </td>
 </tr>
 <tr>
@@ -5602,14 +3088,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
--0.024
+-0.002
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.037)
+(0.034)
 </td>
 </tr>
 <tr>
@@ -5623,35 +3109,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.012
+-0.006
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.009)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.021
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.100)
+(0.008)
 </td>
 </tr>
 <tr>
@@ -5665,14 +3130,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-1.183<sup>**</sup>
+2.929<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.593)
+(0.487)
 </td>
 </tr>
 <tr>
@@ -5690,7 +3155,7 @@ Constant
 Observations
 </td>
 <td>
-79
+118
 </td>
 </tr>
 <tr>
@@ -5698,7 +3163,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.080
+0.005
 </td>
 </tr>
 <tr>
@@ -5706,7 +3171,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.030
+-0.021
 </td>
 </tr>
 <tr>
@@ -5714,7 +3179,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.607 (df = 4; 74)
+0.184 (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -5731,7 +3196,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<div id="scaled-mentions-6" class="section level3">
+<div id="scaled-mentions-3" class="section level3">
 <h3>Scaled Mentions</h3>
 <table style="text-align:center">
 <tr>
@@ -5767,7 +3232,172 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.0003
+-0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.00001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0005)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.043<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.172 (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-recommendations-3" class="section level3">
+<h3>Scaled Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.0003
 </td>
 </tr>
 <tr>
@@ -5788,7 +3418,7 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.0002
+-0.001
 </td>
 </tr>
 <tr>
@@ -5809,35 +3439,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.001<sup>**</sup>
+-0.0001
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
-0.005<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
+(0.0003)
 </td>
 </tr>
 <tr>
@@ -5851,7 +3460,7 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.086<sup>***</sup>
+0.115<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -5876,7 +3485,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -5884,7 +3493,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.110
+0.015
 </td>
 </tr>
 <tr>
@@ -5892,7 +3501,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.064
+-0.011
 </td>
 </tr>
 <tr>
@@ -5900,193 +3509,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-2.401<sup>*</sup> (df = 4; 78)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-</div>
-<div id="scaled-recommendations-6" class="section level3">
-<h3>Scaled Recommendations</h3>
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhs
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-BN.CAB.XOKA.GD.ZS
-</td>
-<td>
--0.0004
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-NY.GDP.PCAP.KD.ZG
-</td>
-<td>
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-SL.TLF.CACT.ZS
-</td>
-<td>
-0.001<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.0003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.003)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.045<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.019)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-79
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.091
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.042
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-1.848 (df = 4; 74)
+0.593 (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -6104,9 +3527,9 @@ F Statistic
 </table>
 </div>
 </div>
-<div id="tradeexchange" class="section level2">
-<h2>Trade/Exchange</h2>
-<div id="mentions-7" class="section level3">
+<div id="labor-issues" class="section level2">
+<h2>Labor Issues</h2>
+<div id="mentions-4" class="section level3">
 <h3>Mentions</h3>
 <table style="text-align:center">
 <tr>
@@ -6142,14 +3565,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
--0.244
+0.150
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.535)
+(0.129)
 </td>
 </tr>
 <tr>
@@ -6163,14 +3586,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-3.153<sup>*</sup>
+-0.893<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.785)
+(0.469)
 </td>
 </tr>
 <tr>
@@ -6184,35 +3607,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.667<sup>*</sup>
+-0.293<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.399)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--11.299<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(4.364)
+(0.098)
 </td>
 </tr>
 <tr>
@@ -6226,14 +3628,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-78.550<sup>***</sup>
+40.935<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(26.492)
+(6.309)
 </td>
 </tr>
 <tr>
@@ -6251,7 +3653,7 @@ Constant
 Observations
 </td>
 <td>
-83
+118
 </td>
 </tr>
 <tr>
@@ -6259,7 +3661,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.192
+0.119
 </td>
 </tr>
 <tr>
@@ -6267,7 +3669,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.151
+0.096
 </td>
 </tr>
 <tr>
@@ -6275,7 +3677,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-4.633<sup>***</sup> (df = 4; 78)
+5.123<sup>***</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -6292,7 +3694,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<div id="recommendations-7" class="section level3">
+<div id="recommendations-4" class="section level3">
 <h3>Recommendations</h3>
 <table style="text-align:center">
 <tr>
@@ -6328,14 +3730,14 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
-0.006
+0.009
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.027)
+(0.010)
 </td>
 </tr>
 <tr>
@@ -6349,14 +3751,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.159<sup>*</sup>
+-0.061<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.088)
+(0.036)
 </td>
 </tr>
 <tr>
@@ -6370,35 +3772,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.034<sup>*</sup>
+-0.018<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.020)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.110
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.217)
+(0.009)
 </td>
 </tr>
 <tr>
@@ -6412,14 +3793,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-1.572
+3.165<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.315)
+(0.538)
 </td>
 </tr>
 <tr>
@@ -6437,7 +3818,7 @@ Constant
 Observations
 </td>
 <td>
-82
+110
 </td>
 </tr>
 <tr>
@@ -6445,7 +3826,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.085
+0.090
 </td>
 </tr>
 <tr>
@@ -6453,7 +3834,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.037
+0.064
 </td>
 </tr>
 <tr>
@@ -6461,7 +3842,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-1.786 (df = 4; 77)
+3.479<sup>**</sup> (df = 3; 106)
 </td>
 </tr>
 <tr>
@@ -6478,8 +3859,173 @@ F Statistic
 </tr>
 </table>
 </div>
-<div id="scaled-mentions-7" class="section level3">
+<div id="scaled-mentions-4" class="section level3">
 <h3>Scaled Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.001<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.002<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.001<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.080<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.150
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.127
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6.692<sup>***</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-recommendations-4" class="section level3">
+<h3>Scaled Recommendations</h3>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -6535,7 +4081,7 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.004<sup>**</sup>
+-0.001
 </td>
 </tr>
 <tr>
@@ -6556,7 +4102,7 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.0004
+-0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -6574,31 +4120,10 @@ SL.TLF.CACT.ZS
 </tr>
 <tr>
 <td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.005
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.004)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
-0.163<sup>***</sup>
+0.128<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -6623,7 +4148,7 @@ Constant
 Observations
 </td>
 <td>
-83
+110
 </td>
 </tr>
 <tr>
@@ -6631,7 +4156,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.139
+0.097
 </td>
 </tr>
 <tr>
@@ -6639,7 +4164,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.095
+0.071
 </td>
 </tr>
 <tr>
@@ -6647,7 +4172,1831 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-3.154<sup>**</sup> (df = 4; 78)
+3.795<sup>**</sup> (df = 3; 106)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="privatization-reforms" class="section level2">
+<h2>Privatization Reforms</h2>
+<div id="mentions-5" class="section level3">
+<h3>Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.113<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.067)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.167
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.246)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.051)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+15.193<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.288)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.033
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+1.311 (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="recommendations-5" class="section level3">
+<h3>Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.024)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+1.144<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.374)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.015
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.016
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.472 (df = 3; 95)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-mentions-5" class="section level3">
+<h3>Scaled Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.0004<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+-0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.030<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.213
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.192
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+10.281<sup>***</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-recommendations-5" class="section level3">
+<h3>Scaled Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.040<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.017)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.018
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.410 (df = 3; 95)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="social-welfare" class="section level2">
+<h2>Social Welfare</h2>
+<div id="mentions-6" class="section level3">
+<h3>Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+-0.726<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.234)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.494
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.852)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.448<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.178)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+50.180<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(11.430)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.132
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.110
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+5.801<sup>***</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="recommendations-6" class="section level3">
+<h3>Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.017
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.022)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+1.894<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.334)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.020
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.221 (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-mentions-6" class="section level3">
+<h3>Scaled Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.00005
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+-0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.119<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.500 (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-recommendations-6" class="section level3">
+<h3>Scaled Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.066<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.924 (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="tradeexchange" class="section level2">
+<h2>Trade/Exchange</h2>
+<div id="mentions-7" class="section level3">
+<h3>Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+-0.584
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.378)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+3.354<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.376)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.580<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.287)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+74.410<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(18.454)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.115
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.091
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+4.917<sup>***</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="recommendations-7" class="section level3">
+<h3>Recommendations</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.020)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.189<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.072)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+3.337<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.980)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.062
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.037
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+2.514<sup>*</sup> (df = 3; 114)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="scaled-mentions-7" class="section level3">
+<h3>Scaled Mentions</h3>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhs
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BN.CAB.XOKA.GD.ZS
+</td>
+<td>
+0.001<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NY.GDP.PCAP.KD.ZG
+</td>
+<td>
+0.004<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SL.TLF.CACT.ZS
+</td>
+<td>
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.0003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.172<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.017)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.119
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.096
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+5.136<sup>***</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>
@@ -6700,7 +6049,7 @@ lhs
 BN.CAB.XOKA.GD.ZS
 </td>
 <td>
-0.001
+0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -6721,14 +6070,14 @@ BN.CAB.XOKA.GD.ZS
 NY.GDP.PCAP.KD.ZG
 </td>
 <td>
-0.006<sup>**</sup>
+0.004<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.003)
+(0.002)
 </td>
 </tr>
 <tr>
@@ -6742,35 +6091,14 @@ NY.GDP.PCAP.KD.ZG
 SL.TLF.CACT.ZS
 </td>
 <td>
-0.002<sup>***</sup>
+0.001<sup>*</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-GB.XPD.RSDV.GD.ZS
-</td>
-<td>
--0.005
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.007)
+(0.0004)
 </td>
 </tr>
 <tr>
@@ -6784,14 +6112,14 @@ GB.XPD.RSDV.GD.ZS
 Constant
 </td>
 <td>
-0.050
+0.125<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.045)
+(0.026)
 </td>
 </tr>
 <tr>
@@ -6809,7 +6137,7 @@ Constant
 Observations
 </td>
 <td>
-82
+118
 </td>
 </tr>
 <tr>
@@ -6817,7 +6145,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.148
+0.076
 </td>
 </tr>
 <tr>
@@ -6825,7 +6153,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.104
+0.051
 </td>
 </tr>
 <tr>
@@ -6833,7 +6161,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-3.338<sup>**</sup> (df = 4; 77)
+3.104<sup>**</sup> (df = 3; 114)
 </td>
 </tr>
 <tr>

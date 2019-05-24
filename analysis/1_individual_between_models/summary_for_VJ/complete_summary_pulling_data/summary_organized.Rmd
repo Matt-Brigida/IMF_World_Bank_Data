@@ -53,7 +53,7 @@ Possible explanatory variables:
 
 ```{r echo=TRUE}
 
-vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "GB.XPD.RSDV.GD.ZS")
+vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS")#, "GB.XPD.RSDV.GD.ZS")
 
 form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
 
