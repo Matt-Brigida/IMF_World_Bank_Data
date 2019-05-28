@@ -1,0 +1,117 @@
+---
+title:
+output: html_document
+runtime: shiny
+---
+
+```{r echo=FALSE, message=FALSE, error=FALSE, cache=FALSE}
+
+library(tidyverse)
+library(WDI)
+library(plm)
+library(shiny)
+
+### get macro data-----
+vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "FP.CPI.TOTL.ZG")#, "GB.XPD.RSDV.GD.ZS")
+
+form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
+
+econ <- WDI(country = "all", indicator = vars, start = 1900, end = 2019)
+
+econ$country <- toupper(econ$country)
+
+
+### get lhs recs data----
+recs <- read.csv("../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "External Debt", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=FALSE, row.names=TRUE)
+
+
+inputPanel(
+    checkboxGroupInput("country", "Country", choices=unique(mergedRecsED_p$Country))
+    ## selectizeInput("ind", "Indicator", choices = vars)
+)
+
+renderPlot({
+
+    data <- mergedRecsED_p
+    data <- subset(data, Country %in% input$country)
+
+ggplot(data, aes(x = "BN.CAB.XOKA.GD.ZS", y = lhs)) +
+    geom_point(aes(color = Country)) +
+    geom_smooth(se = TRUE) +
+    labs(
+    title = "",
+    subtitle = "",
+    caption = "",
+    x = "BN.CAB.XOKA.GD.ZS",
+    y = "Scaled Recommendations"
+  )
+
+    })
+
+renderPlot({
+
+    data <- mergedRecsED_p
+    data <- subset(data, Country %in% input$country)
+
+    ggplot(data, aes(x = "NY.GDP.PCAP.KD.ZG", y = lhs)) +
+    geom_point(aes(color = Country)) +
+    geom_smooth(se = TRUE) +
+    labs(
+    title = "",
+    subtitle = "",
+    caption = "",
+    x = "NY.GDP.PCAP.KD.ZG",
+    y = "Scaled Recommendations"
+  )
+})
+
+
+
+
+```
