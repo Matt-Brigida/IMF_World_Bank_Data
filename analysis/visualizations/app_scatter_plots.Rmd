@@ -78,16 +78,16 @@ inputPanel(
 
 renderPlot({
 
-    data <- mergedRecsED_p
-    data <- subset(data, Country %in% input$country)
+    plot_data <- mergedRecsED_p
+    plot_data <- subset(plot_data, Country %in% input$country)
 
-ggplot(data, aes(x = "BN.CAB.XOKA.GD.ZS", y = lhs)) +
+ggplot(plot_data, aes(x = BN.CAB.XOKA.GD.ZS, y = lhs)) +
     geom_point(aes(color = Country)) +
     geom_smooth(se = TRUE) +
     labs(
-    title = "",
-    subtitle = "",
-    caption = "",
+    title = "External Debt",
+    subtitle = "Scaled Recommendations vs. Macro Variables",
+    caption = "Current account balance (% of GDP)",
     x = "BN.CAB.XOKA.GD.ZS",
     y = "Scaled Recommendations"
   )
@@ -96,17 +96,51 @@ ggplot(data, aes(x = "BN.CAB.XOKA.GD.ZS", y = lhs)) +
 
 renderPlot({
 
-    data <- mergedRecsED_p
-    data <- subset(data, Country %in% input$country)
+    plot_data <- mergedRecsED_p
+    plot_data <- subset(plot_data, Country %in% input$country)
 
-    ggplot(data, aes(x = "NY.GDP.PCAP.KD.ZG", y = lhs)) +
+    ggplot(plot_data, aes(x = NY.GDP.PCAP.KD.ZG, y = lhs)) +
     geom_point(aes(color = Country)) +
     geom_smooth(se = TRUE) +
     labs(
-    title = "",
-    subtitle = "",
-    caption = "",
+    title = "External Debt",
+    subtitle = "Scaled Recommendations vs. Macro Variables",
+    caption = "GDP per capita growth (annual %)",
     x = "NY.GDP.PCAP.KD.ZG",
+    y = "Scaled Recommendations"
+  )
+})
+
+renderPlot({
+
+    plot_data <- mergedRecsED_p
+    plot_data <- subset(plot_data, Country %in% input$country)
+
+    ggplot(plot_data, aes(x = SL.TLF.CACT.ZS, y = lhs)) +
+    geom_point(aes(color = Country)) +
+    geom_smooth(se = TRUE) +
+    labs(
+    title = "External Debt",
+    subtitle = "Scaled Recommendations vs. Macro Variables",
+    caption = "Labor force participation rate, total (% of total population ages 15+)",
+    x = "SL.TLF.CACT.ZS",
+    y = "Scaled Recommendations"
+  )
+})
+
+renderPlot({
+
+    plot_data <- mergedRecsED_p
+    plot_data <- subset(plot_data, Country %in% input$country)
+
+    ggplot(plot_data, aes(x = FP.CPI.TOTL.ZG, y = lhs)) +
+    geom_point(aes(color = Country)) +
+    geom_smooth(se = TRUE) +
+    labs(
+    title = "External Debt",
+    subtitle = "Scaled Recommendations vs. Macro Variables",
+    caption = "Inflation, consumer prices (annual %)",
+    x = "FP.CPI.TOTL.ZG",
     y = "Scaled Recommendations"
   )
 })
