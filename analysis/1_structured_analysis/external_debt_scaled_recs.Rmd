@@ -1,0 +1,135 @@
+---
+title: "Analysis: External Debt"
+output:
+  rmdformats::html_clean:
+    highlight: kate
+code_folding: hide
+---
+
+# Preliminaries
+
+Load libraries and pull macro data from the Word Bank.
+
+```{r warning=FALSE, message=FALSE, error=FALSE, echo=FALSE}
+library(stargazer)
+library(plm)
+library(dplyr)
+library(WDI)
+
+vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "FP.CPI.TOTL.ZG")#, "GB.XPD.RSDV.GD.ZS")
+
+form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
+
+econ <- WDI(country = "all", indicator = vars, start = 1900, end = 2019)
+
+econ$country <- toupper(econ$country)
+
+```
+
+## Load and scale mentions data.
+
+```{r warning=FALSE, message=FALSE, error=FALSE, echo=FALSE}
+recs <- read.csv("../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs$Topic <- gsub(",", "", recs$Topic)
+names(recs)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+recs <- recs %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Recommendations / sum(Recommendations))
+
+
+recsED <- recs[recs$Topic == "External Debt", ]
+
+## make sure each row is unique----
+
+theIndex <- paste0(recsED$Country, "_", recsED$Year)
+
+recsED <- cbind(theIndex, data.frame(recsED))
+recsED$theIndex <- gsub(" ", "", recsED$theIndex)
+rm(theIndex)
+
+
+## Merge with IMF/WB Data-------
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+theIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(theIndex, econ_vars_for_model)
+rm(theIndex)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$theIndex))
+
+
+#### Join data-----
+
+mergedRecsED <- merge(recsED, econ_vars_for_model, by = "theIndex")
+
+mergedRecsED <- mergedRecsED[, c("Country", "Year", "Recommendations", "lhs", vars)]
+
+mergedRecsED <- mergedRecsED[complete.cases(mergedRecsED), ]
+
+## convert to plm
+
+mergedRecsED_p <- pdata.frame(mergedRecsED, index = c("Country", "Year"), drop.index=FALSE, row.names=TRUE)
+```
+
+#  Summary Statistics
+
+The panel is unbalanced. 
+
+# Analysis
+
+## Model Estimation
+
+```{r}
+ols_recs <- lm(form, data = mergedRecsED_p)
+
+pool_recs <- plm(form, data = mergedRecsED_p, model = "pooling")
+
+FEestimate_recs <- plm(form, data = mergedRecsED_p, index = c("Country", "Year"), model = "within")
+
+BEestimate_recs <- plm(form, data = mergedRecsED_p, index = c("Country", "Year"), model = "between")
+
+REestimate_recs <- plm(form, data = mergedRecsED_p, index = c("Country", "Year"), model = "random")
+```
+
+## Test for Fixed versus Random Effects
+
+Hausman test.
+
+```{r}
+phtest(FEestimate_recs, REestimate_recs)
+```
+
+
+## Test for Significant Fixed Effects
+
+F-test.
+
+
+```{r}
+pFtest(FEestimate_recs, pool_recs)
+```
+
+Lagrange multiplier tests of individual effects.
+
+## Within Estimator
+
+
+```{r}
+summary(FEestimate_recs)
+```
+
+## Between Estimator
+
+```{r}
+summary(BEestimate_recs)
+```
+
+## OLS Regressions
+

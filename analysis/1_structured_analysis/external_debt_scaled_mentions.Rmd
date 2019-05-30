@@ -1,0 +1,133 @@
+---
+title: "Analysis: External Debt"
+output:
+  rmdformats::html_clean:
+    highlight: kate
+code_folding: hide
+---
+
+# Preliminaries
+
+Load libraries and pull macro data from the word bank.
+
+```{r warning=FALSE, message=FALSE, error=FALSE, echo=FALSE}
+library(stargazer)
+library(plm)
+library(dplyr)
+library(WDI)
+
+vars <- c("BN.CAB.XOKA.GD.ZS", "NY.GDP.PCAP.KD.ZG", "SL.TLF.CACT.ZS", "FP.CPI.TOTL.ZG")#, "GB.XPD.RSDV.GD.ZS")
+
+form <- as.formula(paste("lhs ~", paste(vars, collapse="+")))
+
+econ <- WDI(country = "all", indicator = vars, start = 1900, end = 2019)
+
+econ$country <- toupper(econ$country)
+
+```
+
+## Load and scale mentions data.
+
+```{r warning=FALSE, message=FALSE, error=FALSE, echo=FALSE}
+mentions <- read.csv("../raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+mentionsED <- mentions[mentions$Topic == "External Debt", ]
+
+## make sure each row is unique----
+
+mentionsEDindex <- paste0(mentionsED$Country, "_", mentionsED$Year)
+mentionsEDindex <- gsub(" ", "", mentionsEDindex)
+
+mentionsED <- cbind(mentionsEDindex, data.frame(mentionsED))
+
+### Merge with IMF/WB Data
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentionsED <- merge(mentionsED, econ_vars_for_model, by.x = "mentionsEDindex", by.y = "econVarsIndex")
+
+mergedMentionsED <- mergedMentionsED[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+
+mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=FALSE, row.names=TRUE)
+
+```
+
+
+# Analysis
+
+## Model Estimation
+
+```{r}
+ols_mentions <- lm(form, data = mergedMentionsED_p)
+
+pool_mentions <- plm(form, data = mergedMentionsED_p, model = "pooling")
+
+FEestimate_mentions <- plm(form, data = mergedMentionsED_p, index = c("Country", "Year"), model = "within")
+
+BEestimate_mentions <- plm(form, data = mergedMentionsED_p, index = c("Country", "Year"), model = "between")
+
+REestimate_mentions <- plm(form, data = mergedMentionsED_p, index = c("Country", "Year"), model = "random")
+```
+
+
+## Test for Fixed versus Random Effects
+
+Hausman test.
+
+
+```{r}
+
+phtest(FEestimate_mentions, REestimate_mentions)
+
+```
+
+
+## Test for Significant Fixed Effects
+
+F-test.
+
+
+```{r}
+
+pFtest(FEestimate_mentions, pool_mentions)
+
+```
+
+
+Lagrange multiplier tests of individual effects.
+
+## Within Estimator
+
+
+```{r}
+summary(FEestimate_mentions)
+```
+
+
+## Between Estimator
+
+```{r}
+summary(BEestimate_mentions)
+```
