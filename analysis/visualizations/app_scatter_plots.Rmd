@@ -22,7 +22,7 @@ econ$country <- toupper(econ$country)
 
 
 ### get lhs recs data----
-recs <- read.csv("../rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+recs <- read.csv("./rec_exp.txt", stringsAsFactors=FALSE, header=TRUE)
 recs$Topic <- gsub(",", "", recs$Topic)
 names(recs)[1]  <- "Country"
 
