@@ -726,7 +726,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -845,20 +845,20 @@ img {
 <h1>Analysis</h1>
 <div id="model-estimation" class="section level2">
 <h2>Model Estimation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ols_mentions &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data =</span> mergedMentionsED_p)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">pool_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;pooling&quot;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">FEestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;within&quot;</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">BEestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">REestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">ols_mentions &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data =</span> mergedMentionsED_p)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">pool_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">model =</span> <span class="st">&quot;pooling&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">FEestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;within&quot;</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">BEestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9">REestimate_mentions &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
 </div>
 <div id="test-for-fixed-versus-random-effects" class="section level2">
 <h2>Test for Fixed versus Random Effects</h2>
 <p>Hausman test.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">phtest</span>(FEestimate_mentions, REestimate_mentions)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">phtest</span>(FEestimate_mentions, REestimate_mentions)</a></code></pre></div>
 <pre><code>## 
 ##  Hausman Test
 ## 
@@ -868,19 +868,42 @@ img {
 </div>
 <div id="test-for-significant-fixed-effects" class="section level2">
 <h2>Test for Significant Fixed Effects</h2>
-<p>F-test.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">pFtest</span>(FEestimate_mentions, pool_mentions)</a></code></pre></div>
+<p>F-test vs pooled.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">pFtest</span>(FEestimate_mentions, pool_mentions)</a></code></pre></div>
 <pre><code>## 
 ##  F test for individual effects
 ## 
 ## data:  form
 ## F = 8.6325, df1 = 114, df2 = 874, p-value &lt; 2.2e-16
 ## alternative hypothesis: significant effects</code></pre>
-<p>Lagrange multiplier tests of individual effects.</p>
+<p>F-test vs ols.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">pFtest</span>(FEestimate_mentions, ols_mentions)</a></code></pre></div>
+<pre><code>## 
+##  F test for individual effects
+## 
+## data:  form
+## F = 8.6325, df1 = 114, df2 = 874, p-value &lt; 2.2e-16
+## alternative hypothesis: significant effects</code></pre>
+<!-- Lagrange multiplier tests of individual effects. -->
+</div>
+<div id="test-for-time-effects" class="section level2">
+<h2>Test for Time Effects</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">plmtest</span>(FEestimate_mentions, <span class="kw">c</span>(<span class="st">&quot;time&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;bp&quot;</span>)</a></code></pre></div>
+<pre><code>## 
+##  Lagrange Multiplier Test - time effects (Breusch-Pagan) for
+##  unbalanced panels
+## 
+## data:  form
+## chisq = 11.302, df = 1, p-value = 0.0007741
+## alternative hypothesis: significant effects</code></pre>
+<p>The p-value is less than 0.05, so we should use time effects.</p>
 </div>
 <div id="within-estimator" class="section level2">
 <h2>Within Estimator</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(FEestimate_mentions)</a></code></pre></div>
+<p>We estimate the following ‘within’ model where:</p>
+<p><span class="math display">\[y_{it} = {\bf x&#39;_{it}}{\bf \beta} + \alpha_i + \epsilon_{it}\]</span></p>
+<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i&#39;\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">summary</span>(FEestimate_mentions)</a></code></pre></div>
 <pre><code>## Oneway (individual) effect Within Model
 ## 
 ## Call:
@@ -906,9 +929,40 @@ img {
 ## Adj. R-Squared: -0.12985
 ## F-statistic: 0.998639 on 4 and 874 DF, p-value: 0.40736</code></pre>
 </div>
+<div id="within-estimator-with-time-effects." class="section level2">
+<h2>Within estimator with time effects.</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">summary</span>(<span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;within&quot;</span>, <span class="dt">effects =</span> <span class="st">&quot;time&quot;</span>))</a></code></pre></div>
+<pre><code>## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = form, data = mergedMentionsED_p, model = &quot;within&quot;, 
+##     index = c(&quot;Country&quot;, &quot;Year&quot;), effects = &quot;time&quot;)
+## 
+## Unbalanced Panel: n = 115, T = 1-17, N = 993
+## 
+## Residuals:
+##        Min.     1st Qu.      Median     3rd Qu.        Max. 
+## -0.10960959 -0.02168330 -0.00076383  0.02110001  0.10518001 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)
+## BN.CAB.XOKA.GD.ZS  0.00021314  0.00018421  1.1571   0.2476
+## NY.GDP.PCAP.KD.ZG -0.00059828  0.00038290 -1.5625   0.1185
+## SL.TLF.CACT.ZS    -0.00022671  0.00079770 -0.2842   0.7763
+## FP.CPI.TOTL.ZG     0.00011416  0.00022960  0.4972   0.6192
+## 
+## Total Sum of Squares:    1.0968
+## Residual Sum of Squares: 1.0918
+## R-Squared:      0.0045496
+## Adj. R-Squared: -0.12985
+## F-statistic: 0.998639 on 4 and 874 DF, p-value: 0.40736</code></pre>
+</div>
 <div id="between-estimator" class="section level2">
 <h2>Between Estimator</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">summary</span>(BEestimate_mentions)</a></code></pre></div>
+<p>We estimate the following ‘between’ model where:</p>
+<p><span class="math display">\[\bar{y}_i=\alpha + \bar{x}_i&#39; + (\alpha_i - \alpha + \bar{\epsilon}_i)\]</span></p>
+<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i&#39;\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">summary</span>(BEestimate_mentions)</a></code></pre></div>
 <pre><code>## Oneway (individual) effect Between Model
 ## 
 ## Call:
@@ -930,7 +984,39 @@ img {
 ## SL.TLF.CACT.ZS     0.00033575  0.00028895  1.1620   0.24776    
 ## FP.CPI.TOTL.ZG     0.00049334  0.00060030  0.8218   0.41296    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    0.2205
+## Residual Sum of Squares: 0.12194
+## R-Squared:      0.447
+## Adj. R-Squared: 0.42689
+## F-statistic: 22.2291 on 4 and 110 DF, p-value: 1.8101e-13</code></pre>
+</div>
+<div id="between-estimator-with-time-effects" class="section level2">
+<h2>Between estimator with time effects</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">summary</span>(<span class="kw">plm</span>(form, <span class="dt">data =</span> mergedMentionsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>, <span class="dt">effects =</span> <span class="st">&quot;time&quot;</span>))</a></code></pre></div>
+<pre><code>## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = form, data = mergedMentionsED_p, model = &quot;between&quot;, 
+##     index = c(&quot;Country&quot;, &quot;Year&quot;), effects = &quot;time&quot;)
+## 
+## Unbalanced Panel: n = 115, T = 1-17, N = 993
+## Observations used in estimation: 115
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.0512102 -0.0249506 -0.0050235  0.0219799  0.0885426 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)        0.11255473  0.01861029  6.0480 2.058e-08 ***
+## BN.CAB.XOKA.GD.ZS -0.00319419  0.00037874 -8.4336 1.462e-13 ***
+## NY.GDP.PCAP.KD.ZG  0.00259793  0.00139211  1.8662   0.06468 .  
+## SL.TLF.CACT.ZS     0.00033575  0.00028895  1.1620   0.24776    
+## FP.CPI.TOTL.ZG     0.00049334  0.00060030  0.8218   0.41296    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Total Sum of Squares:    0.2205
 ## Residual Sum of Squares: 0.12194
@@ -954,8 +1040,11 @@ img {
         <li><a href="#model-estimation">Model Estimation</a></li>
         <li><a href="#test-for-fixed-versus-random-effects">Test for Fixed versus Random Effects</a></li>
         <li><a href="#test-for-significant-fixed-effects">Test for Significant Fixed Effects</a></li>
+        <li><a href="#test-for-time-effects">Test for Time Effects</a></li>
         <li><a href="#within-estimator">Within Estimator</a></li>
+        <li><a href="#within-estimator-with-time-effects.">Within estimator with time effects.</a></li>
         <li><a href="#between-estimator">Between Estimator</a></li>
+        <li><a href="#between-estimator-with-time-effects">Between estimator with time effects</a></li>
         </ul></li>
         </ul>
       </div>

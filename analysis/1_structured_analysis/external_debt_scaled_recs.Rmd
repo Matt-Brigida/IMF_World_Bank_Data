@@ -120,12 +120,24 @@ Lagrange multiplier tests of individual effects.
 
 ## Within Estimator
 
+We estimate the following 'within' model where:
+
+$$y_{it} = {\bf x'_{it}}{\bf \beta} + \alpha_i + \epsilon_{it}$$
+
+$y_i$ is the mentions/recommendations variable, and $x_i'$ is a vector of explanatory variables listed in "Variables to Include in Analysis" above.
+
 
 ```{r}
 summary(FEestimate_recs)
 ```
 
 ## Between Estimator
+
+We estimate the following 'between' model where:
+
+$$\bar{y}_i=\alpha + \bar{x}_i' + (\alpha_i - \alpha + \bar{\epsilon}_i)$$
+
+$y_i$ is the mentions/recommendations variable, and $x_i'$ is a vector of explanatory variables listed in "Variables to Include in Analysis" above.
 
 ```{r}
 summary(BEestimate_recs)

@@ -726,7 +726,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -836,29 +836,33 @@ img {
 <div id="content">
 <div id="preliminaries" class="section level1">
 <h1>Preliminaries</h1>
-<p>Load libraries and pull macro data from the word bank.</p>
+<p>Load libraries and pull macro data from the Word Bank.</p>
 <div id="load-and-scale-mentions-data." class="section level2">
 <h2>Load and scale mentions data.</h2>
 </div>
+</div>
+<div id="summary-statistics" class="section level1">
+<h1>Summary Statistics</h1>
+<p>The panel is unbalanced.</p>
 </div>
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
 <div id="model-estimation" class="section level2">
 <h2>Model Estimation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ols_recs &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data =</span> mergedRecsED_p)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">pool_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;pooling&quot;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">FEestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;within&quot;</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">BEestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">REestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">ols_recs &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data =</span> mergedRecsED_p)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">pool_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">model =</span> <span class="st">&quot;pooling&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">FEestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;within&quot;</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">BEestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;between&quot;</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9">REestimate_recs &lt;-<span class="st"> </span><span class="kw">plm</span>(form, <span class="dt">data =</span> mergedRecsED_p, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>), <span class="dt">model =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
 </div>
 <div id="test-for-fixed-versus-random-effects" class="section level2">
 <h2>Test for Fixed versus Random Effects</h2>
 <p>Hausman test.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">phtest</span>(FEestimate_recs, REestimate_recs)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">phtest</span>(FEestimate_recs, REestimate_recs)</a></code></pre></div>
 <pre><code>## 
 ##  Hausman Test
 ## 
@@ -869,7 +873,7 @@ img {
 <div id="test-for-significant-fixed-effects" class="section level2">
 <h2>Test for Significant Fixed Effects</h2>
 <p>F-test.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">pFtest</span>(FEestimate_recs, pool_recs)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">pFtest</span>(FEestimate_recs, pool_recs)</a></code></pre></div>
 <pre><code>## 
 ##  F test for individual effects
 ## 
@@ -880,7 +884,10 @@ img {
 </div>
 <div id="within-estimator" class="section level2">
 <h2>Within Estimator</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(FEestimate_recs)</a></code></pre></div>
+<p>We estimate the following ‘within’ model where:</p>
+<p><span class="math display">\[y_{it} = {\bf x&#39;_{it}}{\bf \beta} + \alpha_i + \epsilon_{it}\]</span></p>
+<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i&#39;\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">summary</span>(FEestimate_recs)</a></code></pre></div>
 <pre><code>## Oneway (individual) effect Within Model
 ## 
 ## Call:
@@ -908,7 +915,10 @@ img {
 </div>
 <div id="between-estimator" class="section level2">
 <h2>Between Estimator</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">summary</span>(BEestimate_recs)</a></code></pre></div>
+<p>We estimate the following ‘between’ model where:</p>
+<p><span class="math display">\[\bar{y}_i=\alpha + \bar{x}_i&#39; + (\alpha_i - \alpha + \bar{\epsilon}_i)\]</span></p>
+<p><span class="math inline">\(y_i\)</span> is the mentions/recommendations variable, and <span class="math inline">\(x_i&#39;\)</span> is a vector of explanatory variables listed in “Variables to Include in Analysis” above.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">summary</span>(BEestimate_recs)</a></code></pre></div>
 <pre><code>## Oneway (individual) effect Between Model
 ## 
 ## Call:
@@ -930,13 +940,16 @@ img {
 ## SL.TLF.CACT.ZS     0.00067532  0.00028802  2.3447 0.0208529 *  
 ## FP.CPI.TOTL.ZG    -0.00010861  0.00064796 -0.1676 0.8671948    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Total Sum of Squares:    0.15536
 ## Residual Sum of Squares: 0.12018
 ## R-Squared:      0.22645
 ## Adj. R-Squared: 0.19806
 ## F-statistic: 7.97722 on 4 and 109 DF, p-value: 1.1164e-05</code></pre>
+</div>
+<div id="ols-regressions" class="section level2">
+<h2>OLS Regressions</h2>
 </div>
 </div>
 </div>
@@ -950,12 +963,14 @@ img {
         <li><a href="#preliminaries">Preliminaries</a><ul>
         <li><a href="#load-and-scale-mentions-data.">Load and scale mentions data.</a></li>
         </ul></li>
+        <li><a href="#summary-statistics">Summary Statistics</a></li>
         <li><a href="#analysis">Analysis</a><ul>
         <li><a href="#model-estimation">Model Estimation</a></li>
         <li><a href="#test-for-fixed-versus-random-effects">Test for Fixed versus Random Effects</a></li>
         <li><a href="#test-for-significant-fixed-effects">Test for Significant Fixed Effects</a></li>
         <li><a href="#within-estimator">Within Estimator</a></li>
         <li><a href="#between-estimator">Between Estimator</a></li>
+        <li><a href="#ols-regressions">OLS Regressions</a></li>
         </ul></li>
         </ul>
       </div>
