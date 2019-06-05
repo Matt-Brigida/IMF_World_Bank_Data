@@ -72,6 +72,13 @@ econ$country <- toupper(econ$country)
 
 # Data and Methods
 
+## Tests for Fixed Effects
+
+<!-- insert results from hausman test here -->
+
+
+## 'Between' Model
+
 We estimate the following 'between' model where:
 
 $$\bar{y}_i=\alpha + \bar{x}_i' + (\alpha_i - \alpha + \bar{\epsilon}_i)$$
