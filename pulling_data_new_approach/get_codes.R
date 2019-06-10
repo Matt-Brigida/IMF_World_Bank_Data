@@ -23,13 +23,20 @@ CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Debt")
 ### Inflation-------
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Price Index")
 
+## PCPI_PC_CP_A_PT | Prices, Consumer Price Index, All items, Percentage change, Corresponding period previous year, Percent
 
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Current Account")
 
+## can only get this in USD, but we need to scale it by GDP which we can only get in domestic currency
+## BGS_BP6_USD | Balance of Payments, Current Account, Goods and Services, Net, US Dollars
 
-
-
-CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Current")
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Balance of Payments")
-CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Portfolio investment, Net acquisition of financial assets, Debt securities")
+
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Unemployment")
+
+## LUR_PT | Labor Markets, Unemployment Rate, Percent
+
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "GDP Growth")
 
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange")
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange Reserves")
