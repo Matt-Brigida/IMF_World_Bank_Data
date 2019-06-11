@@ -1,0 +1,8 @@
+#+title: Summary of data Sources
+
+
+| Variable          | Source | Code            | Description                                                                                             |
+|-------------------+--------+-----------------+---------------------------------------------------------------------------------------------------------|
+| Inflation         | IMF    | PCPI_PC_CP_A_PT | Prices, Consumer Price Index, All items, Percentage change, Corresponding period previous year, Percent |
+| Unemployment Rate | IMF    | LUR_PT          | Labor Markets, Unemployment Rate, Percent                                                               |
+|                   |        |                 |                                                                                                         |

@@ -38,5 +38,9 @@ CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Unemployment")
 
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "GDP Growth")
 
-CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange")
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Foreign")
+
+
+
+
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange Reserves")
