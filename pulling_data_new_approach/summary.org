@@ -1,4 +1,22 @@
-#+title: Summary of data Sources
+#+title: Summary of Data Set Sources and Construction
+#+options: toc:nil
+
+
+* Preliminaries
+
+Load libraries:
+
+#+begin_src R :session :results output :exports both 
+library(stargazer)
+library(plm)
+library(dplyr)
+library(WDI)
+#+end_src
+
+
+
+
+Below is a summary of each variable and its source and description.
 
 
 | Variable          | Source | Code            | Description                                                                                             |
@@ -6,3 +24,63 @@
 | Inflation         | IMF    | PCPI_PC_CP_A_PT | Prices, Consumer Price Index, All items, Percentage change, Corresponding period previous year, Percent |
 | Unemployment Rate | IMF    | LUR_PT          | Labor Markets, Unemployment Rate, Percent                                                               |
 |                   |        |                 |                                                                                                         |
+
+
+** World Bank Data
+
+
+** IMF Data
+
+
+
+* Data Set Construction
+
+
+** Mentions
+
+#+begin_src R :session :results output :exports both 
+mentions <- read.csv("./raw_exp.txt", stringsAsFactors=FALSE, header=TRUE)
+mentions$Topic <- gsub(",", "", mentions$Topic)
+names(mentions)[1]  <- "Country"
+
+## calculate % mentions for each topic by country/year group------
+
+mentions <- mentions %>%
+    group_by(Country, Year) %>%
+    mutate(lhs = Mentions / sum(Mentions))
+
+## make sure each row is unique----
+
+mentionsIndex <- paste0(mentions$Country, "_", mentions$Year)
+mentionsIndex <- gsub(" ", "", mentionsIndex)
+
+mentions <- cbind(mentionsIndex, data.frame(mentions))
+
+### Merge with IMF/WB Data
+
+econ_vars_for_model <- econ[, c("country", "year", vars)]
+
+## now need to extract only unique country and year subsets-----
+
+econVarsIndex <- paste0(econ_vars_for_model$country, "_", econ_vars_for_model$year)
+
+econ_vars_for_model <- cbind(econVarsIndex, econ_vars_for_model)
+
+econ_vars_for_model <- subset(econ_vars_for_model, !duplicated(econ_vars_for_model$econVarsIndex))
+
+#### Join data-----
+
+mergedMentions <- merge(mentions, econ_vars_for_model, by.x = "mentionsIndex", by.y = "econVarsIndex")
+
+mergedMentions <- mergedMentions[, c("Country", "Year", "Mentions", "lhs", vars)]
+
+### mergedMentionsED <- mergedMentionsED[complete.cases(mergedMentionsED), ]
+
+## convert to plm
+#### mergedMentionsED_p <- pdata.frame(mergedMentionsED, index = c("Country", "Year"), drop.index=FALSE, row.names=TRUE)
+
+write.csv(mergedMentions, "merged_metions.csv")
+
+#+end_src
+
+** Recommendations
