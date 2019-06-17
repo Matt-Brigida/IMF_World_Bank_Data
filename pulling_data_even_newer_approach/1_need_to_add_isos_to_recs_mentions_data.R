@@ -7,7 +7,8 @@ codes <- unique(codes)
 
 ## read in new VJ data--------
 
-new_data <- read.csv("./raw_exp.txt", header=TRUE, stringsAsFactors=FALSE, strip.white=TRUE)
+# think we should merge with the mentions file createed in (1), now th raw file--------
+# new_data <- read.csv("./raw_exp.txt", header=TRUE, stringsAsFactors=FALSE, strip.white=TRUE)
 
 ## need to remove trailing whitespace from country
 
