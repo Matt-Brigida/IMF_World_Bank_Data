@@ -2,6 +2,7 @@ library(WDI)
 
 ### Data already pulled------
 ### Pull data for each indicator------
+
 ## Current Account Balance as % of GDP
 cabp <- WDI(country = "all", indicator = "BN.CAB.XOKA.GD.ZS", start = 1900, end = 2019)
 
@@ -21,9 +22,6 @@ multilateral_debt <- WDI(country = "all", indicator = "DT.DOD.MLAT.ZS", start = 
 
 ## Foreign direct investment, net (BoP, current US$)(BN.KLT.DINV.CD)
 FDI <- WDI(country = "all", indicator = "BN.KLT.DINV.CD", start = 1900, end = 2019)
-
-## Current account balance (% of GDP)(BN.CAB.XOKA.GD.ZS)
-CAB <- WDI(country = "all", indicator = "BN.CAB.XOKA.GD.ZS", start = 1900, end = 2019)
 
 ## Personal remittances, received (% of GDP)(BX.TRF.PWKR.DT.GD.ZS)
 PR <- WDI(country = "all", indicator = "BX.TRF.PWKR.DT.GD.ZS", start = 1900, end = 2019)
@@ -81,7 +79,6 @@ data <- merge(data, fin_inv, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, pv_ex_debt, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, multilateral_debt, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, FDI, by = c("country", "year", "iso2c"), all = TRUE)
-data <- merge(data, CAB, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, PR, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, TIS, by = c("country", "year", "iso2c"), all = TRUE)
 data <- merge(data, AFF, by = c("country", "year", "iso2c"), all = TRUE)
@@ -96,6 +93,8 @@ data <- merge(data, LPR, by = c("country", "year", "iso2c"), all = TRUE)
 
 ## write data------
 saveRDS(data, "WB_data.rds")
+
+write.csv(data, "WB_data.csv", row.names=FALSE)
 
 ### Add new data
 
