@@ -7,6 +7,10 @@ WDIcache()
 WDIsearch(string = "financing", field = "name", short = TRUE, cache = NULL)
 WDIsearch(string = "current", field = "name", short = TRUE, cache = NULL)
 WDIsearch(string = "finance", field = "name", short = TRUE, cache = NULL)
+WDIsearch(string = "rating", field = "name", short = TRUE, cache = NULL)
+WDIsearch(string = "business", field = "name", short = TRUE, cache = NULL)
+
+
 
 
 ### test if some indicator has data-----

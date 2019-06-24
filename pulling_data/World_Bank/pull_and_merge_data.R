@@ -52,6 +52,9 @@ IGS <- WDI(country = "all", indicator = "NE.IMP.GNFS.ZS", start = 1900, end = 20
 ## Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)(SL.TLF.CACT.ZS)
 LPR <- WDI(country = "all", indicator = "SL.TLF.CACT.ZS", start = 1900, end = 2019)
 
+## Ease of doing business (IC.BUS.EASE.XQ) | "Ease of doing business index (1=most business-friendly regulations)"
+EASE <- WDI(country = "all", indicator = "IC.BUS.EASE.XQ", start = 1900, end = 2019)
+
  
 ## Inflation, consumer prices (annual %)(FP.CPI.TOTL.ZG)
 
@@ -91,6 +94,12 @@ data <- merge(data, LPR, by = c("country", "year", "iso2c"), all = TRUE)
 
 
 
+## read in old data
+data <- readRDS("./WB_data.rds")
+
+data <- merge(data, EASE, by = c("country", "year", "iso2c"), all = TRUE)
+
+
 ## write data------
 saveRDS(data, "WB_data.rds")
 
@@ -98,8 +107,6 @@ write.csv(data, "WB_data.csv", row.names=FALSE)
 
 ### Add new data
 
-## read in old data
-data <- readRDS("./WB_data.rds")
 
 ## pull new data
 
