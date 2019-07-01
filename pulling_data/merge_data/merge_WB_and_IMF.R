@@ -9,4 +9,4 @@ View(WBdata)
 merged <- merge(IMFdata, WBdata, by = c("iso2c", "year"))
 View(merged)
 
-write_csv(merged, "pulling_data/IMF_WB_merged.csv")
+write_csv(merged, "pulling_data/merge_data/IMF_WB_merged.csv")
