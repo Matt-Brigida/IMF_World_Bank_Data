@@ -8,3 +8,5 @@ CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Balance of Payments")
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Portfolio investment, Net acquisition of financial assets, Debt securities")
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Price Index")
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange")
+
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Rating")
