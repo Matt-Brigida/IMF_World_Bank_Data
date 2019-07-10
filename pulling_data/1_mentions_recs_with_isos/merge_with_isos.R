@@ -12,6 +12,9 @@ recs$Topic <- gsub(",", "", recs$Topic)
 dim(recs)
 ## [1] 9126    4
 
+
+### rerun from here after updating country/iso mapping
+
 lhs_data <- merge(mentions, recs, by = c("Country", "Year", "Topic"), all = TRUE)
 dim(lhs_data)
 ## [1] 12212     5
@@ -22,3 +25,5 @@ isos$Country <- toupper(isos$Country)
 
 
 data <- merge(lhs_data, isos, by = c("Country"), all.x=TRUE)
+
+### TODO, Namibia's iso2c is NA which is read by R as missing value.  We should change the iso2c in WB data to NAM before merging.
