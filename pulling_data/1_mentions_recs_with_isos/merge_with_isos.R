@@ -26,4 +26,6 @@ isos$Country <- toupper(isos$Country)
 
 data <- merge(lhs_data, isos, by = c("Country"), all.x=TRUE)
 
-### TODO, Namibia's iso2c is NA which is read by R as missing value.  We should change the iso2c in WB data to NAM before merging.
+### DONE, Namibia's iso2c is NA which is read by R as missing value.  We should change the iso2c in WB data to NAM before merging.
+
+write_csv(data, "LHS_with_iso.csv")
