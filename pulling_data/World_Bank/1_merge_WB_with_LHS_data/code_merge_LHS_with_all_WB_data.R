@@ -2,7 +2,7 @@
 
 library(readr)
 
-WBdata <- read_csv("./WB_data.csv")
+WBdata <- read_csv("../WB_data.csv")
 names(WBdata)[1] <- "Country"
 names(WBdata)[2] <- "Year"
 WBdata$Country <- toupper(WBdata$Country)
@@ -12,7 +12,7 @@ WBdata[WBdata$Country == "NAMIBIA",]$iso2c <- "NAM"
 
 ### extract only years for which we have LHS data------
 
-LHS <- read_csv("../1_mentions_recs_with_isos/LHS_with_iso.csv")
+LHS <- read_csv("../../1_mentions_recs_with_isos/LHS_with_iso.csv")
 dim(LHS)
 
 ### Merge LHS with WB data------
