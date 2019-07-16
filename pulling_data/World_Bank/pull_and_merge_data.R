@@ -3,6 +3,9 @@ library(WDI)
 ### Data already pulled------
 ### Pull data for each indicator------
 
+## Debt to GDP
+DGDP <- WDI(country = "all", indicator = "GC.DOD.TOTL.GD.ZS", start = 1900, end = 2019)
+
 ## Current Account Balance as % of GDP
 cabp <- WDI(country = "all", indicator = "BN.CAB.XOKA.GD.ZS", start = 1900, end = 2019)
 
@@ -97,7 +100,7 @@ data <- merge(data, LPR, by = c("country", "year", "iso2c"), all = TRUE)
 ## read in old data
 data <- readRDS("./WB_data.rds")
 
-data <- merge(data, EASE, by = c("country", "year", "iso2c"), all = TRUE)
+data <- merge(data, DGDP, by = c("country", "year", "iso2c"), all = TRUE)
 
 
 ## write data------
@@ -105,9 +108,3 @@ saveRDS(data, "WB_data.rds")
 
 write.csv(data, "WB_data.csv", row.names=FALSE)
 
-### Add new data
-
-
-## pull new data
-
-## merge new data
