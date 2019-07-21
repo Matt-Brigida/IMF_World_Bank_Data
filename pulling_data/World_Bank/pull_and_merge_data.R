@@ -78,6 +78,15 @@ ffap <- WDI(country = "all", indicator = "GB.FIN.ABRD.GDP.ZS", start = 1900, end
 financed <- WDI(country = "all", indicator = "BN.CUR.ACTX.CD", start = 1900, end = 2019) ## no data
 
 
+## data for wei---------
+
+## External debt stocks, total (DOD, current US$)
+EDS <- WDI(country = "all", indicator = "DT.DOD.DECT.CD", start = 1900, end = 2019)
+
+## Foreign direct investment, net inflows (% of GDP) or outflows
+FDINI <- WDI(country = "all", indicator = "BX.KLT.DINV.WD.GD.ZS", start = 1900, end = 2019)
+
+
 ### merge data-----
 
 data <- merge(cabp, mil, by = c("country", "year", "iso2c"), all = TRUE)
@@ -100,7 +109,8 @@ data <- merge(data, LPR, by = c("country", "year", "iso2c"), all = TRUE)
 ## read in old data
 data <- readRDS("./WB_data.rds")
 
-data <- merge(data, DGDP, by = c("country", "year", "iso2c"), all = TRUE)
+data <- merge(data, EDS, by = c("country", "year", "iso2c"), all = TRUE)
+data <- merge(data, FDINI, by = c("country", "year", "iso2c"), all = TRUE)
 
 
 ## write data------
