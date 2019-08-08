@@ -9,4 +9,4 @@ CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Portfolio investment, Net a
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Price Index")
 CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Exchange")
 
-CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Rating")
+CodeSearch(IFS.available.codes, "CL_INDICATOR_IFS", "Debt")
