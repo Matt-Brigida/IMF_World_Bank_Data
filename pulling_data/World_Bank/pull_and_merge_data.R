@@ -57,7 +57,6 @@ LPR <- WDI(country = "all", indicator = "SL.TLF.CACT.ZS", start = 1900, end = 20
 
 ## Ease of doing business (IC.BUS.EASE.XQ) | "Ease of doing business index (1=most business-friendly regulations)"
 EASE <- WDI(country = "all", indicator = "IC.BUS.EASE.XQ", start = 1900, end = 2019)
-
  
 ## Inflation, consumer prices (annual %)(FP.CPI.TOTL.ZG)
 
