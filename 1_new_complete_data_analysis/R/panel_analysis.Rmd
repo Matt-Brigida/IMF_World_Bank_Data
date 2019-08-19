@@ -8,7 +8,7 @@ library(readr)
 library(plm)
 library(dplyr)
 
-d <- read_csv("../analysis_data.csv")
+d <- read_csv("../merge_new_data/updated_analysis_data.csv")
 
 remove <- c("Country.y", "iso2c", "MS.MIL.XPND.CN")
 d <- d[, !(names(d) %in% remove)]
@@ -29,6 +29,7 @@ d <- d %>% ungroup()
 ```{r warning=FALSE, message=FALSE, error=FALSE}
 ### explanatory variables-----
 vars <- c(
+           "FP.CPI.TOTL.ZG", # Inflation, consumer prices (annual %)
            "BN.CAB.XOKA.GD.ZS", # Current Account Balance as % of GDP
 #          "IC.FRM.BNKS.ZS", # Firms using banks to finance investment (% of firms)
 #          "BX.KLT.DINV.WD.GD.ZS", # Foreign direct investment, net inflows (% of GDP) (Replace Foreign direct investment net)
@@ -66,6 +67,8 @@ for (topic in unique(d$Topic)){
 
 ## Within (Fixed-Effects) Models
 
+### Time, but no Individual Effects 
+
 ```{r}
 for (topic in unique(d$Topic)){
     tmp <- subset(d, Topic == topic)
@@ -80,4 +83,38 @@ for (topic in unique(d$Topic)){
 ## summary(plm(mentions_form, data = ed, model = "within", effect = "twoways"))
 ## summary(plm(mentions_form, data = ed, model = "within", effect = "individual"))
 ## summary(plm(mentions_form, data = ed, model = "within", effect = "time"))
+```
+
+### Both Time and Individual Effects
+
+```{r}
+
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country.x", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "twoways")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "twoways")))
+}
+
+
+```
+
+### Individual, but No Time Effects
+
+### Both Time and Individual Effects
+
+```{r}
+
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country.x", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "individual")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual")))
+}
+
+
 ```
