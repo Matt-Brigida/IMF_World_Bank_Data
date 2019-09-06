@@ -44,7 +44,9 @@ vars <- c(
 #          "NY.GDS.TOTL.ZS", # Gross domestic savings (% of GDP)
 #          "NE.IMP.GNFS.ZS", # Imports of goods and services (% of GDP)
            "SL.TLF.CACT.ZS", # Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)
-           "BCG_GALM_G01_XDC" # Central government debt, total (% of GDP)
+           "BCG_GALM_G01_XDC", # Central government debt, total (% of GDP)
+           "SI.POV.NAHC", # poverty
+           "IQ.CPA.SOCI.XQ" # social welfare
           )
 
 mentions_form <- as.formula(paste("sMentions_logit ~", paste(vars, collapse="+")))
@@ -80,7 +82,9 @@ for (topic in unique(d$Topic)){
     writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
     print(summary(plm(mentions_form, data = tmp, model = "within", effect = "time")))
     writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
-    print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "time")))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "time"))),
+             error = function(e) e)
 }
 ## estimate models
 ## summary(plm(mentions_form, data = ed, model = "between", effect = "individual"))
@@ -99,7 +103,9 @@ for (topic in unique(d$Topic)){
     writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
     print(summary(plm(mentions_form, data = tmp, model = "within", effect = "twoways")))
     writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
-    print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "twoways")))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "twoways"))),
+             error = function(e) e)
 }
 
 
@@ -117,7 +123,9 @@ for (topic in unique(d$Topic)){
     writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
     print(summary(plm(mentions_form, data = tmp, model = "within", effect = "individual")))
     writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
-    print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual")))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual"))),
+             error = function(e) e)
 }
 
 
