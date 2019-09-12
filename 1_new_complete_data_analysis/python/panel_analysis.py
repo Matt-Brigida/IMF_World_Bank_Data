@@ -48,3 +48,28 @@ fe_mod = PanelOLS(data_ed.sMentions, exog_ed, entity_effects=True, time_effects=
 # fe_res_ed = fe_mod.fit(cov_type='clustered', cluster_entity=True)
 fe_res_ed = fe_mod.fit()
 print(fe_res_ed)
+
+
+### Financial and Monetary------
+
+data_ed = data.query('Topic == "Financial/Monetary"')
+exog_ed = sm.add_constant(data_ed[exog_vars])
+
+
+## fixed effects-----
+fe_mod = PanelOLS(data_ed.sMentions, exog_ed, entity_effects=True, time_effects=True)
+# fe_res_ed = fe_mod.fit(cov_type='clustered', cluster_entity=True)
+fe_res_ed = fe_mod.fit()
+print(fe_res_ed)
+
+### Fiscal Policy------
+
+data_ed = data.query('Topic == "Fiscal Policy"')
+exog_ed = sm.add_constant(data_ed[exog_vars])
+
+
+## fixed effects-----
+fe_mod = PanelOLS(data_ed.sMentions, exog_ed, entity_effects=True, time_effects=True)
+# fe_res_ed = fe_mod.fit(cov_type='clustered', cluster_entity=True)
+fe_res_ed = fe_mod.fit()
+print(fe_res_ed)
