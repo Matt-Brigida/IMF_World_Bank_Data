@@ -8,7 +8,7 @@ library(readr)
 library(plm)
 library(dplyr)
 
-d <- read_csv("../../data_from_w_sept_20/LHS_WB_and_IMF_DGDP_Program Countries.csv")
+d <- read_csv("../../data_from_w_sept_20/data_with_inf_and_unemp.csv")
 
 remove <- c("Country.y", "iso2c", "MS.MIL.XPND.CN")
 d <- d[, !(names(d) %in% remove)]
@@ -37,7 +37,7 @@ write_csv(d, "./prepped_data.csv")
 ### explanatory variables-----
 vars <- c(
            "Program_Country",
-#           "FP.CPI.TOTL.ZG", # Inflation, consumer prices (annual %)
+           "FP.CPI.TOTL.ZG", # Inflation, consumer prices (annual %)
            "BN.CAB.XOKA.GD.ZS", # Current Account Balance as % of GDP
 #          "IC.FRM.BNKS.ZS", # Firms using banks to finance investment (% of firms)
 #          "BX.KLT.DINV.WD.GD.ZS", # Foreign direct investment, net inflows (% of GDP) (Replace Foreign direct investment net)
@@ -97,6 +97,24 @@ for (topic in unique(d$Topic)){
 ## summary(plm(mentions_form, data = ed, model = "within", effect = "time"))
 ```
 
+### Individual, but No Time Effects
+
+```{r}
+
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country.x", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "individual")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual"))),
+             error = function(e) e)
+}
+
+
+```
+
 ### Both Time and Individual Effects
 
 ```{r}
@@ -115,22 +133,3 @@ for (topic in unique(d$Topic)){
 
 ```
 
-### Individual, but No Time Effects
-
-### Both Time and Individual Effects
-
-```{r}
-
-for (topic in unique(d$Topic)){
-    tmp <- subset(d, Topic == topic)
-    tmp <- pdata.frame(tmp, index = c("Country.x", "Year"), drop.index=TRUE, row.names=TRUE)
-    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
-    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "individual")))
-    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
-    e <- simpleError("NA data error")
-    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual"))),
-             error = function(e) e)
-}
-
-
-```

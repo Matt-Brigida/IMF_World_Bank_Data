@@ -381,7 +381,7 @@ $(document).ready(function () {
 library(plm)
 library(dplyr)
 
-d &lt;- read_csv(&quot;../../data_from_w_sept_20/LHS_WB_and_IMF_DGDP_Program Countries.csv&quot;)
+d &lt;- read_csv(&quot;../../data_from_w_sept_20/data_with_inf_and_unemp.csv&quot;)
 
 remove &lt;- c(&quot;Country.y&quot;, &quot;iso2c&quot;, &quot;MS.MIL.XPND.CN&quot;)
 d &lt;- d[, !(names(d) %in% remove)]
@@ -405,7 +405,7 @@ write_csv(d, &quot;./prepped_data.csv&quot;)</code></pre>
 <pre class="r"><code>### explanatory variables-----
 vars &lt;- c(
            &quot;Program_Country&quot;,
-#           &quot;FP.CPI.TOTL.ZG&quot;, # Inflation, consumer prices (annual %)
+           &quot;FP.CPI.TOTL.ZG&quot;, # Inflation, consumer prices (annual %)
            &quot;BN.CAB.XOKA.GD.ZS&quot;, # Current Account Balance as % of GDP
 #          &quot;IC.FRM.BNKS.ZS&quot;, # Firms using banks to finance investment (% of firms)
 #          &quot;BX.KLT.DINV.WD.GD.ZS&quot;, # Foreign direct investment, net inflows (% of GDP) (Replace Foreign direct investment net)
@@ -440,226 +440,6 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
              error = function(e) e)
 }</code></pre>
 <pre><code>## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## Observations used in estimation: 144
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.425880 -0.108342 -0.014751  0.082549  0.595516 
-## 
-## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -2.03632065  0.10139079 -20.0839  &lt; 2e-16 ***
-## Program_Country    0.15657391  0.06273761   2.4957  0.01375 *  
-## BN.CAB.XOKA.GD.ZS -0.00210266  0.00183478  -1.1460  0.25378    
-## NY.GDP.MKTP.KD.ZG -0.00494475  0.00803097  -0.6157  0.53910    
-## SL.TLF.CACT.ZS     0.00237187  0.00149235   1.5894  0.11427    
-## BCG_GALM_G01_XDC  -0.00053532  0.00048711  -1.0990  0.27370    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    4.6511
-## Residual Sum of Squares: 4.2249
-## R-Squared:      0.091636
-## Adj. R-Squared: 0.058724
-## F-statistic: 2.78428 on 5 and 138 DF, p-value: 0.019861
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## Observations used in estimation: 144
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.7026221 -0.1261228 -0.0084183  0.1777752  0.4982405 
-## 
-## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -1.33812389  0.12991049 -10.3004  &lt; 2e-16 ***
-## Program_Country   -0.13889796  0.08038476  -1.7279  0.08624 .  
-## BN.CAB.XOKA.GD.ZS  0.00606495  0.00235088   2.5799  0.01093 *  
-## NY.GDP.MKTP.KD.ZG -0.01016138  0.01028996  -0.9875  0.32512    
-## SL.TLF.CACT.ZS     0.00150562  0.00191213   0.7874  0.43239    
-## BCG_GALM_G01_XDC  -0.00017146  0.00062413  -0.2747  0.78394    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    7.8565
-## Residual Sum of Squares: 6.9359
-## R-Squared:      0.11717
-## Adj. R-Squared: 0.085185
-## F-statistic: 3.66314 on 5 and 138 DF, p-value: 0.003829
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1261
-## Observations used in estimation: 145
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.814281 -0.234738 -0.016409  0.255675  0.800271 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## (Intercept)       -1.56891879  0.19801361 -7.9233 6.719e-13 ***
-## Program_Country   -0.01478733  0.12298866 -0.1202  0.904472    
-## BN.CAB.XOKA.GD.ZS  0.01134670  0.00365981  3.1004  0.002341 ** 
-## NY.GDP.MKTP.KD.ZG  0.01231927  0.01548576  0.7955  0.427666    
-## SL.TLF.CACT.ZS     0.00400051  0.00290561  1.3768  0.170779    
-## BCG_GALM_G01_XDC   0.00089584  0.00095494  0.9381  0.349816    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    17.755
-## Residual Sum of Squares: 16.302
-## R-Squared:      0.081792
-## Adj. R-Squared: 0.048763
-## F-statistic: 2.47636 on 5 and 139 DF, p-value: 0.034958
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1251
-## Observations used in estimation: 144
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.6296438 -0.5014920 -0.0080161  0.3865498  1.3329630 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## (Intercept)       -2.29167718  0.34872609 -6.5716 9.426e-10 ***
-## Program_Country   -0.28602444  0.21567551 -1.3262   0.18697    
-## BN.CAB.XOKA.GD.ZS  0.00894145  0.00631766  1.4153   0.15923    
-## NY.GDP.MKTP.KD.ZG -0.12543956  0.02742454 -4.5740 1.055e-05 ***
-## SL.TLF.CACT.ZS    -0.01314883  0.00513310 -2.5616   0.01149 *  
-## BCG_GALM_G01_XDC   0.00098149  0.00167472  0.5861   0.55879    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    69.62
-## Residual Sum of Squares: 49.961
-## R-Squared:      0.28237
-## Adj. R-Squared: 0.25637
-## F-statistic: 10.8601 on 5 and 138 DF, p-value: 7.9986e-09
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 135, T = 1-16, N = 662
-## Observations used in estimation: 135
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.015023 -0.340577  0.018749  0.290619  1.245674 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## (Intercept)       -2.07985945  0.27956200 -7.4397 1.256e-11 ***
-## Program_Country   -0.24674582  0.13880424 -1.7777   0.07782 .  
-## BN.CAB.XOKA.GD.ZS  0.00629862  0.00523476  1.2032   0.23109    
-## NY.GDP.MKTP.KD.ZG -0.04535824  0.02003750 -2.2637   0.02526 *  
-## SL.TLF.CACT.ZS    -0.00515372  0.00414446 -1.2435   0.21593    
-## BCG_GALM_G01_XDC  -0.00076212  0.00118241 -0.6445   0.52037    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    32.23
-## Residual Sum of Squares: 28.159
-## R-Squared:      0.12632
-## Adj. R-Squared: 0.092457
-## F-statistic: 3.73028 on 5 and 129 DF, p-value: 0.0034627
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1253
-## Observations used in estimation: 144
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.957981 -0.177208  0.026261  0.163761  0.728718 
-## 
-## Coefficients:
-##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
-## (Intercept)       -3.03296586  0.15214288 -19.9350 &lt; 2.2e-16 ***
-## Program_Country    0.44149321  0.09432824   4.6804 6.762e-06 ***
-## BN.CAB.XOKA.GD.ZS  0.00159645  0.00275270   0.5800    0.5629    
-## NY.GDP.MKTP.KD.ZG  0.00385603  0.01204106   0.3202    0.7493    
-## SL.TLF.CACT.ZS    -0.00249102  0.00223935  -1.1124    0.2679    
-## BCG_GALM_G01_XDC  -0.00018723  0.00073082  -0.2562    0.7982    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    11.406
-## Residual Sum of Squares: 9.5055
-## R-Squared:      0.1666
-## Adj. R-Squared: 0.1364
-## F-statistic: 5.51719 on 5 and 138 DF, p-value: 0.00011575
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 143, T = 1-16, N = 1009
-## Observations used in estimation: 143
-## 
-## Residuals:
-##        Min.     1st Qu.      Median     3rd Qu.        Max. 
-## -0.94922824 -0.19478086  0.00073866  0.22233990  0.65187790 
-## 
-## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -1.9614e+00  1.7365e-01 -11.2952  &lt; 2e-16 ***
-## Program_Country    3.3505e-01  1.1024e-01   3.0394  0.00284 ** 
-## BN.CAB.XOKA.GD.ZS -2.9453e-05  3.2635e-03  -0.0090  0.99281    
-## NY.GDP.MKTP.KD.ZG -2.2072e-02  1.3206e-02  -1.6713  0.09694 .  
-## SL.TLF.CACT.ZS    -3.7190e-03  2.5762e-03  -1.4436  0.15114    
-## BCG_GALM_G01_XDC  -1.3510e-03  8.2288e-04  -1.6418  0.10293    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    13.713
-## Residual Sum of Squares: 12.593
-## R-Squared:      0.081721
-## Adj. R-Squared: 0.048207
-## F-statistic: 2.43843 on 5 and 137 DF, p-value: 0.037541
-## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (individual) effect Between Model
@@ -667,29 +447,30 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## Observations used in estimation: 144
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## Observations used in estimation: 138
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.750964 -0.193608  0.007127  0.178222  1.048943 
+## -0.699444 -0.180840  0.001271  0.164169  0.612792 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
-## (Intercept)       -2.26715044  0.16436325 -13.7935 &lt; 2.2e-16 ***
-## Program_Country    0.01601203  0.10170311   0.1574  0.875129    
-## BN.CAB.XOKA.GD.ZS -0.02164315  0.00297434  -7.2766 2.346e-11 ***
-## NY.GDP.MKTP.KD.ZG  0.03765091  0.01301889   2.8920  0.004449 ** 
-## SL.TLF.CACT.ZS     0.00336345  0.00241923   1.3903  0.166677    
-## BCG_GALM_G01_XDC   0.00118895  0.00078965   1.5057  0.134435    
+## (Intercept)       -2.37118710  0.15836657 -14.9728 &lt; 2.2e-16 ***
+## Program_Country    0.00987861  0.09551051   0.1034 0.9177802    
+## FP.CPI.TOTL.ZG     0.00024330  0.00497985   0.0489 0.9611080    
+## BN.CAB.XOKA.GD.ZS -0.02462365  0.00300608  -8.1913 2.028e-13 ***
+## NY.GDP.MKTP.KD.ZG  0.04581125  0.01236057   3.7062 0.0003093 ***
+## SL.TLF.CACT.ZS     0.00430448  0.00235268   1.8296 0.0695823 .  
+## BCG_GALM_G01_XDC   0.00104606  0.00083014   1.2601 0.2098694    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    18.39
-## Residual Sum of Squares: 11.103
-## R-Squared:      0.39628
-## Adj. R-Squared: 0.37441
-## F-statistic: 18.1167 on 5 and 138 DF, p-value: 8.6101e-14
+## Total Sum of Squares:    18.355
+## Residual Sum of Squares: 9.5031
+## R-Squared:      0.48226
+## Adj. R-Squared: 0.45854
+## F-statistic: 20.3368 on 6 and 131 DF, p-value: &lt; 2.22e-16
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -698,153 +479,94 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 141, T = 1-16, N = 1041
-## Observations used in estimation: 141
+## Unbalanced Panel: n = 136, T = 1-16, N = 991
+## Observations used in estimation: 136
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.8087394 -0.1938792 -0.0066926  0.1864284  0.9956963 
-## 
-## Coefficients:
-##                     Estimate Std. Error  t-value  Pr(&gt;|t|)    
-## (Intercept)       -2.7579639  0.1759777 -15.6722 &lt; 2.2e-16 ***
-## Program_Country   -0.0694301  0.1153493  -0.6019  0.548242    
-## BN.CAB.XOKA.GD.ZS -0.0149987  0.0033915  -4.4224 1.991e-05 ***
-## NY.GDP.MKTP.KD.ZG  0.0199037  0.0128159   1.5530  0.122753    
-## SL.TLF.CACT.ZS     0.0074453  0.0026055   2.8575  0.004947 ** 
-## BCG_GALM_G01_XDC   0.0010540  0.0008486   1.2421  0.216359    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    16.49
-## Residual Sum of Squares: 12.76
-## R-Squared:      0.22622
-## Adj. R-Squared: 0.19756
-## F-statistic: 7.89344 on 5 and 135 DF, p-value: 1.5066e-06
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1249
-## Observations used in estimation: 144
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.323806 -0.260848  0.050162  0.250557  0.787819 
+## -0.8267304 -0.1943187  0.0049891  0.1804500  0.9834114 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
-## (Intercept)       -3.54742551  0.23705565 -14.9645 &lt; 2.2e-16 ***
-## Program_Country   -0.22112215  0.14682649  -1.5060  0.134350    
-## BN.CAB.XOKA.GD.ZS  0.01436757  0.00428841   3.3503  0.001041 ** 
-## NY.GDP.MKTP.KD.ZG  0.02913821  0.01876703   1.5526  0.122802    
-## SL.TLF.CACT.ZS    -0.00522162  0.00348877  -1.4967  0.136756    
-## BCG_GALM_G01_XDC  -0.00081659  0.00113899  -0.7169  0.474622    
+## (Intercept)       -2.80535452  0.17766049 -15.7905 &lt; 2.2e-16 ***
+## Program_Country   -0.02855326  0.11452621  -0.2493   0.80351    
+## FP.CPI.TOTL.ZG    -0.00193652  0.00626052  -0.3093   0.75758    
+## BN.CAB.XOKA.GD.ZS -0.01581250  0.00346787  -4.5597 1.176e-05 ***
+## NY.GDP.MKTP.KD.ZG  0.02887970  0.01309329   2.2057   0.02918 *  
+## SL.TLF.CACT.ZS     0.00783290  0.00264124   2.9656   0.00360 ** 
+## BCG_GALM_G01_XDC   0.00078068  0.00092379   0.8451   0.39963    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    27.24
-## Residual Sum of Squares: 23.089
-## R-Squared:      0.1524
-## Adj. R-Squared: 0.12169
-## F-statistic: 4.96262 on 5 and 138 DF, p-value: 0.00032851
+## Total Sum of Squares:    16.245
+## Residual Sum of Squares: 11.937
+## R-Squared:      0.2652
+## Adj. R-Squared: 0.23103
+## F-statistic: 7.7598 on 6 and 129 DF, p-value: 3.8873e-07
 ## 
-## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Between Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
-## 
-## Unbalanced Panel: n = 125, T = 1-8, N = 382
-## Observations used in estimation: 125
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.766439 -0.236904 -0.037326  0.208027  1.286371 
-## 
-## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -3.13042916  0.22140637 -14.1388   &lt;2e-16 ***
-## Program_Country   -0.03007774  0.11204330  -0.2684   0.7888    
-## BN.CAB.XOKA.GD.ZS  0.00033418  0.00351145   0.0952   0.9243    
-## NY.GDP.MKTP.KD.ZG  0.00293974  0.01152701   0.2550   0.7991    
-## SL.TLF.CACT.ZS     0.00425022  0.00331518   1.2820   0.2023    
-## BCG_GALM_G01_XDC  -0.00065447  0.00123119  -0.5316   0.5960    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    16.432
-## Residual Sum of Squares: 16.103
-## R-Squared:      0.019993
-## Adj. R-Squared: -0.021184
-## F-statistic: 0.485539 on 5 and 119 DF, p-value: 0.7865
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (individual) effect Between Model
 ## 
 ## Call:
 ## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## Observations used in estimation: 144
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## Observations used in estimation: 138
 ## 
 ## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.508690 -0.147158  0.035169  0.158062  0.372046 
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.5570719 -0.1182378  0.0059931  0.1638049  0.4819585 
 ## 
 ## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -1.4803e+00  1.1764e-01 -12.5837  &lt; 2e-16 ***
-## Program_Country   -1.5250e-01  7.3003e-02  -2.0890  0.03855 *  
-## BN.CAB.XOKA.GD.ZS  2.6267e-03  2.1354e-03   1.2300  0.22077    
-## NY.GDP.MKTP.KD.ZG  2.3656e-02  9.3082e-03   2.5415  0.01214 *  
-## SL.TLF.CACT.ZS    -6.9129e-04  1.7328e-03  -0.3990  0.69054    
-## BCG_GALM_G01_XDC   5.0392e-05  5.6452e-04   0.0893  0.92900    
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.2696e+00  1.2757e-01 -9.9522 &lt; 2.2e-16 ***
+## Program_Country   -1.3106e-01  7.6940e-02 -1.7034 0.0908680 .  
+## FP.CPI.TOTL.ZG    -3.8166e-03  4.0116e-03 -0.9514 0.3431627    
+## BN.CAB.XOKA.GD.ZS  8.3936e-03  2.4216e-03  3.4661 0.0007145 ***
+## NY.GDP.MKTP.KD.ZG -1.1791e-02  9.9573e-03 -1.1841 0.2385000    
+## SL.TLF.CACT.ZS     9.1594e-04  1.8952e-03  0.4833 0.6296983    
+## BCG_GALM_G01_XDC  -4.8579e-05  6.6873e-04 -0.0726 0.9422008    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    6.1717
-## Residual Sum of Squares: 5.6972
-## R-Squared:      0.076885
-## Adj. R-Squared: 0.043439
-## F-statistic: 2.29878 on 5 and 138 DF, p-value: 0.048318
+## Total Sum of Squares:    7.5747
+## Residual Sum of Squares: 6.1669
+## R-Squared:      0.18585
+## Adj. R-Squared: 0.14856
+## F-statistic: 4.98412 on 6 and 131 DF, p-value: 0.00012516
 ## 
-## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (individual) effect Between Model
 ## 
 ## Call:
 ## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1203
-## Observations used in estimation: 145
+## Unbalanced Panel: n = 139, T = 1-17, N = 1205
+## Observations used in estimation: 139
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.336434 -0.250782  0.027808  0.267216  1.067338 
+## -0.788889 -0.257727 -0.020634  0.246121  0.889853 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## (Intercept)       -1.85999129  0.21636742 -8.5964 1.532e-14 ***
-## Program_Country   -0.08970394  0.13213782 -0.6789   0.49835    
-## BN.CAB.XOKA.GD.ZS  0.00274409  0.00389838  0.7039   0.48267    
-## NY.GDP.MKTP.KD.ZG  0.03280601  0.01650713  1.9874   0.04885 *  
-## SL.TLF.CACT.ZS     0.00105669  0.00317622  0.3327   0.73987    
-## BCG_GALM_G01_XDC  -0.00014341  0.00102164 -0.1404   0.88857    
+## (Intercept)       -1.52791776  0.20591180 -7.4203 1.277e-11 ***
+## Program_Country   -0.00523862  0.12516728 -0.0419  0.966679    
+## FP.CPI.TOTL.ZG     0.01042947  0.00657902  1.5853  0.115300    
+## BN.CAB.XOKA.GD.ZS  0.01210070  0.00394205  3.0696  0.002602 ** 
+## NY.GDP.MKTP.KD.ZG  0.00023083  0.01586539  0.0145  0.988414    
+## SL.TLF.CACT.ZS     0.00343015  0.00304760  1.1255  0.262409    
+## BCG_GALM_G01_XDC   0.00073599  0.00106679  0.6899  0.491465    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    20.18
-## Residual Sum of Squares: 19.414
-## R-Squared:      0.037945
-## Adj. R-Squared: 0.0033389
-## F-statistic: 1.09648 on 5 and 139 DF, p-value: 0.36516
+## Total Sum of Squares:    17.905
+## Residual Sum of Squares: 16.236
+## R-Squared:      0.093263
+## Adj. R-Squared: 0.052047
+## F-statistic: 2.26282 on 6 and 132 DF, p-value: 0.041225
 ## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -853,29 +575,30 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## Observations used in estimation: 144
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## Observations used in estimation: 138
 ## 
 ## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.4710036 -0.1107390  0.0098564  0.1130786  0.4625887 
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -0.464091 -0.119512  0.023863  0.111612  0.471548 
 ## 
 ## Coefficients:
-##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
-## (Intercept)       -1.2571e+00  1.0140e-01 -12.3978  &lt; 2e-16 ***
-## Program_Country    1.7564e-01  6.2526e-02   2.8091  0.00569 ** 
-## BN.CAB.XOKA.GD.ZS  2.7422e-03  1.8353e-03   1.4941  0.13743    
-## NY.GDP.MKTP.KD.ZG -6.7479e-03  8.0401e-03  -0.8393  0.40276    
-## SL.TLF.CACT.ZS    -1.9519e-03  1.4926e-03  -1.3077  0.19314    
-## BCG_GALM_G01_XDC  -7.8005e-05  4.8730e-04  -0.1601  0.87305    
+##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.29312613  0.10211586 -12.6633 &lt; 2.2e-16 ***
+## Program_Country    0.17813994  0.06136593   2.9029  0.004339 ** 
+## FP.CPI.TOTL.ZG    -0.00091765  0.00321231  -0.2857  0.775584    
+## BN.CAB.XOKA.GD.ZS  0.00111106  0.00193857   0.5731  0.567536    
+## NY.GDP.MKTP.KD.ZG -0.00397271  0.00797728  -0.4980  0.619317    
+## SL.TLF.CACT.ZS    -0.00143289  0.00151712  -0.9445  0.346662    
+## BCG_GALM_G01_XDC  -0.00027962  0.00053543  -0.5222  0.602393    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    4.5305
-## Residual Sum of Squares: 4.2298
-## R-Squared:      0.06638
-## Adj. R-Squared: 0.032553
-## F-statistic: 1.96234 on 5 and 138 DF, p-value: 0.08803
+## Total Sum of Squares:    4.2233
+## Residual Sum of Squares: 3.9544
+## R-Squared:      0.063671
+## Adj. R-Squared: 0.020786
+## F-statistic: 1.48468 on 6 and 131 DF, p-value: 0.18822
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -884,29 +607,321 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1281
-## Observations used in estimation: 145
+## Unbalanced Panel: n = 139, T = 1-17, N = 1224
+## Observations used in estimation: 139
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.1461516 -0.2389235  0.0016307  0.2238627  1.8129016 
+## -1.0861289 -0.2517792  0.0087249  0.2258333  1.6966191 
 ## 
 ## Coefficients:
 ##                     Estimate Std. Error t-value Pr(&gt;|t|)   
-## (Intercept)       -0.6476831  0.2127864 -3.0438 0.002794 **
-## Program_Country   -0.1898658  0.1312068 -1.4471 0.150128   
-## BN.CAB.XOKA.GD.ZS -0.0060924  0.0038866 -1.5676 0.119259   
-## NY.GDP.MKTP.KD.ZG -0.0281774  0.0164740 -1.7104 0.089420 . 
-## SL.TLF.CACT.ZS    -0.0019451  0.0031228 -0.6229 0.534391   
-## BCG_GALM_G01_XDC  -0.0012612  0.0010136 -1.2443 0.215501   
+## (Intercept)       -0.6619279  0.2161896 -3.0618 0.002667 **
+## Program_Country   -0.1949947  0.1301332 -1.4984 0.136411   
+## FP.CPI.TOTL.ZG    -0.0158105  0.0068705 -2.3012 0.022947 * 
+## BN.CAB.XOKA.GD.ZS -0.0089898  0.0041396 -2.1717 0.031667 * 
+## NY.GDP.MKTP.KD.ZG -0.0124756  0.0165667 -0.7531 0.452760   
+## SL.TLF.CACT.ZS    -0.0012304  0.0031985 -0.3847 0.701102   
+## BCG_GALM_G01_XDC  -0.0017647  0.0011235 -1.5708 0.118622   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    20.294
-## Residual Sum of Squares: 18.854
-## R-Squared:      0.070959
-## Adj. R-Squared: 0.03754
-## F-statistic: 2.12333 on 5 and 139 DF, p-value: 0.066155</code></pre>
+## Total Sum of Squares:    20.152
+## Residual Sum of Squares: 17.934
+## R-Squared:      0.11006
+## Adj. R-Squared: 0.06961
+## F-statistic: 2.7208 on 6 and 132 DF, p-value: 0.015937
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1195
+## Observations used in estimation: 138
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -0.94698 -0.17123  0.01572  0.15721  0.73561 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
+## (Intercept)       -3.04680748  0.15649598 -19.4689 &lt; 2.2e-16 ***
+## Program_Country    0.39435679  0.09458682   4.1693  5.52e-05 ***
+## FP.CPI.TOTL.ZG     0.00535376  0.00491901   1.0884    0.2784    
+## BN.CAB.XOKA.GD.ZS  0.00221221  0.00297038   0.7448    0.4578    
+## NY.GDP.MKTP.KD.ZG  0.00183633  0.01220861   0.1504    0.8807    
+## SL.TLF.CACT.ZS    -0.00251510  0.00232502  -1.0818    0.2813    
+## BCG_GALM_G01_XDC  -0.00012291  0.00082028  -0.1498    0.8811    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    10.97
+## Residual Sum of Squares: 9.2746
+## R-Squared:      0.15457
+## Adj. R-Squared: 0.11585
+## F-statistic: 3.99171 on 6 and 131 DF, p-value: 0.001057
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 137, T = 1-16, N = 967
+## Observations used in estimation: 137
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.9587875 -0.1895718  0.0059227  0.2288017  0.6715530 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
+## (Intercept)       -1.88832708  0.17407176 -10.8480  &lt; 2e-16 ***
+## Program_Country    0.27657256  0.10867793   2.5449  0.01210 *  
+## FP.CPI.TOTL.ZG    -0.00002366  0.00459745  -0.0051  0.99590    
+## BN.CAB.XOKA.GD.ZS  0.00247401  0.00339961   0.7277  0.46809    
+## NY.GDP.MKTP.KD.ZG -0.01934431  0.01292775  -1.4963  0.13699    
+## SL.TLF.CACT.ZS    -0.00494531  0.00262559  -1.8835  0.06187 .  
+## BCG_GALM_G01_XDC  -0.00115237  0.00088743  -1.2985  0.19640    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    12.775
+## Residual Sum of Squares: 11.745
+## R-Squared:      0.080641
+## Adj. R-Squared: 0.038209
+## F-statistic: 1.90047 on 6 and 130 DF, p-value: 0.085445
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1194
+## Observations used in estimation: 138
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.699739 -0.453779 -0.011372  0.390401  1.253874 
+## 
+## Coefficients:
+##                     Estimate Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)       -2.3083206  0.3471897 -6.6486  7.27e-10 ***
+## Program_Country   -0.2861683  0.2090806 -1.3687 0.1734361    
+## FP.CPI.TOTL.ZG    -0.0289682  0.0109139 -2.6543 0.0089332 ** 
+## BN.CAB.XOKA.GD.ZS  0.0085969  0.0065962  1.3033 0.1947551    
+## NY.GDP.MKTP.KD.ZG -0.0984841  0.0269633 -3.6525 0.0003743 ***
+## SL.TLF.CACT.ZS    -0.0124423  0.0051578 -2.4123 0.0172374 *  
+## BCG_GALM_G01_XDC   0.0018455  0.0018184  1.0149 0.3120169    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    66.569
+## Residual Sum of Squares: 45.663
+## R-Squared:      0.31406
+## Adj. R-Squared: 0.28264
+## F-statistic: 9.99646 on 6 and 131 DF, p-value: 4.4706e-09
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 129, T = 1-16, N = 635
+## Observations used in estimation: 129
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.076228 -0.348131 -0.025274  0.302986  1.217460 
+## 
+## Coefficients:
+##                     Estimate Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.9455297  0.2857427 -6.8087 3.952e-10 ***
+## Program_Country   -0.2774451  0.1426736 -1.9446  0.054123 .  
+## FP.CPI.TOTL.ZG    -0.0245206  0.0088647 -2.7661  0.006556 ** 
+## BN.CAB.XOKA.GD.ZS  0.0017277  0.0055019  0.3140  0.754043    
+## NY.GDP.MKTP.KD.ZG -0.0320354  0.0208668 -1.5352  0.127315    
+## SL.TLF.CACT.ZS    -0.0055777  0.0042432 -1.3145  0.191144    
+## BCG_GALM_G01_XDC  -0.0013338  0.0012506 -1.0665  0.288297    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    31.931
+## Residual Sum of Squares: 26.661
+## R-Squared:      0.16505
+## Adj. R-Squared: 0.12398
+## F-statistic: 4.01929 on 6 and 122 DF, p-value: 0.001042
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1192
+## Observations used in estimation: 138
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.260385 -0.239860  0.034797  0.250590  0.836537 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
+## (Intercept)       -3.50085895  0.22499599 -15.5597 &lt; 2.2e-16 ***
+## Program_Country   -0.18822003  0.13566248  -1.3874   0.16767    
+## FP.CPI.TOTL.ZG     0.01715078  0.00707459   2.4243   0.01670 *  
+## BN.CAB.XOKA.GD.ZS  0.01839204  0.00426823   4.3091 3.193e-05 ***
+## NY.GDP.MKTP.KD.ZG  0.01816902  0.01757540   1.0338   0.30315    
+## SL.TLF.CACT.ZS    -0.00650586  0.00334244  -1.9464   0.05374 .  
+## BCG_GALM_G01_XDC  -0.00056386  0.00117912  -0.4782   0.63330    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    24.666
+## Residual Sum of Squares: 19.181
+## R-Squared:      0.22237
+## Adj. R-Squared: 0.18675
+## F-statistic: 6.24326 on 6 and 131 DF, p-value: 8.6417e-06
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 119, T = 1-8, N = 369
+## Observations used in estimation: 119
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -0.817697 -0.241109 -0.059854  0.203047  1.226489 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value Pr(&gt;|t|)    
+## (Intercept)       -3.13935746  0.23089649 -13.5964  &lt; 2e-16 ***
+## Program_Country   -0.01050837  0.11833627  -0.0888  0.92940    
+## FP.CPI.TOTL.ZG    -0.01159651  0.00622204  -1.8638  0.06497 .  
+## BN.CAB.XOKA.GD.ZS  0.00043806  0.00364411   0.1202  0.90453    
+## NY.GDP.MKTP.KD.ZG  0.00146195  0.01375114   0.1063  0.91552    
+## SL.TLF.CACT.ZS     0.00520111  0.00349310   1.4890  0.13931    
+## BCG_GALM_G01_XDC  -0.00036977  0.00129969  -0.2845  0.77655    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    16.249
+## Residual Sum of Squares: 15.35
+## R-Squared:      0.055349
+## Adj. R-Squared: 0.0047424
+## F-statistic: 1.09371 on 6 and 112 DF, p-value: 0.3706
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## Observations used in estimation: 138
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.4347438 -0.1125212 -0.0094226  0.0834614  0.5701546 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.99448163  0.10263133 -19.4335 &lt; 2.2e-16 ***
+## Program_Country    0.18207843  0.06189672   2.9416  0.003862 ** 
+## FP.CPI.TOTL.ZG    -0.00821554  0.00322725  -2.5457  0.012065 *  
+## BN.CAB.XOKA.GD.ZS -0.00333845  0.00194813  -1.7137  0.088954 .  
+## NY.GDP.MKTP.KD.ZG -0.00258930  0.00801041  -0.3232  0.747027    
+## SL.TLF.CACT.ZS     0.00225769  0.00152468   1.4808  0.141071    
+## BCG_GALM_G01_XDC  -0.00078593  0.00053798  -1.4609  0.146437    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    4.6635
+## Residual Sum of Squares: 3.9911
+## R-Squared:      0.14417
+## Adj. R-Squared: 0.10498
+## F-statistic: 3.67809 on 6 and 131 DF, p-value: 0.0020759
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## Observations used in estimation: 138
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.4460559 -0.1270165  0.0094762  0.1544693  0.4055823 
+## 
+## Coefficients:
+##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.44696891  0.11444726 -12.6431 &lt; 2.2e-16 ***
+## Program_Country   -0.15823984  0.06954076  -2.2755   0.02450 *  
+## FP.CPI.TOTL.ZG     0.01700480  0.00359895   4.7249 5.849e-06 ***
+## BN.CAB.XOKA.GD.ZS  0.00383757  0.00217624   1.7634   0.08017 .  
+## NY.GDP.MKTP.KD.ZG  0.00769164  0.00892715   0.8616   0.39048    
+## SL.TLF.CACT.ZS    -0.00143163  0.00170059  -0.8418   0.40141    
+## BCG_GALM_G01_XDC  -0.00013271  0.00059971  -0.2213   0.82522    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    6.2181
+## Residual Sum of Squares: 4.9646
+## R-Squared:      0.20159
+## Adj. R-Squared: 0.16503
+## F-statistic: 5.51285 on 6 and 131 DF, p-value: 4.0481e-05
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Between Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, model = &quot;between&quot;)
+## 
+## Unbalanced Panel: n = 139, T = 1-17, N = 1148
+## Observations used in estimation: 139
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.202429 -0.263667  0.031127  0.246646  1.041477 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## (Intercept)       -1.8948e+00  2.1088e-01 -8.9850 2.329e-15 ***
+## Program_Country   -1.3948e-01  1.2717e-01 -1.0968    0.2747    
+## FP.CPI.TOTL.ZG     2.6282e-02  6.4823e-03  4.0543 8.544e-05 ***
+## BN.CAB.XOKA.GD.ZS  3.0576e-03  3.9818e-03  0.7679    0.4439    
+## NY.GDP.MKTP.KD.ZG  1.4707e-02  1.5872e-02  0.9266    0.3558    
+## SL.TLF.CACT.ZS     5.4281e-04  3.1210e-03  0.1739    0.8622    
+## BCG_GALM_G01_XDC   2.8029e-05  1.0901e-03  0.0257    0.9795    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    19.7
+## Residual Sum of Squares: 17.024
+## R-Squared:      0.13584
+## Adj. R-Squared: 0.096556
+## F-statistic: 3.45814 on 6 and 132 DF, p-value: 0.003318</code></pre>
 </div>
 <div id="within-fixed-effects-models" class="section level2">
 <h2>Within (Fixed-Effects) Models</h2>
@@ -923,215 +938,6 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
              error = function(e) e)
 }</code></pre>
 <pre><code>## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.495570 -0.123657  0.011842  0.156225  0.889551 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    0.03462440  0.02490642  1.3902 0.164726   
-## BN.CAB.XOKA.GD.ZS -0.00200042  0.00079482 -2.5168 0.011968 * 
-## NY.GDP.MKTP.KD.ZG  0.00069566  0.00241132  0.2885 0.773013   
-## SL.TLF.CACT.ZS     0.00272398  0.00087107  3.1272 0.001806 **
-## BCG_GALM_G01_XDC  -0.00022092  0.00021799 -1.0135 0.311034   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    105.95
-## Residual Sum of Squares: 104.11
-## R-Squared:      0.017389
-## Adj. R-Squared: -0.00097038
-## F-statistic: 4.35686 on 5 and 1231 DF, p-value: 0.00061821
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.9940755 -0.1797418  0.0056103  0.1897912  1.0506273 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.06407348  0.02607964 -2.4568  0.014154 *  
-## BN.CAB.XOKA.GD.ZS  0.00587307  0.00083226  7.0568 2.838e-12 ***
-## NY.GDP.MKTP.KD.ZG -0.00772980  0.00252491 -3.0614  0.002251 ** 
-## SL.TLF.CACT.ZS     0.00124644  0.00091210  1.3666  0.172010    
-## BCG_GALM_G01_XDC   0.00009343  0.00022825  0.4093  0.682374    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    121.41
-## Residual Sum of Squares: 114.15
-## R-Squared:      0.059794
-## Adj. R-Squared: 0.042227
-## F-statistic: 15.6574 on 5 and 1231 DF, p-value: 5.7796e-15
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1261
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.456840 -0.415700  0.043635  0.471621  2.280287 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country   -1.1859e-01  6.0645e-02 -1.9555 0.050744 . 
-## BN.CAB.XOKA.GD.ZS  4.8784e-03  1.9554e-03  2.4948 0.012731 * 
-## NY.GDP.MKTP.KD.ZG  1.0510e-02  5.9157e-03  1.7767 0.075864 . 
-## SL.TLF.CACT.ZS     5.8003e-03  2.1267e-03  2.7274 0.006474 **
-## BCG_GALM_G01_XDC  -3.1844e-05  5.3421e-04 -0.0596 0.952476   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    630.29
-## Residual Sum of Squares: 619.23
-## R-Squared:      0.017541
-## Adj. R-Squared: -0.00072643
-## F-statistic: 4.41707 on 5 and 1237 DF, p-value: 0.00054296
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1251
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -2.82469 -0.51964  0.02291  0.53853  2.10590 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.25468866  0.06942810 -3.6684 0.0002546 ***
-## BN.CAB.XOKA.GD.ZS  0.00777619  0.00222079  3.5015 0.0004792 ***
-## NY.GDP.MKTP.KD.ZG -0.04892047  0.00671534 -7.2849 5.743e-13 ***
-## SL.TLF.CACT.ZS    -0.01732204  0.00242747 -7.1358 1.641e-12 ***
-## BCG_GALM_G01_XDC   0.00067434  0.00060696  1.1110 0.2667780    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    910.68
-## Residual Sum of Squares: 803.53
-## R-Squared:      0.11767
-## Adj. R-Squared: 0.10113
-## F-statistic: 32.7264 on 5 and 1227 DF, p-value: &lt; 2.22e-16
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 135, T = 1-16, N = 662
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.788567 -0.509330 -0.086813  0.451695  2.093913 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country   -0.28178846  0.09604587 -2.9339 0.003468 **
-## BN.CAB.XOKA.GD.ZS  0.00689988  0.00312586  2.2074 0.027645 * 
-## NY.GDP.MKTP.KD.ZG -0.02599547  0.00951756 -2.7313 0.006483 **
-## SL.TLF.CACT.ZS    -0.01050257  0.00329908 -3.1835 0.001526 **
-## BCG_GALM_G01_XDC  -0.00082737  0.00075975 -1.0890 0.276561   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    370.25
-## Residual Sum of Squares: 348.59
-## R-Squared:      0.058501
-## Adj. R-Squared: 0.02456
-## F-statistic: 7.92852 on 5 and 638 DF, p-value: 2.9258e-07
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1253
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.626208 -0.237245  0.054363  0.285580  1.164675 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)    
-## Program_Country    0.26795945  0.03793260  7.0641  2.7e-12 ***
-## BN.CAB.XOKA.GD.ZS  0.00197894  0.00120667  1.6400   0.1013    
-## NY.GDP.MKTP.KD.ZG  0.00822786  0.00366138  2.2472   0.0248 *  
-## SL.TLF.CACT.ZS    -0.00213073  0.00132268 -1.6109   0.1075    
-## BCG_GALM_G01_XDC  -0.00016852  0.00033099 -0.5092   0.6107    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    251.09
-## Residual Sum of Squares: 239.5
-## R-Squared:      0.046167
-## Adj. R-Squared: 0.028317
-## F-statistic: 11.8971 on 5 and 1229 DF, p-value: 2.9132e-11
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 143, T = 1-16, N = 1009
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.8118509 -0.4370709  0.0047411  0.4273414  2.2518050 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    0.18822968  0.06148933  3.0612 0.002264 **
-## BN.CAB.XOKA.GD.ZS  0.00265666  0.00201557  1.3181 0.187788   
-## NY.GDP.MKTP.KD.ZG -0.00374688  0.00616922 -0.6074 0.543758   
-## SL.TLF.CACT.ZS    -0.00174536  0.00217925 -0.8009 0.423384   
-## BCG_GALM_G01_XDC  -0.00046659  0.00053064 -0.8793 0.379456   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    421.9
-## Residual Sum of Squares: 417.08
-## R-Squared:      0.011425
-## Adj. R-Squared: -0.011659
-## F-statistic: 2.27669 on 5 and 985 DF, p-value: 0.045121
-## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (time) effect Within Model
@@ -1139,27 +945,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.437817 -0.268696  0.031766  0.273523  1.148740 
+## -2.418013 -0.257482  0.029471  0.271079  1.172750 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error  t-value  Pr(&gt;|t|)    
-## Program_Country    0.10702224  0.03506331   3.0523  0.002320 ** 
-## BN.CAB.XOKA.GD.ZS -0.01644073  0.00111895 -14.6930 &lt; 2.2e-16 ***
-## NY.GDP.MKTP.KD.ZG  0.01414620  0.00339466   4.1672 3.299e-05 ***
-## SL.TLF.CACT.ZS     0.00337645  0.00122629   2.7534  0.005985 ** 
-## BCG_GALM_G01_XDC   0.00163588  0.00030688   5.3307 1.163e-07 ***
+## Program_Country    0.12645840  0.03588595   3.5239 0.0004416 ***
+## FP.CPI.TOTL.ZG     0.00664959  0.00184391   3.6062 0.0003237 ***
+## BN.CAB.XOKA.GD.ZS -0.01632885  0.00115480 -14.1400 &lt; 2.2e-16 ***
+## NY.GDP.MKTP.KD.ZG  0.01388717  0.00357597   3.8835 0.0001087 ***
+## SL.TLF.CACT.ZS     0.00333215  0.00126605   2.6319 0.0086019 ** 
+## BCG_GALM_G01_XDC   0.00163489  0.00033896   4.8232 1.599e-06 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    262.06
-## Residual Sum of Squares: 206.34
-## R-Squared:      0.21261
-## Adj. R-Squared: 0.1979
-## F-statistic: 66.4803 on 5 and 1231 DF, p-value: &lt; 2.22e-16
+## Total Sum of Squares:    250.72
+## Residual Sum of Squares: 194.41
+## R-Squared:      0.22461
+## Adj. R-Squared: 0.20873
+## F-statistic: 56.5832 on 6 and 1172 DF, p-value: &lt; 2.22e-16
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1169,58 +976,60 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 141, T = 1-16, N = 1041
+## Unbalanced Panel: n = 136, T = 1-16, N = 991
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.952645 -0.443661  0.016653  0.433701  2.019169 
+## -1.876305 -0.429924  0.013068  0.441394  2.005910 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.15765557  0.06171136 -2.5547   0.01077 *  
-## BN.CAB.XOKA.GD.ZS -0.01045185  0.00206715 -5.0562 5.071e-07 ***
-## NY.GDP.MKTP.KD.ZG  0.00908739  0.00607452  1.4960   0.13497    
-## SL.TLF.CACT.ZS     0.00652477  0.00219174  2.9770   0.00298 ** 
-## BCG_GALM_G01_XDC   0.00161020  0.00053441  3.0131   0.00265 ** 
+## Program_Country   -1.3531e-01  6.3285e-02 -2.1380  0.032765 *  
+## FP.CPI.TOTL.ZG     8.0994e-06  3.5065e-03  0.0023  0.998157    
+## BN.CAB.XOKA.GD.ZS -1.0687e-02  2.1483e-03 -4.9746 7.736e-07 ***
+## NY.GDP.MKTP.KD.ZG  9.6634e-03  6.4548e-03  1.4971  0.134693    
+## SL.TLF.CACT.ZS     7.1224e-03  2.2634e-03  3.1468  0.001701 ** 
+## BCG_GALM_G01_XDC   1.2515e-03  5.9394e-04  2.1072  0.035359 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    477.53
-## Residual Sum of Squares: 455.49
-## R-Squared:      0.046141
-## Adj. R-Squared: 0.024569
-## F-statistic: 9.83905 on 5 and 1017 DF, p-value: 3.3683e-09
+## Total Sum of Squares:    450.37
+## Residual Sum of Squares: 430.73
+## R-Squared:      0.043615
+## Adj. R-Squared: 0.019854
+## F-statistic: 7.34233 on 6 and 966 DF, p-value: 1.0806e-07
 ## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (time) effect Within Model
 ## 
 ## Call:
 ## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1249
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.464977 -0.335829  0.053225  0.404542  1.594554 
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.9931509 -0.1817758  0.0016606  0.1878723  1.0700976 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.00106104  0.05195785 -0.0204  0.983711    
-## BN.CAB.XOKA.GD.ZS  0.00931778  0.00165624  5.6259 2.285e-08 ***
-## NY.GDP.MKTP.KD.ZG  0.00165340  0.00503435  0.3284  0.742647    
-## SL.TLF.CACT.ZS    -0.00481716  0.00181642 -2.6520  0.008105 ** 
-## BCG_GALM_G01_XDC  -0.00213445  0.00045408 -4.7006 2.888e-06 ***
+## Program_Country   -0.07065999  0.02671793 -2.6447  0.008286 ** 
+## FP.CPI.TOTL.ZG    -0.00372286  0.00137284 -2.7118  0.006790 ** 
+## BN.CAB.XOKA.GD.ZS  0.00619829  0.00085978  7.2092 1.006e-12 ***
+## NY.GDP.MKTP.KD.ZG -0.00736061  0.00266239 -2.7647  0.005788 ** 
+## SL.TLF.CACT.ZS     0.00123291  0.00094261  1.3080  0.191138    
+## BCG_GALM_G01_XDC   0.00013371  0.00025237  0.5298  0.596322    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    474.3
-## Residual Sum of Squares: 448.99
-## R-Squared:      0.053375
-## Adj. R-Squared: 0.035602
-## F-statistic: 13.8142 on 5 and 1225 DF, p-value: 3.776e-13
+## Total Sum of Squares:    116.28
+## Residual Sum of Squares: 107.76
+## R-Squared:      0.07324
+## Adj. R-Squared: 0.054262
+## F-statistic: 15.4367 on 6 and 1172 DF, p-value: &lt; 2.22e-16
 ## 
-## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Oneway (time) effect Within Model
 ## 
@@ -1228,84 +1037,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 125, T = 1-8, N = 382
+## Unbalanced Panel: n = 139, T = 1-17, N = 1205
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.071947 -0.355850 -0.042191  0.264272  2.232743 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country   -0.04784517  0.08184272 -0.5846   0.5592
-## BN.CAB.XOKA.GD.ZS  0.00288224  0.00263345  1.0945   0.2745
-## NY.GDP.MKTP.KD.ZG  0.00037439  0.00738777  0.0507   0.9596
-## SL.TLF.CACT.ZS     0.00180195  0.00280740  0.6419   0.5214
-## BCG_GALM_G01_XDC  -0.00064092  0.00090917 -0.7050   0.4813
-## 
-## Total Sum of Squares:    99.934
-## Residual Sum of Squares: 98.993
-## R-Squared:      0.0094121
-## Adj. R-Squared: -0.054229
-## F-statistic: 0.680307 on 5 and 358 DF, p-value: 0.63863
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -0.900342 -0.176960  0.017574  0.188924  0.901227 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.05286836  0.02363650 -2.2367 0.0254828 *  
-## BN.CAB.XOKA.GD.ZS  0.00284443  0.00075295  3.7777 0.0001658 ***
-## NY.GDP.MKTP.KD.ZG  0.00716017  0.00227717  3.1443 0.0017045 ** 
-## SL.TLF.CACT.ZS     0.00113175  0.00082306  1.3751 0.1693637    
-## BCG_GALM_G01_XDC  -0.00090278  0.00020596 -4.3833 1.268e-05 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    97.759
-## Residual Sum of Squares: 92.94
-## R-Squared:      0.049301
-## Adj. R-Squared: 0.031538
-## F-statistic: 12.7673 on 5 and 1231 DF, p-value: 4.0421e-12
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (time) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1203
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -2.02132 -0.45695  0.04025  0.48182  1.74272 
+## -2.433293 -0.421185  0.042062  0.486908  2.340880 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    0.08063025  0.06104937  1.3207 0.186845   
-## BN.CAB.XOKA.GD.ZS  0.00560217  0.00193415  2.8965 0.003844 **
-## NY.GDP.MKTP.KD.ZG  0.01318187  0.00588339  2.2405 0.025243 * 
-## SL.TLF.CACT.ZS     0.00394399  0.00214648  1.8374 0.066399 . 
-## BCG_GALM_G01_XDC  -0.00062568  0.00052485 -1.1921 0.233453   
+## Program_Country   -0.11188103  0.06264658 -1.7859 0.074371 . 
+## FP.CPI.TOTL.ZG     0.00246821  0.00321931  0.7667 0.443420   
+## BN.CAB.XOKA.GD.ZS  0.00529458  0.00202227  2.6181 0.008954 **
+## NY.GDP.MKTP.KD.ZG  0.00807208  0.00628768  1.2838 0.199466   
+## SL.TLF.CACT.ZS     0.00583657  0.00221358  2.6367 0.008481 **
+## BCG_GALM_G01_XDC  -0.00036825  0.00058741 -0.6269 0.530845   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    581.9
-## Residual Sum of Squares: 570.63
-## R-Squared:      0.019371
-## Adj. R-Squared: 0.00024091
-## F-statistic: 4.65793 on 5 and 1179 DF, p-value: 0.00032418
+## Total Sum of Squares:    607.04
+## Residual Sum of Squares: 595.51
+## R-Squared:      0.019001
+## Adj. R-Squared: -0.00095131
+## F-statistic: 3.80929 on 6 and 1180 DF, p-value: 0.00091279
 ## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1314,27 +1067,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## Call:
 ## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.0115985 -0.1736905  0.0062305  0.1782773  0.7572949 
+## -1.0045986 -0.1724186  0.0096947  0.1760296  0.7477376 
 ## 
 ## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country    0.05161999  0.02267092  2.2769 0.0229617 *  
-## BN.CAB.XOKA.GD.ZS -0.00057026  0.00072511 -0.7864 0.4317572    
-## NY.GDP.MKTP.KD.ZG  0.00176111  0.00220064  0.8003 0.4237084    
-## SL.TLF.CACT.ZS    -0.00269641  0.00079475 -3.3928 0.0007139 ***
-## BCG_GALM_G01_XDC   0.00015557  0.00019892  0.7821 0.4343262    
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
+## Program_Country    6.3357e-02  2.3249e-02  2.7252 0.006523 **
+## FP.CPI.TOTL.ZG    -1.0516e-03  1.1977e-03 -0.8780 0.380105   
+## BN.CAB.XOKA.GD.ZS -7.5302e-04  7.4994e-04 -1.0041 0.315538   
+## NY.GDP.MKTP.KD.ZG  2.2831e-04  2.3231e-03  0.0983 0.921728   
+## SL.TLF.CACT.ZS    -2.2084e-03  8.2227e-04 -2.6858 0.007339 **
+## BCG_GALM_G01_XDC   9.5393e-05  2.2018e-04  0.4332 0.664914   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    88.009
-## Residual Sum of Squares: 86.696
-## R-Squared:      0.014921
-## Adj. R-Squared: -0.0034839
-## F-statistic: 3.72927 on 5 and 1231 DF, p-value: 0.0023515
+## Total Sum of Squares:    83.225
+## Residual Sum of Squares: 82.029
+## R-Squared:      0.01436
+## Adj. R-Squared: -0.0058241
+## F-statistic: 2.84578 on 6 and 1172 DF, p-value: 0.0093557
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1344,32 +1098,785 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1281
+## Unbalanced Panel: n = 139, T = 1-17, N = 1224
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.251784 -0.403964  0.039865  0.459586  1.997956 
+## -2.242729 -0.395136  0.036303  0.447103  1.963270 
 ## 
 ## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country   -0.08164700  0.05640743 -1.4475 0.148020   
-## BN.CAB.XOKA.GD.ZS -0.00480984  0.00181420 -2.6512 0.008121 **
-## NY.GDP.MKTP.KD.ZG -0.01019862  0.00545828 -1.8685 0.061929 . 
-## SL.TLF.CACT.ZS    -0.00388430  0.00198687 -1.9550 0.050807 . 
-## BCG_GALM_G01_XDC  -0.00025059  0.00049396 -0.5073 0.612032   
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -0.05756858  0.05803991 -0.9919 0.3214566    
+## FP.CPI.TOTL.ZG    -0.01031562  0.00300021 -3.4383 0.0006055 ***
+## BN.CAB.XOKA.GD.ZS -0.00591540  0.00188424 -3.1394 0.0017342 ** 
+## NY.GDP.MKTP.KD.ZG -0.00805281  0.00578091 -1.3930 0.1638779    
+## SL.TLF.CACT.ZS    -0.00310106  0.00206468 -1.5020 0.1333716    
+## BCG_GALM_G01_XDC  -0.00055236  0.00054815 -1.0077 0.3138131    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    563.9
-## Residual Sum of Squares: 556.42
-## R-Squared:      0.013273
-## Adj. R-Squared: -0.0047812
-## F-statistic: 3.38184 on 5 and 1257 DF, p-value: 0.0048613</code></pre>
+## Total Sum of Squares:    544.19
+## Residual Sum of Squares: 531.96
+## R-Squared:      0.022485
+## Adj. R-Squared: 0.0029182
+## F-statistic: 4.59657 on 6 and 1199 DF, p-value: 0.00012654
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1195
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -2.61552 -0.23695  0.05335  0.29292  1.17761 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)    
+## Program_Country    0.24845117  0.03906877  6.3593  2.9e-10 ***
+## FP.CPI.TOTL.ZG     0.00435793  0.00200092  2.1780  0.02961 *  
+## BN.CAB.XOKA.GD.ZS  0.00213378  0.00125314  1.7027  0.08888 .  
+## NY.GDP.MKTP.KD.ZG  0.00665660  0.00388124  1.7151  0.08660 .  
+## SL.TLF.CACT.ZS    -0.00237089  0.00137413 -1.7254  0.08472 .  
+## BCG_GALM_G01_XDC  -0.00016461  0.00036790 -0.4474  0.65466    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    239.06
+## Residual Sum of Squares: 228.47
+## R-Squared:      0.044295
+## Adj. R-Squared: 0.024691
+## F-statistic: 9.03784 on 6 and 1170 DF, p-value: 1.1211e-09
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 137, T = 1-16, N = 967
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -1.6075789 -0.4414284  0.0083556  0.4225092  2.2570232 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
+## Program_Country    0.17743560  0.06315001  2.8097 0.005061 **
+## FP.CPI.TOTL.ZG    -0.00176512  0.00312974 -0.5640 0.572899   
+## BN.CAB.XOKA.GD.ZS  0.00293800  0.00208031  1.4123 0.158196   
+## NY.GDP.MKTP.KD.ZG -0.00590151  0.00655518 -0.9003 0.368200   
+## SL.TLF.CACT.ZS    -0.00269334  0.00227326 -1.1848 0.236399   
+## BCG_GALM_G01_XDC  -0.00054278  0.00058217 -0.9323 0.351397   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    403.49
+## Residual Sum of Squares: 398.51
+## R-Squared:      0.012347
+## Adj. R-Squared: -0.012816
+## F-statistic: 1.96269 on 6 and 942 DF, p-value: 0.068321
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1194
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.904124 -0.488041  0.016888  0.541262  2.039293 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -0.24928021  0.06923105 -3.6007 0.0003307 ***
+## FP.CPI.TOTL.ZG    -0.02305781  0.00355773 -6.4811 1.340e-10 ***
+## BN.CAB.XOKA.GD.ZS  0.00637141  0.00223635  2.8490 0.0044623 ** 
+## NY.GDP.MKTP.KD.ZG -0.04904044  0.00690218 -7.1051 2.086e-12 ***
+## SL.TLF.CACT.ZS    -0.01647268  0.00244632 -6.7337 2.588e-11 ***
+## BCG_GALM_G01_XDC   0.00123081  0.00065422  1.8813 0.0601731 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    855.42
+## Residual Sum of Squares: 721.43
+## R-Squared:      0.15663
+## Adj. R-Squared: 0.13931
+## F-statistic: 36.1841 on 6 and 1169 DF, p-value: &lt; 2.22e-16
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 129, T = 1-16, N = 635
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.709021 -0.525656 -0.048786  0.467199  2.055779 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -0.25836835  0.09595922 -2.6925  0.007287 ** 
+## FP.CPI.TOTL.ZG    -0.02928380  0.00524134 -5.5871 3.482e-08 ***
+## BN.CAB.XOKA.GD.ZS  0.00531063  0.00325014  1.6340  0.102782    
+## NY.GDP.MKTP.KD.ZG -0.02236710  0.01029965 -2.1716  0.030268 *  
+## SL.TLF.CACT.ZS    -0.01033973  0.00339824 -3.0427  0.002446 ** 
+## BCG_GALM_G01_XDC  -0.00082926  0.00081478 -1.0178  0.309190    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    356.88
+## Residual Sum of Squares: 320.42
+## R-Squared:      0.10216
+## Adj. R-Squared: 0.066836
+## F-statistic: 11.5682 on 6 and 610 DF, p-value: 2.7597e-12
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1192
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.433773 -0.337165  0.050778  0.403125  1.609727 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -0.00470562  0.05261204 -0.0894  0.928748    
+## FP.CPI.TOTL.ZG     0.00738800  0.00270243  2.7338  0.006355 ** 
+## BN.CAB.XOKA.GD.ZS  0.00918868  0.00169319  5.4269 6.971e-08 ***
+## NY.GDP.MKTP.KD.ZG  0.00668421  0.00525627  1.2717  0.203746    
+## SL.TLF.CACT.ZS    -0.00527442  0.00185826 -2.8384  0.004613 ** 
+## BCG_GALM_G01_XDC  -0.00205726  0.00049699 -4.1394 3.732e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    440.74
+## Residual Sum of Squares: 415.63
+## R-Squared:      0.056975
+## Adj. R-Squared: 0.037581
+## F-statistic: 11.7511 on 6 and 1167 DF, p-value: 8.0085e-13
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 119, T = 1-8, N = 369
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.084273 -0.357776 -0.039824  0.281764  2.226339 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country   -0.04341236  0.08426272 -0.5152  0.60674  
+## FP.CPI.TOTL.ZG    -0.00692773  0.00406942 -1.7024  0.08959 .
+## BN.CAB.XOKA.GD.ZS  0.00257876  0.00273305  0.9435  0.34606  
+## NY.GDP.MKTP.KD.ZG  0.00071845  0.00810116  0.0887  0.92938  
+## SL.TLF.CACT.ZS     0.00267409  0.00295395  0.9053  0.36596  
+## BCG_GALM_G01_XDC  -0.00071888  0.00095542 -0.7524  0.45231  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    98.851
+## Residual Sum of Squares: 96.995
+## R-Squared:      0.018772
+## Adj. R-Squared: -0.049686
+## F-statistic: 1.09685 on 6 and 344 DF, p-value: 0.36379
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -1.53447 -0.12492  0.01591  0.15803  0.89583 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country    0.03519660  0.02569281  1.3699 0.1709803    
+## FP.CPI.TOTL.ZG    -0.00467907  0.00132016 -3.5443 0.0004091 ***
+## BN.CAB.XOKA.GD.ZS -0.00256212  0.00082679 -3.0989 0.0019887 ** 
+## NY.GDP.MKTP.KD.ZG  0.00269221  0.00256024  1.0515 0.2932240    
+## SL.TLF.CACT.ZS     0.00284470  0.00090644  3.1383 0.0017416 ** 
+## BCG_GALM_G01_XDC  -0.00032457  0.00024268 -1.3374 0.1813383    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    102.72
+## Residual Sum of Squares: 99.653
+## R-Squared:      0.029816
+## Adj. R-Squared: 0.0099484
+## F-statistic: 6.00298 on 6 and 1172 DF, p-value: 3.3925e-06
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;time&quot;, model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.9381589 -0.1729459  0.0025931  0.1858906  0.8251587 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -0.06848127  0.02380319 -2.8770  0.004088 ** 
+## FP.CPI.TOTL.ZG     0.00868548  0.00121744  7.1342 1.701e-12 ***
+## BN.CAB.XOKA.GD.ZS  0.00315310  0.00076447  4.1246 3.977e-05 ***
+## NY.GDP.MKTP.KD.ZG  0.00675469  0.00236012  2.8620  0.004285 ** 
+## SL.TLF.CACT.ZS     0.00034695  0.00083604  0.4150  0.678219    
+## BCG_GALM_G01_XDC  -0.00103635  0.00022381 -4.6305 4.055e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    93.687
+## Residual Sum of Squares: 84.759
+## R-Squared:      0.095296
+## Adj. R-Squared: 0.07677
+## F-statistic: 20.5753 on 6 and 1172 DF, p-value: &lt; 2.22e-16
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (time) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;time&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 139, T = 1-17, N = 1148
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -2.02939 -0.44016  0.03693  0.47239  1.75961 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country    0.04666768  0.06233835  0.7486  0.454244    
+## FP.CPI.TOTL.ZG     0.01486423  0.00313595  4.7399 2.412e-06 ***
+## BN.CAB.XOKA.GD.ZS  0.00561252  0.00199370  2.8151  0.004961 ** 
+## NY.GDP.MKTP.KD.ZG  0.01378091  0.00619848  2.2233  0.026396 *  
+## SL.TLF.CACT.ZS     0.00292782  0.00221398  1.3224  0.186295    
+## BCG_GALM_G01_XDC  -0.00030140  0.00057831 -0.5212  0.602344    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    555.25
+## Residual Sum of Squares: 535.26
+## R-Squared:      0.035991
+## Adj. R-Squared: 0.015388
+## F-statistic: 6.98773 on 6 and 1123 DF, p-value: 2.602e-07</code></pre>
 <pre class="r"><code>## estimate models
 ## summary(plm(mentions_form, data = ed, model = &quot;between&quot;, effect = &quot;individual&quot;))
 ## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;twoways&quot;))
 ## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;individual&quot;))
 ## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;time&quot;))</code></pre>
+</div>
+<div id="individual-but-no-time-effects" class="section level3">
+<h3>Individual, but No Time Effects</h3>
+<pre class="r"><code>for (topic in unique(d$Topic)){
+    tmp &lt;- subset(d, Topic == topic)
+    tmp &lt;- pdata.frame(tmp, index = c(&quot;Country.x&quot;, &quot;Year&quot;), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0(&quot;\n&gt;&gt;&gt;&gt;&gt;Scaled Mentions: &quot;, topic, &quot;&lt;&lt;&lt;&lt;&lt;\n&quot;))
+    print(summary(plm(mentions_form, data = tmp, model = &quot;within&quot;, effect = &quot;individual&quot;)))
+    writeLines(paste0(&quot;\n&gt;&gt;&gt;Scaled Recommendations: &quot;, topic, &quot;&lt;&lt;&lt;&lt;&lt;\n&quot;))
+    e &lt;- simpleError(&quot;NA data error&quot;)
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = &quot;within&quot;, effect = &quot;individual&quot;))),
+             error = function(e) e)
+}</code></pre>
+<pre><code>## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: External Debt&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.666058 -0.154989  0.015324  0.185920  0.997300 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
+## Program_Country   -0.00951128  0.03558508 -0.2673 0.789304   
+## FP.CPI.TOTL.ZG    -0.00178249  0.00193688 -0.9203 0.357632   
+## BN.CAB.XOKA.GD.ZS -0.00065317  0.00137927 -0.4736 0.635911   
+## NY.GDP.MKTP.KD.ZG -0.00816126  0.00301062 -2.7108 0.006821 **
+## SL.TLF.CACT.ZS    -0.00349785  0.00585846 -0.5971 0.550595   
+## BCG_GALM_G01_XDC   0.00064419  0.00046210  1.3941 0.163595   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    104.56
+## Residual Sum of Squares: 103.46
+## R-Squared:      0.010529
+## Adj. R-Squared: -0.12384
+## F-statistic: 1.86748 on 6 and 1053 DF, p-value: 0.083355
+## 
+## &gt;&gt;&gt;Scaled Recommendations: External Debt&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 136, T = 1-16, N = 991
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -1.8569439 -0.3708308 -0.0086306  0.4007050  1.8907298 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country   -2.9198e-01  7.6489e-02 -3.8173 0.0001447 ***
+## FP.CPI.TOTL.ZG    -3.6044e-03  4.5898e-03 -0.7853 0.4324925    
+## BN.CAB.XOKA.GD.ZS  2.9188e-03  3.1620e-03  0.9231 0.3562208    
+## NY.GDP.MKTP.KD.ZG -1.2997e-02  6.9086e-03 -1.8813 0.0602791 .  
+## SL.TLF.CACT.ZS    -3.6027e-02  1.3172e-02 -2.7351 0.0063662 ** 
+## BCG_GALM_G01_XDC   6.9605e-05  9.7492e-04  0.0714 0.9430995    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    350.48
+## Residual Sum of Squares: 340.3
+## R-Squared:      0.029032
+## Adj. R-Squared: -0.13222
+## F-statistic: 4.23089 on 6 and 849 DF, p-value: 0.00033113
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.7331734 -0.1496856 -0.0036085  0.1447539  0.8886826 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country    0.03320067  0.02800681  1.1855   0.23611    
+## FP.CPI.TOTL.ZG    -0.00082895  0.00152440 -0.5438   0.58670    
+## BN.CAB.XOKA.GD.ZS  0.00013529  0.00108554  0.1246   0.90084    
+## NY.GDP.MKTP.KD.ZG -0.01138011  0.00236947 -4.8028 1.791e-06 ***
+## SL.TLF.CACT.ZS     0.01172019  0.00461083  2.5419   0.01117 *  
+## BCG_GALM_G01_XDC   0.00073641  0.00036369  2.0248   0.04314 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    66.535
+## Residual Sum of Squares: 64.086
+## R-Squared:      0.036807
+## Adj. R-Squared: -0.093997
+## F-statistic: 6.70646 on 6 and 1053 DF, p-value: 5.5487e-07
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 139, T = 1-17, N = 1205
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.247498 -0.382625  0.026158  0.420583  2.234878 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)
+## Program_Country   -4.5166e-02  7.6674e-02 -0.5891   0.5559
+## FP.CPI.TOTL.ZG    -4.2761e-03  4.2050e-03 -1.0169   0.3094
+## BN.CAB.XOKA.GD.ZS -1.8414e-03  2.9711e-03 -0.6198   0.5355
+## NY.GDP.MKTP.KD.ZG -7.5926e-04  6.5716e-03 -0.1155   0.9080
+## SL.TLF.CACT.ZS    -6.2870e-03  1.2692e-02 -0.4953   0.6205
+## BCG_GALM_G01_XDC  -1.1972e-05  9.9704e-04 -0.0120   0.9904
+## 
+## Total Sum of Squares:    489.09
+## Residual Sum of Squares: 488.23
+## R-Squared:      0.001749
+## Adj. R-Squared: -0.13386
+## F-statistic: 0.309533 on 6 and 1060 DF, p-value: 0.93219
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -0.81960 -0.14706  0.00000  0.13332  0.82066 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
+## Program_Country    0.01614552  0.02626891  0.6146 0.5389353    
+## FP.CPI.TOTL.ZG     0.00070808  0.00142982  0.4952 0.6205443    
+## BN.CAB.XOKA.GD.ZS -0.00206984  0.00101826 -2.0327 0.0423299 *  
+## NY.GDP.MKTP.KD.ZG  0.00742923  0.00222261  3.3426 0.0008593 ***
+## SL.TLF.CACT.ZS    -0.01296878  0.00432508 -2.9985 0.0027768 ** 
+## BCG_GALM_G01_XDC   0.00023287  0.00034114  0.6826 0.4950009    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    57.826
+## Residual Sum of Squares: 56.388
+## R-Squared:      0.024867
+## Adj. R-Squared: -0.10756
+## F-statistic: 4.47546 on 6 and 1053 DF, p-value: 0.00017456
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 139, T = 1-17, N = 1224
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.354288 -0.332914  0.011134  0.386553  1.914032 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)
+## Program_Country    0.02959633  0.06971200  0.4246   0.6712
+## FP.CPI.TOTL.ZG     0.00063995  0.00381782  0.1676   0.8669
+## BN.CAB.XOKA.GD.ZS -0.00434207  0.00270327 -1.6062   0.1085
+## NY.GDP.MKTP.KD.ZG  0.00707256  0.00590935  1.1968   0.2316
+## SL.TLF.CACT.ZS     0.00191146  0.01164994  0.1641   0.8697
+## BCG_GALM_G01_XDC  -0.00086291  0.00091372 -0.9444   0.3452
+## 
+## Total Sum of Squares:    421.39
+## Residual Sum of Squares: 419.16
+## R-Squared:      0.0053016
+## Adj. R-Squared: -0.12745
+## F-statistic: 0.958487 on 6 and 1079 DF, p-value: 0.4522
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1195
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.414875 -0.196535  0.024756  0.226938  1.025260 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
+## Program_Country    0.05804809  0.04370670  1.3281 0.184424   
+## FP.CPI.TOTL.ZG    -0.00280815  0.00237532 -1.1822 0.237387   
+## BN.CAB.XOKA.GD.ZS  0.00155784  0.00169161  0.9209 0.357303   
+## NY.GDP.MKTP.KD.ZG  0.01120597  0.00369226  3.0350 0.002465 **
+## SL.TLF.CACT.ZS    -0.00585372  0.00718484 -0.8147 0.415411   
+## BCG_GALM_G01_XDC   0.00075056  0.00056686  1.3241 0.185768   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    157.63
+## Residual Sum of Squares: 155.31
+## R-Squared:      0.014711
+## Adj. R-Squared: -0.11935
+## F-statistic: 2.61539 on 6 and 1051 DF, p-value: 0.016033
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 137, T = 1-16, N = 967
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -1.8367893 -0.4529419  0.0049538  0.4231474  2.2179288 
+## 
+## Coefficients:
+##                    Estimate Std. Error t-value Pr(&gt;|t|)  
+## Program_Country   0.1065724  0.0806744  1.3210  0.18686  
+## FP.CPI.TOTL.ZG    0.0040143  0.0045470  0.8828  0.37758  
+## BN.CAB.XOKA.GD.ZS 0.0022213  0.0031791  0.6987  0.48493  
+## NY.GDP.MKTP.KD.ZG 0.0135761  0.0073894  1.8372  0.06654 .
+## SL.TLF.CACT.ZS    0.0120731  0.0135484  0.8911  0.37313  
+## BCG_GALM_G01_XDC  0.0011002  0.0010327  1.0654  0.28700  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    354.44
+## Residual Sum of Squares: 351.24
+## R-Squared:      0.0090332
+## Adj. R-Squared: -0.16174
+## F-statistic: 1.25187 on 6 and 824 DF, p-value: 0.27746
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1194
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.314107 -0.290188  0.017374  0.339323  1.867750 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    6.4409e-02  6.2107e-02  1.0371  0.29994  
+## FP.CPI.TOTL.ZG    -1.7920e-04  3.3831e-03 -0.0530  0.95777  
+## BN.CAB.XOKA.GD.ZS -7.0878e-05  2.4230e-03 -0.0293  0.97667  
+## NY.GDP.MKTP.KD.ZG  6.7359e-03  5.2706e-03  1.2780  0.20152  
+## SL.TLF.CACT.ZS     1.0590e-02  1.0310e-02  1.0271  0.30459  
+## BCG_GALM_G01_XDC   1.8828e-03  8.0692e-04  2.3334  0.01982 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    316.64
+## Residual Sum of Squares: 314.24
+## R-Squared:      0.0075807
+## Adj. R-Squared: -0.12758
+## F-statistic: 1.33675 on 6 and 1050 DF, p-value: 0.23772
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 129, T = 1-16, N = 635
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -2.00519 -0.37926  0.00000  0.36473  1.77515 
+## 
+## Coefficients:
+##                     Estimate Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.0280916  0.1231922  0.2280  0.81972  
+## FP.CPI.TOTL.ZG    -0.0055289  0.0070834 -0.7805  0.43544  
+## BN.CAB.XOKA.GD.ZS  0.0085610  0.0047273  1.8110  0.07075 .
+## NY.GDP.MKTP.KD.ZG  0.0070063  0.0097980  0.7151  0.47490  
+## SL.TLF.CACT.ZS    -0.0082183  0.0192913 -0.4260  0.67028  
+## BCG_GALM_G01_XDC  -0.0013978  0.0013984 -0.9996  0.31799  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    203.88
+## Residual Sum of Squares: 201.67
+## R-Squared:      0.010826
+## Adj. R-Squared: -0.25427
+## F-statistic: 0.91206 on 6 and 500 DF, p-value: 0.48578
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1192
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.158584 -0.282911  0.036768  0.334617  1.442532 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.14215832  0.05865158  2.4238  0.01553 *
+## FP.CPI.TOTL.ZG     0.00764772  0.00319348  2.3948  0.01680 *
+## BN.CAB.XOKA.GD.ZS -0.00568865  0.00227483 -2.5007  0.01255 *
+## NY.GDP.MKTP.KD.ZG  0.00271829  0.00496374  0.5476  0.58406  
+## SL.TLF.CACT.ZS     0.01592588  0.00965846  1.6489  0.09947 .
+## BCG_GALM_G01_XDC  -0.00177389  0.00076211 -2.3276  0.02012 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    287.37
+## Residual Sum of Squares: 279.72
+## R-Squared:      0.026632
+## Adj. R-Squared: -0.10618
+## F-statistic: 4.77901 on 6 and 1048 DF, p-value: 8.0979e-05
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 119, T = 1-8, N = 369
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -1.15620 -0.27832  0.00000  0.27752  1.29269 
+## 
+## Coefficients:
+##                     Estimate Std. Error t-value Pr(&gt;|t|)
+## Program_Country    0.0458558  0.1155855  0.3967   0.6919
+## FP.CPI.TOTL.ZG     0.0101998  0.0067579  1.5093   0.1325
+## BN.CAB.XOKA.GD.ZS  0.0059066  0.0049094  1.2031   0.2301
+## NY.GDP.MKTP.KD.ZG -0.0018539  0.0097594 -0.1900   0.8495
+## SL.TLF.CACT.ZS    -0.0097674  0.0201628 -0.4844   0.6285
+## BCG_GALM_G01_XDC  -0.0017461  0.0018140 -0.9626   0.3367
+## 
+## Total Sum of Squares:    65.514
+## Residual Sum of Squares: 64.11
+## R-Squared:      0.02142
+## Adj. R-Squared: -0.47589
+## F-statistic: 0.890165 on 6 and 244 DF, p-value: 0.50267
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.419337 -0.089222  0.017344  0.132787  0.635865 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country   -0.03489272  0.02895497 -1.2051  0.22845  
+## FP.CPI.TOTL.ZG    -0.00193657  0.00157600 -1.2288  0.21943  
+## BN.CAB.XOKA.GD.ZS  0.00021443  0.00112229  0.1911  0.84851  
+## NY.GDP.MKTP.KD.ZG  0.00581126  0.00244969  2.3722  0.01786 *
+## SL.TLF.CACT.ZS    -0.00222551  0.00476693 -0.4669  0.64069  
+## BCG_GALM_G01_XDC  -0.00039575  0.00037600 -1.0525  0.29280  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    69.18
+## Residual Sum of Squares: 68.499
+## R-Squared:      0.0098496
+## Adj. R-Squared: -0.12462
+## F-statistic: 1.74579 on 6 and 1053 DF, p-value: 0.1072
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##       Min.    1st Qu.     Median    3rd Qu.       Max. 
+## -0.7316072 -0.1159999 -0.0037521  0.1207314  0.7188780 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)    
+## Program_Country   -0.02672882  0.02227828 -1.1998  0.23050    
+## FP.CPI.TOTL.ZG     0.00114074  0.00121314  0.9403  0.34727    
+## BN.CAB.XOKA.GD.ZS  0.00198545  0.00086395  2.2981  0.02175 *  
+## NY.GDP.MKTP.KD.ZG  0.00351182  0.00188587  1.8622  0.06286 .  
+## SL.TLF.CACT.ZS     0.00662911  0.00366895  1.8068  0.07108 .  
+## BCG_GALM_G01_XDC  -0.00125051  0.00028905 -4.3263 1.66e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    41.766
+## Residual Sum of Squares: 40.58
+## R-Squared:      0.028391
+## Adj. R-Squared: -0.10356
+## F-statistic: 5.12829 on 6 and 1053 DF, p-value: 3.319e-05
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## 
+## Oneway (individual) effect Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 139, T = 1-17, N = 1148
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.925185 -0.355051  0.015663  0.410546  1.739455 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    1.0122e-01  7.4447e-02  1.3596   0.1743  
+## FP.CPI.TOTL.ZG     5.7374e-03  3.9922e-03  1.4372   0.1510  
+## BN.CAB.XOKA.GD.ZS  3.8842e-03  2.9274e-03  1.3268   0.1849  
+## NY.GDP.MKTP.KD.ZG -2.5838e-05  6.2983e-03 -0.0041   0.9967  
+## SL.TLF.CACT.ZS     2.3944e-02  1.2545e-02  1.9086   0.0566 .
+## BCG_GALM_G01_XDC  -1.0122e-03  9.5801e-04 -1.0566   0.2910  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    422.01
+## Residual Sum of Squares: 418.03
+## R-Squared:      0.009439
+## Adj. R-Squared: -0.13278
+## F-statistic: 1.59293 on 6 and 1003 DF, p-value: 0.14583</code></pre>
 </div>
 <div id="both-time-and-individual-effects" class="section level3">
 <h3>Both Time and Individual Effects</h3>
@@ -1384,213 +1891,6 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
              error = function(e) e)
 }</code></pre>
 <pre><code>## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.33325 -0.09219  0.02618  0.12677  0.61651 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country   -0.00826062  0.02792763 -0.2958   0.7674
-## BN.CAB.XOKA.GD.ZS  0.00018761  0.00107289  0.1749   0.8612
-## NY.GDP.MKTP.KD.ZG -0.00090640  0.00242698 -0.3735   0.7089
-## SL.TLF.CACT.ZS    -0.00151462  0.00456571 -0.3317   0.7402
-## BCG_GALM_G01_XDC  -0.00023453  0.00033980 -0.6902   0.4902
-## 
-## Total Sum of Squares:    66.493
-## Residual Sum of Squares: 66.45
-## R-Squared:      0.00064975
-## Adj. R-Squared: -0.15182
-## F-statistic: 0.141478 on 5 and 1088 DF, p-value: 0.98252
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
-## 
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.6856264 -0.1426707  0.0024149  0.1312852  0.9635040 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    0.02351659  0.02647384  0.8883 0.374578   
-## BN.CAB.XOKA.GD.ZS  0.00116762  0.00101704  1.1481 0.251197   
-## NY.GDP.MKTP.KD.ZG -0.00223230  0.00230064 -0.9703 0.332115   
-## SL.TLF.CACT.ZS     0.01214628  0.00432804  2.8064 0.005099 **
-## BCG_GALM_G01_XDC   0.00087172  0.00032211  2.7063 0.006910 **
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    60.857
-## Residual Sum of Squares: 59.712
-## R-Squared:      0.018824
-## Adj. R-Squared: -0.13088
-## F-statistic: 4.17478 on 5 and 1088 DF, p-value: 0.00092102
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1261
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -2.18733 -0.38741  0.02664  0.40004  2.18290 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country   -0.07265085  0.07514991 -0.9667  0.33389  
-## BN.CAB.XOKA.GD.ZS -0.00071883  0.00289769 -0.2481  0.80413  
-## NY.GDP.MKTP.KD.ZG  0.01250268  0.00663335  1.8848  0.05972 .
-## SL.TLF.CACT.ZS    -0.00895062  0.01238743 -0.7226  0.47011  
-## BCG_GALM_G01_XDC   0.00088792  0.00093192  0.9528  0.34091  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    492.37
-## Residual Sum of Squares: 489.61
-## R-Squared:      0.0056089
-## Adj. R-Squared: -0.14632
-## F-statistic: 1.23303 on 5 and 1093 DF, p-value: 0.29131
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1251
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.104610 -0.286208  0.019271  0.330067  1.717099 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.11174014  0.05901973  1.8933  0.05859 .
-## BN.CAB.XOKA.GD.ZS -0.00051099  0.00228214 -0.2239  0.82287  
-## NY.GDP.MKTP.KD.ZG -0.00550821  0.00513601 -1.0725  0.28375  
-## SL.TLF.CACT.ZS     0.01451454  0.00973189  1.4914  0.13614  
-## BCG_GALM_G01_XDC   0.00023855  0.00071801  0.3322  0.73977  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    297.36
-## Residual Sum of Squares: 295.41
-## R-Squared:      0.0065486
-## Adj. R-Squared: -0.14559
-## F-statistic: 1.4291 on 5 and 1084 DF, p-value: 0.21101
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 135, T = 1-16, N = 662
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.71473 -0.36597  0.00000  0.36188  1.59969 
-## 
-## Coefficients:
-##                     Estimate Std. Error t-value Pr(&gt;|t|)
-## Program_Country    0.0202558  0.1197708  0.1691   0.8658
-## BN.CAB.XOKA.GD.ZS  0.0068928  0.0045236  1.5237   0.1282
-## NY.GDP.MKTP.KD.ZG -0.0023906  0.0096148 -0.2486   0.8037
-## SL.TLF.CACT.ZS     0.0011257  0.0196115  0.0574   0.9542
-## BCG_GALM_G01_XDC  -0.0017744  0.0012787 -1.3876   0.1659
-## 
-## Total Sum of Squares:    198.91
-## Residual Sum of Squares: 197.5
-## R-Squared:      0.0070632
-## Adj. R-Squared: -0.30224
-## F-statistic: 0.717038 on 5 and 504 DF, p-value: 0.61085
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1253
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.214436 -0.189366  0.015677  0.220464  1.036942 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.09192654  0.04154063  2.2129  0.02711 *
-## BN.CAB.XOKA.GD.ZS  0.00060153  0.00159335  0.3775  0.70586  
-## NY.GDP.MKTP.KD.ZG  0.00324929  0.00360606  0.9011  0.36776  
-## SL.TLF.CACT.ZS    -0.00658946  0.00678046 -0.9718  0.33135  
-## BCG_GALM_G01_XDC  -0.00041031  0.00050465 -0.8130  0.41637  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    147.45
-## Residual Sum of Squares: 146.28
-## R-Squared:      0.007941
-## Adj. R-Squared: -0.1437
-## F-statistic: 1.7386 on 5 and 1086 DF, p-value: 0.12296
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 143, T = 1-16, N = 1009
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.82168 -0.41352 -0.00287  0.41249  2.05534 
-## 
-## Coefficients:
-##                     Estimate Std. Error t-value Pr(&gt;|t|)
-## Program_Country   0.12695439 0.07893518  1.6083   0.1081
-## BN.CAB.XOKA.GD.ZS 0.00096456 0.00309864  0.3113   0.7557
-## NY.GDP.MKTP.KD.ZG 0.00576385 0.00726744  0.7931   0.4279
-## SL.TLF.CACT.ZS    0.00822175 0.01321060  0.6224   0.5339
-## BCG_GALM_G01_XDC  0.00090676 0.00096329  0.9413   0.3468
-## 
-## Total Sum of Squares:    347.38
-## Residual Sum of Squares: 345.7
-## R-Squared:      0.004817
-## Adj. R-Squared: -0.18997
-## F-statistic: 0.816074 on 5 and 843 DF, p-value: 0.53828
-## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Twoways effects Within Model
@@ -1599,27 +1899,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.6946009 -0.1633160  0.0057527  0.1750218  0.9322483 
+## -1.7009514 -0.1585422  0.0029398  0.1723974  0.8044613 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country   -0.07829163  0.03304494 -2.3692  0.01800 *
-## BN.CAB.XOKA.GD.ZS -0.00066747  0.00126948 -0.5258  0.59915  
-## NY.GDP.MKTP.KD.ZG -0.00028378  0.00287169 -0.0988  0.92130  
-## SL.TLF.CACT.ZS    -0.00462898  0.00540231 -0.8569  0.39171  
-## BCG_GALM_G01_XDC   0.00081904  0.00040206  2.0371  0.04188 *
+## Program_Country   -7.2730e-02  3.3503e-02 -2.1709  0.03017 *
+## FP.CPI.TOTL.ZG     1.9155e-03  1.9205e-03  0.9974  0.31880  
+## BN.CAB.XOKA.GD.ZS -9.7643e-05  1.2838e-03 -0.0761  0.93939  
+## NY.GDP.MKTP.KD.ZG -4.5919e-03  3.0917e-03 -1.4852  0.13779  
+## SL.TLF.CACT.ZS    -6.5856e-03  5.4449e-03 -1.2095  0.22675  
+## BCG_GALM_G01_XDC   8.7165e-04  4.4053e-04  1.9786  0.04812 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    94.073
-## Residual Sum of Squares: 93.032
-## R-Squared:      0.011065
-## Adj. R-Squared: -0.13982
-## F-statistic: 2.43478 on 5 and 1088 DF, p-value: 0.033141
+## Total Sum of Squares:    87.653
+## Residual Sum of Squares: 86.368
+## R-Squared:      0.014658
+## Adj. R-Squared: -0.13862
+## F-statistic: 2.5661 on 6 and 1035 DF, p-value: 0.017959
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: External Debt&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1629,29 +1930,30 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 141, T = 1-16, N = 1041
+## Unbalanced Panel: n = 136, T = 1-16, N = 991
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -1.6067272 -0.3679564  0.0049925  0.4050499  1.7940701 
+## -1.6967930 -0.3598639  0.0085449  0.3850368  1.8186964 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.32033270  0.07651451 -4.1866 3.118e-05 ***
-## BN.CAB.XOKA.GD.ZS  0.00120075  0.00310051  0.3873  0.698646    
-## NY.GDP.MKTP.KD.ZG -0.00298490  0.00691432 -0.4317  0.666067    
-## SL.TLF.CACT.ZS    -0.03395931  0.01300981 -2.6103  0.009201 ** 
-## BCG_GALM_G01_XDC   0.00127312  0.00090422  1.4080  0.159491    
+## Program_Country   -0.33913725  0.07792716 -4.3520 1.517e-05 ***
+## FP.CPI.TOTL.ZG    -0.00412009  0.00493254 -0.8353  0.403795    
+## BN.CAB.XOKA.GD.ZS  0.00247831  0.00316901  0.7820  0.434411    
+## NY.GDP.MKTP.KD.ZG -0.00877902  0.00754097 -1.1642  0.244687    
+## SL.TLF.CACT.ZS    -0.03553709  0.01322516 -2.6871  0.007352 ** 
+## BCG_GALM_G01_XDC   0.00062952  0.00100072  0.6291  0.529475    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    362.42
-## Residual Sum of Squares: 351.08
-## R-Squared:      0.031282
-## Adj. R-Squared: -0.14876
-## F-statistic: 5.66409 on 5 and 877 DF, p-value: 3.7728e-05
+## Total Sum of Squares:    339.85
+## Residual Sum of Squares: 328.55
+## R-Squared:      0.033257
+## Adj. R-Squared: -0.15172
+## F-statistic: 4.76453 on 6 and 831 DF, p-value: 8.7137e-05
 ## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Twoways effects Within Model
 ## 
@@ -1659,87 +1961,30 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1249
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.226975 -0.283067  0.034038  0.316013  1.547340 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.14012567  0.05757370  2.4338  0.01510 *
-## BN.CAB.XOKA.GD.ZS -0.00423398  0.00221255 -1.9136  0.05593 .
-## NY.GDP.MKTP.KD.ZG -0.00217277  0.00501092 -0.4336  0.66466  
-## SL.TLF.CACT.ZS     0.01131324  0.00941459  1.2017  0.22975  
-## BCG_GALM_G01_XDC  -0.00125263  0.00070039 -1.7885  0.07398 .
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    285.03
-## Residual Sum of Squares: 280.55
-## R-Squared:      0.015698
-## Adj. R-Squared: -0.13531
-## F-statistic: 3.45131 on 5 and 1082 DF, p-value: 0.0042345
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 125, T = 1-8, N = 382
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.07448 -0.28344  0.00000  0.23223  1.15492 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country    0.08260811  0.11532031  0.7163   0.4745
-## BN.CAB.XOKA.GD.ZS  0.00319875  0.00472368  0.6772   0.4990
-## NY.GDP.MKTP.KD.ZG -0.00415817  0.01016373 -0.4091   0.6828
-## SL.TLF.CACT.ZS    -0.00354725  0.01921679 -0.1846   0.8537
-## BCG_GALM_G01_XDC   0.00022063  0.00179903  0.1226   0.9025
-## 
-## Total Sum of Squares:    55.709
-## Residual Sum of Squares: 55.409
-## R-Squared:      0.005376
-## Adj. R-Squared: -0.61945
-## F-statistic: 0.252955 on 5 and 234 DF, p-value: 0.93805
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
-## 
-## Twoways effects Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
 ##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.7134141 -0.1168980 -0.0010588  0.1167308  0.7294815 
+## -0.6839422 -0.1413402  0.0017735  0.1294313  0.9760891 
 ## 
 ## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.03566035  0.02243449 -1.5895  0.112231    
-## BN.CAB.XOKA.GD.ZS  0.00233938  0.00086226  2.7131  0.006772 ** 
-## NY.GDP.MKTP.KD.ZG  0.00012160  0.00195031  0.0624  0.950295    
-## SL.TLF.CACT.ZS     0.00200334  0.00366823  0.5461  0.585087    
-## BCG_GALM_G01_XDC  -0.00109614  0.00027236 -4.0245 6.104e-05 ***
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
+## Program_Country    0.02249375  0.02705159  0.8315 0.405876   
+## FP.CPI.TOTL.ZG    -0.00014055  0.00155068 -0.0906 0.927799   
+## BN.CAB.XOKA.GD.ZS  0.00108096  0.00103663  1.0428 0.297302   
+## NY.GDP.MKTP.KD.ZG -0.00032964  0.00249639 -0.1320 0.894973   
+## SL.TLF.CACT.ZS     0.01188462  0.00439646  2.7032 0.006979 **
+## BCG_GALM_G01_XDC   0.00108296  0.00035570  3.0446 0.002389 **
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    43.771
-## Residual Sum of Squares: 42.897
-## R-Squared:      0.019984
-## Adj. R-Squared: -0.12954
-## F-statistic: 4.43711 on 5 and 1088 DF, p-value: 0.00052529
+## Total Sum of Squares:    57.389
+## Residual Sum of Squares: 56.309
+## R-Squared:      0.018823
+## Adj. R-Squared: -0.1338
+## F-statistic: 3.30931 on 6 and 1035 DF, p-value: 0.0031238
 ## 
-## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
+## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
 ## 
 ## Twoways effects Within Model
 ## 
@@ -1747,27 +1992,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1203
+## Unbalanced Panel: n = 139, T = 1-17, N = 1205
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.089303 -0.366717  0.032563  0.391496  1.676357 
+## -2.196870 -0.391299  0.034508  0.397336  2.184804 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.12408390  0.07406094  1.6754  0.09415 .
-## BN.CAB.XOKA.GD.ZS  0.00611574  0.00288602  2.1191  0.03432 *
-## NY.GDP.MKTP.KD.ZG -0.00129584  0.00643519 -0.2014  0.84045  
-## SL.TLF.CACT.ZS     0.01704407  0.01235871  1.3791  0.16816  
-## BCG_GALM_G01_XDC  -0.00093621  0.00088799 -1.0543  0.29199  
+## Program_Country   -0.05480885  0.07721732 -0.7098   0.4780  
+## FP.CPI.TOTL.ZG    -0.00356198  0.00445944 -0.7988   0.4246  
+## BN.CAB.XOKA.GD.ZS -0.00081715  0.00295956 -0.2761   0.7825  
+## NY.GDP.MKTP.KD.ZG  0.01289144  0.00724810  1.7786   0.0756 .
+## SL.TLF.CACT.ZS    -0.00753851  0.01265244 -0.5958   0.5514  
+## BCG_GALM_G01_XDC   0.00082303  0.00101980  0.8071   0.4198  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    432.42
-## Residual Sum of Squares: 428.33
-## R-Squared:      0.0094566
-## Adj. R-Squared: -0.15037
-## F-statistic: 1.97621 on 5 and 1035 DF, p-value: 0.079646
+## Total Sum of Squares:    470.75
+## Residual Sum of Squares: 468.27
+## R-Squared:      0.0052743
+## Adj. R-Squared: -0.14938
+## F-statistic: 0.920825 on 6 and 1042 DF, p-value: 0.47893
 ## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1777,27 +2023,28 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
 ##        Min.     1st Qu.      Median     3rd Qu.        Max. 
-## -0.68564343 -0.13635175  0.00098562  0.13779117  0.85285954 
+## -0.68468192 -0.13391959 -0.00061305  0.13623377  0.85563018 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    3.5434e-02  2.4500e-02  1.4463 0.148376   
-## BN.CAB.XOKA.GD.ZS -3.0001e-03  9.4106e-04 -3.1879 0.001474 **
-## NY.GDP.MKTP.KD.ZG  3.8509e-03  2.1288e-03  1.8090 0.070728 . 
-## SL.TLF.CACT.ZS    -9.1533e-03  4.0048e-03 -2.2856 0.022470 * 
-## BCG_GALM_G01_XDC   6.9939e-05  2.9798e-04  0.2347 0.814476   
+## Program_Country    0.03842368  0.02492375  1.5416 0.123465   
+## FP.CPI.TOTL.ZG    -0.00206071  0.00142849 -1.4426 0.149442   
+## BN.CAB.XOKA.GD.ZS -0.00274611  0.00095488 -2.8759 0.004112 **
+## NY.GDP.MKTP.KD.ZG  0.00062543  0.00229952  0.2720 0.785690   
+## SL.TLF.CACT.ZS    -0.01044840  0.00404979 -2.5800 0.010017 * 
+## BCG_GALM_G01_XDC  -0.00002077  0.00032757 -0.0634 0.949456   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    52.201
-## Residual Sum of Squares: 51.123
-## R-Squared:      0.020634
-## Adj. R-Squared: -0.12879
-## F-statistic: 4.58459 on 5 and 1088 DF, p-value: 0.00038248
+## Total Sum of Squares:    48.723
+## Residual Sum of Squares: 47.777
+## R-Squared:      0.01942
+## Adj. R-Squared: -0.13312
+## F-statistic: 3.41623 on 6 and 1035 DF, p-value: 0.0024124
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
 ## 
@@ -1807,486 +2054,306 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1281
+## Unbalanced Panel: n = 139, T = 1-17, N = 1224
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.192664 -0.342807  0.011277  0.378640  1.830192 
+## -2.170964 -0.327504  0.013446  0.376065  1.847404 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.01316817  0.06844967  0.1924  0.84748  
-## BN.CAB.XOKA.GD.ZS -0.00452024  0.00263005 -1.7187  0.08595 .
-## NY.GDP.MKTP.KD.ZG -0.00075860  0.00598630 -0.1267  0.89918  
-## SL.TLF.CACT.ZS     0.00627870  0.01136167  0.5526  0.58063  
-## BCG_GALM_G01_XDC  -0.00033982  0.00083991 -0.4046  0.68586  
+## Program_Country    0.02157653  0.07058833  0.3057  0.75992  
+## FP.CPI.TOTL.ZG    -0.00398410  0.00407363 -0.9780  0.32829  
+## BN.CAB.XOKA.GD.ZS -0.00531998  0.00270505 -1.9667  0.04948 *
+## NY.GDP.MKTP.KD.ZG -0.00159760  0.00654803 -0.2440  0.80729  
+## SL.TLF.CACT.ZS     0.00230095  0.01165052  0.1975  0.84348  
+## BCG_GALM_G01_XDC  -0.00052495  0.00093651 -0.5605  0.57523  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    421.96
-## Residual Sum of Squares: 420.55
-## R-Squared:      0.003354
-## Adj. R-Squared: -0.14619
-## F-statistic: 0.74911 on 5 and 1113 DF, p-value: 0.58679</code></pre>
-</div>
-<div id="individual-but-no-time-effects" class="section level3">
-<h3>Individual, but No Time Effects</h3>
-</div>
-<div id="both-time-and-individual-effects-1" class="section level3">
-<h3>Both Time and Individual Effects</h3>
-<pre class="r"><code>for (topic in unique(d$Topic)){
-    tmp &lt;- subset(d, Topic == topic)
-    tmp &lt;- pdata.frame(tmp, index = c(&quot;Country.x&quot;, &quot;Year&quot;), drop.index=TRUE, row.names=TRUE)
-    writeLines(paste0(&quot;\n&gt;&gt;&gt;&gt;&gt;Scaled Mentions: &quot;, topic, &quot;&lt;&lt;&lt;&lt;&lt;\n&quot;))
-    print(summary(plm(mentions_form, data = tmp, model = &quot;within&quot;, effect = &quot;individual&quot;)))
-    writeLines(paste0(&quot;\n&gt;&gt;&gt;Scaled Recommendations: &quot;, topic, &quot;&lt;&lt;&lt;&lt;&lt;\n&quot;))
-    e &lt;- simpleError(&quot;NA data error&quot;)
-    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = &quot;within&quot;, effect = &quot;individual&quot;))),
-             error = function(e) e)
-}</code></pre>
-<pre><code>## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## Total Sum of Squares:    407.17
+## Residual Sum of Squares: 405
+## R-Squared:      0.0053366
+## Adj. R-Squared: -0.14653
+## F-statistic: 0.948746 on 6 and 1061 DF, p-value: 0.45904
 ## 
-## Oneway (individual) effect Within Model
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
 ## 
 ## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1195
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.429405 -0.093639  0.018727  0.133354  0.632889 
+## -2.191522 -0.192529  0.011566  0.217223  1.035370 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.08314229  0.04254405  1.9543  0.05094 .
+## FP.CPI.TOTL.ZG    -0.00129594  0.00243570 -0.5321  0.59480  
+## BN.CAB.XOKA.GD.ZS  0.00076678  0.00162830  0.4709  0.63781  
+## NY.GDP.MKTP.KD.ZG  0.00126615  0.00392379  0.3227  0.74700  
+## SL.TLF.CACT.ZS    -0.00723414  0.00690572 -1.0476  0.29509  
+## BCG_GALM_G01_XDC  -0.00037205  0.00055881 -0.6658  0.50570  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    139.57
+## Residual Sum of Squares: 138.66
+## R-Squared:      0.0065707
+## Adj. R-Squared: -0.14826
+## F-statistic: 1.13875 on 6 and 1033 DF, p-value: 0.33751
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 137, T = 1-16, N = 967
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.619578 -0.420095 -0.012302  0.403985  2.068450 
+## 
+## Coefficients:
+##                     Estimate Std. Error t-value Pr(&gt;|t|)
+## Program_Country   0.11569136 0.08103549  1.4277   0.1538
+## FP.CPI.TOTL.ZG    0.00492776 0.00478727  1.0293   0.3036
+## BN.CAB.XOKA.GD.ZS 0.00109139 0.00315504  0.3459   0.7295
+## NY.GDP.MKTP.KD.ZG 0.00537196 0.00811273  0.6622   0.5081
+## SL.TLF.CACT.ZS    0.00955527 0.01340030  0.7131   0.4760
+## BCG_GALM_G01_XDC  0.00062017 0.00104843  0.5915   0.5543
+## 
+## Total Sum of Squares:    332.64
+## Residual Sum of Squares: 330.95
+## R-Squared:      0.0050782
+## Adj. R-Squared: -0.19242
+## F-statistic: 0.685649 on 6 and 806 DF, p-value: 0.66131
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1194
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.122477 -0.280382  0.023323  0.315290  1.729738 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.11166518  0.05976998  1.8682  0.06201 .
+## FP.CPI.TOTL.ZG     0.00396746  0.00342846  1.1572  0.24745  
+## BN.CAB.XOKA.GD.ZS -0.00045302  0.00230590 -0.1965  0.84429  
+## NY.GDP.MKTP.KD.ZG -0.00806351  0.00552785 -1.4587  0.14495  
+## SL.TLF.CACT.ZS     0.01053363  0.00979806  1.0751  0.28259  
+## BCG_GALM_G01_XDC   0.00042131  0.00078617  0.5359  0.59214  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    276.4
+## Residual Sum of Squares: 274.08
+## R-Squared:      0.0084203
+## Adj. R-Squared: -0.14627
+## F-statistic: 1.4606 on 6 and 1032 DF, p-value: 0.18853
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 129, T = 1-16, N = 635
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -1.69564 -0.35113  0.00000  0.35248  1.62128 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.03950883  0.12227821  0.3231  0.74676  
+## FP.CPI.TOTL.ZG    -0.01040864  0.00759552 -1.3704  0.17121  
+## BN.CAB.XOKA.GD.ZS  0.00798773  0.00472317  1.6912  0.09145 .
+## NY.GDP.MKTP.KD.ZG -0.00514824  0.01098635 -0.4686  0.63956  
+## SL.TLF.CACT.ZS     0.00098262  0.01986460  0.0495  0.96057  
+## BCG_GALM_G01_XDC  -0.00092666  0.00141468 -0.6550  0.51276  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    189.56
+## Residual Sum of Squares: 187.39
+## R-Squared:      0.011461
+## Adj. R-Squared: -0.30028
+## F-statistic: 0.931369 on 6 and 482 DF, p-value: 0.47195
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1192
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -2.237065 -0.278784  0.024106  0.325874  1.421785 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country    0.14515207  0.05847195  2.4824  0.01321 *
+## FP.CPI.TOTL.ZG     0.00199436  0.00335181  0.5950  0.55197  
+## BN.CAB.XOKA.GD.ZS -0.00541091  0.00224151 -2.4140  0.01595 *
+## NY.GDP.MKTP.KD.ZG  0.00734335  0.00540853  1.3577  0.17485  
+## SL.TLF.CACT.ZS     0.01581717  0.00950479  1.6641  0.09639 .
+## BCG_GALM_G01_XDC  -0.00124416  0.00076908 -1.6177  0.10603  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    267.07
+## Residual Sum of Squares: 261.76
+## R-Squared:      0.019902
+## Adj. R-Squared: -0.1333
+## F-statistic: 3.48592 on 6 and 1030 DF, p-value: 0.0020376
+## 
+## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 119, T = 1-8, N = 369
+## 
+## Residuals:
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -1.07654 -0.28211  0.00000  0.23147  1.11056 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country   -0.03455149  0.02810049 -1.2296   0.2191
-## BN.CAB.XOKA.GD.ZS  0.00069480  0.00109303  0.6357   0.5251
-## NY.GDP.MKTP.KD.ZG  0.00328576  0.00228053  1.4408   0.1499
-## SL.TLF.CACT.ZS    -0.00293857  0.00466407 -0.6300   0.5288
-## BCG_GALM_G01_XDC  -0.00023476  0.00034004 -0.6904   0.4901
+## Program_Country    0.09999692  0.11753064  0.8508   0.3958
+## FP.CPI.TOTL.ZG     0.00342442  0.00704536  0.4861   0.6274
+## BN.CAB.XOKA.GD.ZS  0.00244837  0.00489142  0.5005   0.6172
+## NY.GDP.MKTP.KD.ZG -0.00357627  0.01087306 -0.3289   0.7425
+## SL.TLF.CACT.ZS    -0.00609691  0.01963151 -0.3106   0.7564
+## BCG_GALM_G01_XDC   0.00074319  0.00190804  0.3895   0.6973
 ## 
-## Total Sum of Squares:    72.114
-## Residual Sum of Squares: 71.796
-## R-Squared:      0.004406
-## Adj. R-Squared: -0.12882
-## F-statistic: 0.978929 on 5 and 1106 DF, p-value: 0.42939
+## Total Sum of Squares:    54.852
+## Residual Sum of Squares: 54.441
+## R-Squared:      0.0074918
+## Adj. R-Squared: -0.61612
+## F-statistic: 0.284323 on 6 and 226 DF, p-value: 0.94399
+## 
+## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Social Welfare&lt;&lt;&lt;&lt;&lt;
+## 
+## Twoways effects Within Model
+## 
+## Call:
+## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
+##     model = &quot;within&quot;)
+## 
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
+## 
+## Residuals:
+##      Min.   1st Qu.    Median   3rd Qu.      Max. 
+## -1.319745 -0.092190  0.025586  0.125715  0.613388 
+## 
+## Coefficients:
+##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
+## Program_Country   -0.01066416  0.02868877 -0.3717  0.71018  
+## FP.CPI.TOTL.ZG    -0.00275436  0.00164453 -1.6749  0.09426 .
+## BN.CAB.XOKA.GD.ZS -0.00020053  0.00109937 -0.1824  0.85530  
+## NY.GDP.MKTP.KD.ZG  0.00092318  0.00264748  0.3487  0.72739  
+## SL.TLF.CACT.ZS    -0.00132516  0.00466253 -0.2842  0.77630  
+## BCG_GALM_G01_XDC  -0.00031852  0.00037723 -0.8444  0.39865  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Total Sum of Squares:    63.588
+## Residual Sum of Squares: 63.33
+## R-Squared:      0.004046
+## Adj. R-Squared: -0.15088
+## F-statistic: 0.70077 on 6 and 1035 DF, p-value: 0.64906
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: Social Welfare&lt;&lt;&lt;&lt;&lt;
 ## 
 ## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.7314137 -0.1502950 -0.0033744  0.1454671  0.8928360 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country    3.7313e-02  2.7158e-02  1.3739  0.169753    
-## BN.CAB.XOKA.GD.ZS  8.4425e-05  1.0564e-03  0.0799  0.936316    
-## NY.GDP.MKTP.KD.ZG -1.1206e-02  2.2041e-03 -5.0841 4.335e-07 ***
-## SL.TLF.CACT.ZS     1.2433e-02  4.5077e-03  2.7583  0.005906 ** 
-## BCG_GALM_G01_XDC   5.2707e-04  3.2863e-04  1.6038  0.109040    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    69.613
-## Residual Sum of Squares: 67.063
-## R-Squared:      0.036634
-## Adj. R-Squared: -0.092279
-## F-statistic: 8.41161 on 5 and 1106 DF, p-value: 8.0328e-08
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Financial/Monetary&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1261
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.247145 -0.372125  0.028054  0.421960  2.236010 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country   -0.05643363  0.07422480 -0.7603   0.4472
-## BN.CAB.XOKA.GD.ZS -0.00174727  0.00289837 -0.6028   0.5467
-## NY.GDP.MKTP.KD.ZG  0.00202837  0.00609739  0.3327   0.7395
-## SL.TLF.CACT.ZS    -0.00658994  0.01239501 -0.5317   0.5951
-## BCG_GALM_G01_XDC   0.00015520  0.00091216  0.1702   0.8649
-## 
-## Total Sum of Squares:    508.47
-## Residual Sum of Squares: 507.83
-## R-Squared:      0.0012622
-## Adj. R-Squared: -0.13268
-## F-statistic: 0.280804 on 5 and 1111 DF, p-value: 0.92376
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1251
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.331234 -0.298011  0.014606  0.335575  1.860797 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.06997391  0.06076421  1.1516  0.24975  
-## BN.CAB.XOKA.GD.ZS -0.00013397  0.00237717 -0.0564  0.95507  
-## NY.GDP.MKTP.KD.ZG  0.00604269  0.00494367  1.2223  0.22185  
-## SL.TLF.CACT.ZS     0.01563407  0.01016538  1.5380  0.12434  
-## BCG_GALM_G01_XDC   0.00144329  0.00073516  1.9632  0.04987 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    336.4
-## Residual Sum of Squares: 334.05
-## R-Squared:      0.0069824
-## Adj. R-Squared: -0.12638
-## F-statistic: 1.54975 on 5 and 1102 DF, p-value: 0.17163
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Labor Issues&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 135, T = 1-16, N = 662
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.97883 -0.38949  0.00000  0.36658  1.77188 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.00094429  0.12005994  0.0079  0.99373  
-## BN.CAB.XOKA.GD.ZS  0.00773794  0.00450804  1.7165  0.08667 .
-## NY.GDP.MKTP.KD.ZG  0.00603737  0.00887178  0.6805  0.49648  
-## SL.TLF.CACT.ZS    -0.00627718  0.01889615 -0.3322  0.73988  
-## BCG_GALM_G01_XDC  -0.00206410  0.00126887 -1.6267  0.10440  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    212.64
-## Residual Sum of Squares: 210.61
-## R-Squared:      0.0095865
-## Adj. R-Squared: -0.25414
-## F-statistic: 1.01051 on 5 and 522 DF, p-value: 0.41069
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1253
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.413182 -0.202447  0.024424  0.227094  1.021961 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)   
-## Program_Country    0.06558347  0.04245760  1.5447 0.122710   
-## BN.CAB.XOKA.GD.ZS  0.00153246  0.00164913  0.9293 0.352960   
-## NY.GDP.MKTP.KD.ZG  0.01110856  0.00344069  3.2286 0.001281 **
-## SL.TLF.CACT.ZS    -0.00538049  0.00703676 -0.7646 0.444658   
-## BCG_GALM_G01_XDC   0.00058719  0.00051314  1.1443 0.252744   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    165.4
-## Residual Sum of Squares: 163.13
-## R-Squared:      0.013736
-## Adj. R-Squared: -0.11848
-## F-statistic: 3.07507 on 5 and 1104 DF, p-value: 0.0091925
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Institutional Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 143, T = 1-16, N = 1009
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.845971 -0.459125  0.004562  0.422999  2.219748 
-## 
-## Coefficients:
-##                     Estimate Std. Error t-value Pr(&gt;|t|)  
-## Program_Country   0.11536671 0.07840565  1.4714  0.14155  
-## BN.CAB.XOKA.GD.ZS 0.00256556 0.00311846  0.8227  0.41090  
-## NY.GDP.MKTP.KD.ZG 0.01170235 0.00675771  1.7317  0.08368 .
-## SL.TLF.CACT.ZS    0.01040886 0.01337859  0.7780  0.43677  
-## BCG_GALM_G01_XDC  0.00127440 0.00095605  1.3330  0.18289  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    370.44
-## Residual Sum of Squares: 367.22
-## R-Squared:      0.0086768
-## Adj. R-Squared: -0.16057
-## F-statistic: 1.50723 on 5 and 861 DF, p-value: 0.18498
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: External Debt&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.677209 -0.161643  0.013314  0.185277  0.934775 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country   -7.8997e-03  3.4984e-02 -0.2258   0.8214
-## BN.CAB.XOKA.GD.ZS -1.2987e-03  1.3608e-03 -0.9544   0.3401
-## NY.GDP.MKTP.KD.ZG -3.7067e-03  2.8392e-03 -1.3056   0.1920
-## SL.TLF.CACT.ZS     8.2199e-05  5.8066e-03  0.0142   0.9887
-## BCG_GALM_G01_XDC   4.0518e-04  4.2333e-04  0.9571   0.3387
-## 
-## Total Sum of Squares:    111.65
-## Residual Sum of Squares: 111.28
-## R-Squared:      0.0033649
-## Adj. R-Squared: -0.13
-## F-statistic: 0.74684 on 5 and 1106 DF, p-value: 0.58847
-## 
-## &gt;&gt;&gt;Scaled Recommendations: External Debt&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 141, T = 1-16, N = 1041
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.677160 -0.382615 -0.012958  0.425083  1.891866 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.27441238  0.07496331 -3.6606 0.0002663 ***
-## BN.CAB.XOKA.GD.ZS  0.00152593  0.00308656  0.4944 0.6211601    
-## NY.GDP.MKTP.KD.ZG -0.00847533  0.00640535 -1.3232 0.1861186    
-## SL.TLF.CACT.ZS    -0.03505832  0.01298288 -2.7003 0.0070575 ** 
-## BCG_GALM_G01_XDC   0.00076190  0.00088657  0.8594 0.3903604    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    373.83
-## Residual Sum of Squares: 363.95
-## R-Squared:      0.026442
-## Adj. R-Squared: -0.13129
-## F-statistic: 4.86163 on 5 and 895 DF, p-value: 0.00021482
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1249
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.144998 -0.284123  0.037737  0.341921  1.444220 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.13355330  0.05756195  2.3202  0.02051 *
-## BN.CAB.XOKA.GD.ZS -0.00466815  0.00223940 -2.0846  0.03734 *
-## NY.GDP.MKTP.KD.ZG -0.00474300  0.00467283 -1.0150  0.31032  
-## SL.TLF.CACT.ZS     0.01067799  0.00955367  1.1177  0.26395  
-## BCG_GALM_G01_XDC  -0.00170194  0.00069646 -2.4437  0.01469 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    305.42
-## Residual Sum of Squares: 299.23
-## R-Squared:      0.020288
-## Adj. R-Squared: -0.11153
-## F-statistic: 4.55567 on 5 and 1100 DF, p-value: 0.00040667
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Privatization Reforms&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 125, T = 1-8, N = 382
-## 
-## Residuals:
-##     Min.  1st Qu.   Median  3rd Qu.     Max. 
-## -1.11897 -0.26338  0.00000  0.27632  1.36486 
-## 
-## Coefficients:
-##                     Estimate Std. Error t-value Pr(&gt;|t|)
-## Program_Country    0.0270380  0.1136629  0.2379   0.8122
-## BN.CAB.XOKA.GD.ZS  0.0070325  0.0047214  1.4895   0.1376
-## NY.GDP.MKTP.KD.ZG -0.0034385  0.0093625 -0.3673   0.7137
-## SL.TLF.CACT.ZS    -0.0107853  0.0197725 -0.5455   0.5859
-## BCG_GALM_G01_XDC  -0.0015638  0.0017269 -0.9055   0.3661
-## 
-## Total Sum of Squares:    66.178
-## Residual Sum of Squares: 65.243
-## R-Squared:      0.01414
-## Adj. R-Squared: -0.49053
-## F-statistic: 0.722891 on 5 and 252 DF, p-value: 0.6068
-## 
 ## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
 ## 
-## Oneway (individual) effect Within Model
+## Twoways effects Within Model
 ## 
 ## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
+## plm(formula = mentions_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
+## Unbalanced Panel: n = 138, T = 1-17, N = 1197
 ## 
 ## Residuals:
-##       Min.    1st Qu.     Median    3rd Qu.       Max. 
-## -0.7342119 -0.1171685 -0.0025931  0.1222233  0.7197385 
+##     Min.  1st Qu.   Median  3rd Qu.     Max. 
+## -0.66884 -0.10931  0.00000  0.11503  0.72180 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value  Pr(&gt;|t|)    
-## Program_Country   -0.02596827  0.02210178 -1.1749  0.240271    
-## BN.CAB.XOKA.GD.ZS  0.00242255  0.00086019  2.8163  0.004944 ** 
-## NY.GDP.MKTP.KD.ZG  0.00073587  0.00179458  0.4101  0.681845    
-## SL.TLF.CACT.ZS     0.00381948  0.00366951  1.0409  0.298163    
-## BCG_GALM_G01_XDC  -0.00117698  0.00026673 -4.4127 1.121e-05 ***
+## Program_Country   -0.03649939  0.02246947 -1.6244   0.10460    
+## FP.CPI.TOTL.ZG     0.00161209  0.00128877  1.2509   0.21126    
+## BN.CAB.XOKA.GD.ZS  0.00192764  0.00086159  2.2373   0.02548 *  
+## NY.GDP.MKTP.KD.ZG  0.00334619  0.00207499  1.6126   0.10713    
+## SL.TLF.CACT.ZS     0.00492347  0.00365340  1.3476   0.17807    
+## BCG_GALM_G01_XDC  -0.00120209  0.00029533 -4.0704 5.052e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    45.485
-## Residual Sum of Squares: 44.444
-## R-Squared:      0.022888
-## Adj. R-Squared: -0.10787
-## F-statistic: 5.18134 on 5 and 1106 DF, p-value: 0.00010467
+## Total Sum of Squares:    39.902
+## Residual Sum of Squares: 38.886
+## R-Squared:      0.025455
+## Adj. R-Squared: -0.12614
+## F-statistic: 4.50574 on 6 and 1035 DF, p-value: 0.00016206
 ## 
 ## &gt;&gt;&gt;Scaled Recommendations: Trade/Exchange&lt;&lt;&lt;&lt;&lt;
 ## 
-## Oneway (individual) effect Within Model
+## Twoways effects Within Model
 ## 
 ## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
+## plm(formula = recommendations_form, data = tmp, effect = &quot;twoways&quot;, 
 ##     model = &quot;within&quot;)
 ## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1203
+## Unbalanced Panel: n = 139, T = 1-17, N = 1148
 ## 
 ## Residuals:
 ##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -1.941005 -0.356996  0.022556  0.397049  1.730077 
+## -2.043091 -0.370123  0.028028  0.403420  1.725500 
 ## 
 ## Coefficients:
 ##                      Estimate  Std. Error t-value Pr(&gt;|t|)  
-## Program_Country    0.10876908  0.07228395  1.5047   0.1327  
-## BN.CAB.XOKA.GD.ZS  0.00473621  0.00284533  1.6646   0.0963 .
-## NY.GDP.MKTP.KD.ZG -0.00382677  0.00584636 -0.6546   0.5129  
-## SL.TLF.CACT.ZS     0.01754960  0.01225226  1.4324   0.1523  
-## BCG_GALM_G01_XDC  -0.00103151  0.00086264 -1.1958   0.2321  
+## Program_Country    0.11370317  0.07611762  1.4938  0.13555  
+## FP.CPI.TOTL.ZG     0.00647777  0.00429709  1.5075  0.13201  
+## BN.CAB.XOKA.GD.ZS  0.00521795  0.00296184  1.7617  0.07843 .
+## NY.GDP.MKTP.KD.ZG  0.00326633  0.00705283  0.4631  0.64338  
+## SL.TLF.CACT.ZS     0.02312000  0.01264556  1.8283  0.06781 .
+## BCG_GALM_G01_XDC  -0.00094063  0.00099121 -0.9490  0.34287  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Total Sum of Squares:    440.82
-## Residual Sum of Squares: 437.17
-## R-Squared:      0.0082652
-## Adj. R-Squared: -0.13207
-## F-statistic: 1.75515 on 5 and 1053 DF, p-value: 0.11938
-## 
-## &gt;&gt;&gt;&gt;&gt;Scaled Mentions: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = mentions_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 144, T = 1-17, N = 1255
-## 
-## Residuals:
-##        Min.     1st Qu.      Median     3rd Qu.        Max. 
-## -0.82371987 -0.14521483  0.00072895  0.13340986  0.82130823 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)    
-## Program_Country    0.00655767  0.02561396  0.2560 0.797983    
-## BN.CAB.XOKA.GD.ZS -0.00222432  0.00099632 -2.2325 0.025779 *  
-## NY.GDP.MKTP.KD.ZG  0.00903233  0.00207876  4.3451 1.52e-05 ***
-## SL.TLF.CACT.ZS    -0.01271814  0.00425147 -2.9915 0.002838 ** 
-## BCG_GALM_G01_XDC   0.00045268  0.00030994  1.4605 0.144427    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Total Sum of Squares:    61.576
-## Residual Sum of Squares: 59.654
-## R-Squared:      0.031215
-## Adj. R-Squared: -0.098424
-## F-statistic: 7.12712 on 5 and 1106 DF, p-value: 1.4233e-06
-## 
-## &gt;&gt;&gt;Scaled Recommendations: Fiscal Policy&lt;&lt;&lt;&lt;&lt;
-## 
-## Oneway (individual) effect Within Model
-## 
-## Call:
-## plm(formula = recommendations_form, data = tmp, effect = &quot;individual&quot;, 
-##     model = &quot;within&quot;)
-## 
-## Unbalanced Panel: n = 145, T = 1-17, N = 1281
-## 
-## Residuals:
-##      Min.   1st Qu.    Median   3rd Qu.      Max. 
-## -2.363446 -0.337913  0.010378  0.399052  1.913952 
-## 
-## Coefficients:
-##                      Estimate  Std. Error t-value Pr(&gt;|t|)
-## Program_Country    0.02175560  0.06750059  0.3223   0.7473
-## BN.CAB.XOKA.GD.ZS -0.00345733  0.00262728 -1.3159   0.1885
-## NY.GDP.MKTP.KD.ZG  0.00760803  0.00549671  1.3841   0.1666
-## SL.TLF.CACT.ZS     0.00491920  0.01137031  0.4326   0.6654
-## BCG_GALM_G01_XDC  -0.00057007  0.00082436 -0.6915   0.4894
-## 
-## Total Sum of Squares:    438.04
-## Residual Sum of Squares: 436.13
-## R-Squared:      0.0043503
-## Adj. R-Squared: -0.12682
-## F-statistic: 0.988342 on 5 and 1131 DF, p-value: 0.42356</code></pre>
+## Total Sum of Squares:    413.75
+## Residual Sum of Squares: 409.32
+## R-Squared:      0.010721
+## Adj. R-Squared: -0.15198
+## F-statistic: 1.77906 on 6 and 985 DF, p-value: 0.10021</code></pre>
 </div>
 </div>
 </div>
