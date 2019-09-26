@@ -37,6 +37,9 @@ write_csv(d, "./prepped_data.csv")
 ### explanatory variables-----
 vars <- c(
            "Program_Country",
+#"SBA",
+#"PSI",
+#"PLL",
            "FP.CPI.TOTL.ZG", # Inflation, consumer prices (annual %)
            "BN.CAB.XOKA.GD.ZS", # Current Account Balance as % of GDP
 #          "IC.FRM.BNKS.ZS", # Firms using banks to finance investment (% of firms)
@@ -90,11 +93,6 @@ for (topic in unique(d$Topic)){
     tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "time"))),
              error = function(e) e)
 }
-## estimate models
-## summary(plm(mentions_form, data = ed, model = "between", effect = "individual"))
-## summary(plm(mentions_form, data = ed, model = "within", effect = "twoways"))
-## summary(plm(mentions_form, data = ed, model = "within", effect = "individual"))
-## summary(plm(mentions_form, data = ed, model = "within", effect = "time"))
 ```
 
 ### Individual, but No Time Effects

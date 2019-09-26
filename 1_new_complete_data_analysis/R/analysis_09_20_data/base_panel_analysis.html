@@ -405,6 +405,9 @@ write_csv(d, &quot;./prepped_data.csv&quot;)</code></pre>
 <pre class="r"><code>### explanatory variables-----
 vars &lt;- c(
            &quot;Program_Country&quot;,
+#&quot;SBA&quot;,
+#&quot;PSI&quot;,
+#&quot;PLL&quot;,
            &quot;FP.CPI.TOTL.ZG&quot;, # Inflation, consumer prices (annual %)
            &quot;BN.CAB.XOKA.GD.ZS&quot;, # Current Account Balance as % of GDP
 #          &quot;IC.FRM.BNKS.ZS&quot;, # Firms using banks to finance investment (% of firms)
@@ -1397,11 +1400,6 @@ recommendations_form &lt;- as.formula(paste(&quot;sRecommendations_logit ~&quot;
 ## R-Squared:      0.035991
 ## Adj. R-Squared: 0.015388
 ## F-statistic: 6.98773 on 6 and 1123 DF, p-value: 2.602e-07</code></pre>
-<pre class="r"><code>## estimate models
-## summary(plm(mentions_form, data = ed, model = &quot;between&quot;, effect = &quot;individual&quot;))
-## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;twoways&quot;))
-## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;individual&quot;))
-## summary(plm(mentions_form, data = ed, model = &quot;within&quot;, effect = &quot;time&quot;))</code></pre>
 </div>
 <div id="individual-but-no-time-effects" class="section level3">
 <h3>Individual, but No Time Effects</h3>
