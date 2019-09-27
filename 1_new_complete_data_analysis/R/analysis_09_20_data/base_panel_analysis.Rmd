@@ -13,6 +13,9 @@ d <- read_csv("../../data_from_w_sept_20/data_with_inf_and_unemp.csv")
 remove <- c("Country.y", "iso2c", "MS.MIL.XPND.CN")
 d <- d[, !(names(d) %in% remove)]
 
+## make sure replacing NA with 0 is OK here.
+d$Recommendations[is.na(d$Recommendations)] <- 0.01
+
 ## calculate % mentions for each topic by country/year group------
 
 d <- d %>%
