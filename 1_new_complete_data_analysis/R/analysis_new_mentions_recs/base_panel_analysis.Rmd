@@ -1,0 +1,136 @@
+---
+title:
+output: html_document
+---
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+library(readr)
+library(plm)
+library(dplyr)
+
+d <- read_csv("../../data_sept_20_merged_with_new_recs/data_with_new_mentions_recs.csv")
+
+remove <- c("Country.y", "iso2c", "MS.MIL.XPND.CN")
+d <- d[, !(names(d) %in% remove)]
+
+## make sure replacing NA with 0 is OK here.
+d$Recommendations_new[is.na(d$Recommendations_new)] <- 0.01
+
+## calculate % mentions for each topic by country/year group------
+
+d <- d %>%
+    group_by(Country, Year) %>%
+    mutate(sMentions_new = Mentions_new / sum(Mentions_new, na.rm=TRUE)) %>%
+    mutate(sRecommendations_new = Recommendations_new / sum(Recommendations_new, na.rm=TRUE))
+
+d <- d %>% ungroup()
+d$sMentions_new_logit <- log(d$sMentions_new / (1 - d$sMentions_new))
+d$sRecommendations_new_logit <- log(d$sRecommendations_new / (1 - d$sRecommendations_new))
+
+d$Program_Country[is.na(d$Program_Country)] <- 0
+
+write_csv(d, "./prepped_data.csv")
+
+```
+
+
+# Choose the set of Explanatory Variables
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+### explanatory variables-----
+vars <- c(
+           "Program_Country",
+#"SBA",
+#"PSI",
+#"PLL",
+           "FP.CPI.TOTL.ZG", # Inflation, consumer prices (annual %)
+           "BN.CAB.XOKA.GD.ZS", # Current Account Balance as % of GDP
+#          "IC.FRM.BNKS.ZS", # Firms using banks to finance investment (% of firms)
+#          "BX.KLT.DINV.WD.GD.ZS", # Foreign direct investment, net inflows (% of GDP) (Replace Foreign direct investment net)
+#          "BX.TRF.PWKR.DT.GD.ZS", # Personal remittances, received (% of GDP)
+#          "BG.GSR.NFSV.GD.ZS", # Trade in services (% of GDP)
+#          "NV.AGR.TOTL.ZS", # Agriculture, forestry, and fishing, value added (% of GDP)
+#          "NE.EXP.GNFS.ZS", # Exports of goods and services (% of GDP)
+           "NY.GDP.MKTP.KD.ZG", # GDP growth (annual %)
+#          "NY.GDP.PCAP.KD.ZG", # GDP per capita growth (annual %)
+#          "NY.GDS.TOTL.ZS", # Gross domestic savings (% of GDP)
+#          "NE.IMP.GNFS.ZS", # Imports of goods and services (% of GDP)
+           "SL.TLF.CACT.ZS", # Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)
+           "BCG_GALM_G01_XDC" # Central government debt, total (% of GDP)
+          )
+
+mentions_form <- as.formula(paste("sMentions_new_logit ~", paste(vars, collapse="+")))
+
+recommendations_form <- as.formula(paste("sRecommendations_new_logit ~", paste(vars, collapse="+")))
+```
+
+# Estimate Models
+
+## Between Models
+
+```{r warning=FALSE, message=FALSE, error=FALSE}
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "between")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "between"))),
+             error = function(e) e)
+}
+```
+
+## Within (Fixed-Effects) Models
+
+### Time, but no Individual Effects 
+
+```{r}
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "time")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "time"))),
+             error = function(e) e)
+}
+```
+
+### Individual, but No Time Effects
+
+```{r}
+
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "individual")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "individual"))),
+             error = function(e) e)
+}
+
+
+```
+
+### Both Time and Individual Effects
+
+```{r}
+
+for (topic in unique(d$Topic)){
+    tmp <- subset(d, Topic == topic)
+    tmp <- pdata.frame(tmp, index = c("Country", "Year"), drop.index=TRUE, row.names=TRUE)
+    writeLines(paste0("\n>>>>>Scaled Mentions: ", topic, "<<<<<\n"))
+    print(summary(plm(mentions_form, data = tmp, model = "within", effect = "twoways")))
+    writeLines(paste0("\n>>>Scaled Recommendations: ", topic, "<<<<<\n"))
+    e <- simpleError("NA data error")
+    tryCatch(print(summary(plm(recommendations_form, data = tmp, model = "within", effect = "twoways"))),
+             error = function(e) e)
+}
+
+
+```
+
